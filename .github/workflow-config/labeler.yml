@@ -1,6 +1,6 @@
 # If anything in /fomod is changed
 fomod:
-- 'fomod/**/*'
+- "fomod/**"
 
 # If any esp/esl/esp file is changed
 plugin-file-changes:
