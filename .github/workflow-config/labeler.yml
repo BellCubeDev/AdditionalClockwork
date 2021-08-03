@@ -1,28 +1,28 @@
 # If anything in /fomod is changed
 fomod:
-- "fomod/**"
+- "dist/fomod/**"
 
 # If any esp/esl/esp file is changed
 plugin-file-changes:
- - 'Modules/**/*.esp'
- - 'Modules/**/*.esm'
- - 'Modules/**/*.esl'
+ - 'dist/Modules/**/*.esp'
+ - 'dist/Modules/**/*.esm'
+ - 'dist/Modules/**/*.esl'
 
 # If any script files are changed
 scripts:
- - 'Modules/**/*.psc'
- - 'Modules/**/*.pex'
+ - 'dist/Modules/**/*.psc'
+ - 'dist/Modules/**/*.pex'
 
 # If any source files are changed
 non-functional:
- - 'Modules/**/*.psc'
- - 'Modules/**/dialogueviews/*.xml'
+ - 'dist/Modules/**/*.psc'
+ - 'dist/Modules/**/dialogueviews/*.xml'
 
 # If any assets are changed
 asset-changes:
- - '**/*.dds'
- - '**/*.nif'
- - '**/*.xwm'
- - '**/*.png'
- - '**/*.jpg'
- - '**/*.webm'
+ - 'dist/**/*.dds'
+ - 'dist/**/*.nif'
+ - 'dist/**/*.xwm'
+ - 'dist/**/*.png'
+ - 'dist/**/*.jpg'
+ - 'dist/**/*.webm'
