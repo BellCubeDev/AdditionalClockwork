@@ -1,0 +1,10 @@
+Woodworker's Whim has three modules:
+
+• Work Room Mount
+Adds an axe mount to the Work Room.
+
+• Work Room Script
+Enables the script in the Work Room only. Obsolete if the Global script is selected.
+
+• Global Script
+Enables the sript globally. Makes the Work Room Script obsolete.
