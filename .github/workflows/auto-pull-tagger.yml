@@ -19,5 +19,5 @@ jobs:
     steps:
     - uses: actions/labeler@v2
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: ".github/workflow-configs/labeler.yml"
+        repo-token: "${{ secrets.IO_TOKEN }}"
+        configuration-path: ".github/workflow-config/labeler.yml"
