@@ -21,3 +21,4 @@ jobs:
       with:
         repo-token: "${{ secrets.IO_TOKEN }}"
         configuration-path: ".github/workflow-config/labeler.yml"
+        sync-labels: true
