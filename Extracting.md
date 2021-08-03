@@ -23,4 +23,4 @@ These lines are the Group lines. They tell you what module options you have. Nex
 	<description>DESCRIPTION HERE</description> 
 ```
 In this line you can see two things: The name of the module config (under "plugin name") and the description for it.
-One thing to bear in mind: "&#13;&#10;" is a line ending/line break.
+One thing to bear in mind: `&#13;&#10;` is a line ending/line break.
