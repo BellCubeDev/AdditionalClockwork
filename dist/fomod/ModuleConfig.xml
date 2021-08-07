@@ -1,4 +1,4 @@
-<!-- Created with FOMOD Creation Tool 1.7.0.37 [http://www.nexusmods.com/fallout4/mods/6821]
+<!-- Created PARTIALLY with FOMOD Creation Tool 1.7.0.37 [http://www.nexusmods.com/fallout4/mods/6821]
             Yes, I'm aware that this is here, and I don't care.
               - BellCube Dev
 -->
@@ -50,6 +50,15 @@
               <image path="fomod\images\CubicBell-256.png"/>
               <conditionFlags>
                 <flag name="RecAuthor">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <type name="Optional"/>
+              </typeDescriptor>
+            </plugin>
+            <plugin name="Testing">
+              <description>Select everything in-testing</description>
+              <conditionFlags>
+                <flag name="Testing">1</flag>
               </conditionFlags>
               <typeDescriptor>
                 <type name="Optional"/>
@@ -164,6 +173,29 @@
                     <pattern>
                       <dependencies operator="And">
                         <flagDependency flag="RecAuthor" value="1"/>
+                      </dependencies>
+                      <type name="Recommended"/>
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+        <group name="Interesting Inhabitants" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Interesting Inhabitants">
+              <description>By far the biggest module yet! Makes the castle inhabitants seem much more life-like!</description>
+              <conditionFlags>
+                <flag name="InterestingInhabitants">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional"/>
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <flagDependency flag="Testing" value="1"/>
                       </dependencies>
                       <type name="Recommended"/>
                     </pattern>
@@ -625,6 +657,14 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
         </dependencies>
         <files>
           <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="InterestingInhabitants" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
     </patterns>
