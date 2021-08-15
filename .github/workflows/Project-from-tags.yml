@@ -15,8 +15,7 @@ jobs:
     steps:
     - name: Assign Lahar's Labor pulls
       uses: srggrs/assign-one-project-github-action@1.2.1
-      if: |
-        contains(github.event.pull_request.labels.*.name, 'lahars-labor')
+      if: contains(github.event.pull_request.labels.*.name, 'lahars-labor')
       with: and 
         project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/4'
         column_name: 'In-Progress'
