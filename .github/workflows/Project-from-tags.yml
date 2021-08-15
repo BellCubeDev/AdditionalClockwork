@@ -1,0 +1,21 @@
+name: Assign to Project(s)
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled]
+env:
+  GITHUB_TOKEN: ${{ secrets.IO_TOKEN }}
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: Assign to One Project
+    steps:
+    - name: Assign Lahar's Labor pulls
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      if: contains(github.event.pull_request.labels.*.name, 'lahars-labor')
+      with:
+        project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/4'
+        column_name: 'In-Progress'
