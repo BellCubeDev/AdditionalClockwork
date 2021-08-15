@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'dist/ModuleConfig.xml'
-  workflow-dispatch:  
+  workflow_dispatch:  
 
 jobs:
   xml-linters:
