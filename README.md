@@ -10,11 +10,11 @@ See [the Nexus page](https://www.nexusmods.com/skyrimspecialedition/mods/47087) 
 There are three main ways you can contribute:
 
 1. Direct code contributions via [Pull Requests](https://github.com/BellCubeDev/AdditionalClockwork/pulls)
-2. Submit Ideas via
-    * [GitHub Issues](https://github.com/BellCubeDev/AdditionalClockwork/issues)
+2. Submit Ideas on
+    * [GitHub](https://github.com/BellCubeDev/AdditionalClockwork/issues/new?assignees=BellCubeDev&labels=suggestion&template=idea-suggestion.md&title=%5BS%5D+Idea+Name+or+Short+Description)
     * The [dedicated Nexus forum thread](https://www.nexusmods.com/skyrimspecialedition/mods/47087/?tab=forum&topic_id=10280988)
 3. Report a bug:
-    * On [GitHub](https://github.com/BellCubeDev/AdditionalClockwork/issues)
+    * On [GitHub](https://github.com/BellCubeDev/AdditionalClockwork/issues/new?assignees=BellCubeDev&labels=bug&template=bug_report.md&title=%5BB%5D+Extra-short+description+of+the+bug)
     * On [the Nexus](https://www.nexusmods.com/Core/Libs/Common/Widgets/AddBugReportPopUp?game_id=1704&mod_id=47087)
 
 ## Structure
