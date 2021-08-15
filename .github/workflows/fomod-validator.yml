@@ -18,4 +18,4 @@ jobs:
       uses: ChristophWurst/xmllint-action@v1
       with:
         xml-file: ./dist/fomod/info.xml
-        xml-schema-file: ./ModuleCongig.xsd
+        xml-schema-file: ./ModuleConfig.xsd
