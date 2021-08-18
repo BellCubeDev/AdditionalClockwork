@@ -20,7 +20,7 @@ assignees: BellCubeDev
 -->
 
 # **Expected behavior**
-<!-- What did you expect to happen? e.g. "I expected the 
+<!-- What did you expect to happen? e.g. "I expected the Butter Churn to open the Hearthfire UI."
 You can remove this if the issue is game-breaking (like a CTD) or obvious (e.g. the Issue title is "Crack in the Armoury secret door").
 -->
 
