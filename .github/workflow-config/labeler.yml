@@ -14,7 +14,7 @@ scripts:
  - 'dist/Modules/**/*.pex'
 
 # If any source files are changed
-non-functional:
+includes-non-functional:
  - 'dist/Modules/**/*.psc'
  - 'dist/Modules/**/dialogueviews/*.xml'
 
