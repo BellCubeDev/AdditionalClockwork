@@ -1,8 +1,6 @@
 name: General Pull Operator
 on:
-  workflow_run:
-    types: 
-      requested
+  workflow_dispatch:
   pull_request:
     types: [opened, labeled]
 env:
