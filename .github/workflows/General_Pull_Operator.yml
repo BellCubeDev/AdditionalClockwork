@@ -1,5 +1,4 @@
 name: New Issue & Pull Operator
-
 on:
   workflow_run:
     types: 
@@ -12,7 +11,6 @@ env:
   COMMITTER_EMAIL: actions@github.com
   COMMITTER_NAME: Github Actions
   COMMITTER_USERNAME: GithubActions
-
 jobs:
   assign_one_project:
     runs-on: ubuntu-latest
