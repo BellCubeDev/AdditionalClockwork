@@ -1,0 +1,42 @@
+name: New Issue & Pull Operator
+
+on:
+  workflow_run:
+    types: 
+      - requested
+  pull_request:
+    types: [opened, labeled]
+env:
+  GITHUB_TOKEN: ${{ secrets.IO_TOKEN }}
+  OUTPUT_FILE_NAME: IssuesReport.md
+  COMMITTER_EMAIL: actions@github.com
+  COMMITTER_NAME: Github Actions
+  COMMITTER_USERNAME: GithubActions
+
+jobs:
+  assign_one_project:
+    runs-on: ubuntu-latest
+    name: General Pull Operator
+    steps:
+    - name: Assign "Lahar's Labor" pulls
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      if: contains(github.event.pull_request.labels.*.name, 'lahars-labor')
+      with:
+        project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/4'
+        column_name: 'In-Progress'
+    - name: Assign "Minor Fixes and Changes" pulls
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      if: contains(github.event.pull_request.labels.*.name, 'bug-in-clockwork')
+      with:
+        project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/8'
+        column_name: 'Reported &amp; Known'
+    - name: Assign "Patches" pulls
+      uses: srggrs/assign-one-project-github-action@1.2.1
+      if: contains(github.event.pull_request.labels.*.name, 'patch-suggestion')
+      with:
+        project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/9'
+        column_name: 'Considered'
+    - name: Apply proper labels to Issues assigned to Projects
+      uses: d-i-bondarenko/project-labeler@v0.2.0
+      with:
+        repo-token: "${{ secrets.IO_TOKEN }}"
