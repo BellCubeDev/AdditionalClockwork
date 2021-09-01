@@ -2,7 +2,7 @@ name: New Issue & Pull Operator
 on:
   workflow_run:
     types: 
-      - requested
+      requested
   pull_request:
     types: [opened, labeled]
 env:
