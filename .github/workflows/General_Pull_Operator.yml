@@ -12,7 +12,7 @@ env:
   COMMITTER_NAME: Github Actions
   COMMITTER_USERNAME: GithubActions
 jobs:
-  assign_one_project:
+  operate:
     runs-on: ubuntu-latest
     name: General Pull Operator
     steps:
