@@ -2,7 +2,7 @@
 name: Bug Report (Clockwork)
 about: Template for reporting bugs present in Clockwork. Even a mis-aligned door is enough for me to fix!
 title: "[B-C] Extra-short description of the bug"
-labels: bug
+labels: bug, bug-in-clockwork
 assignees: BellCubeDev
 
 ---
