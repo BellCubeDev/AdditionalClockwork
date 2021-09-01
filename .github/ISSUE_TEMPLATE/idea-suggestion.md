@@ -9,7 +9,7 @@ assignees: BellCubeDev
 
 <!-- Things in these comment tags aren't shown in Markdown, so you don't have to remove them! -->
 # Reason
-<!-- e.g. "Lore," "Quality of Life," "Personal Preference," "Immersion," "Bug in Clockwork" -->
+<!-- e.g. "Lore," "Quality of Life," "Personal Preference," "Immersion" -->
 
 # Description
 <!-- What does your idea entail? e.g. "Add more butterflies to the Glass Garden" -->
