@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, labeled]
 env:
-  GITHUB_TOKEN: ${{ secrets.IO_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   OUTPUT_FILE_NAME: IssuesReport.md
   COMMITTER_EMAIL: actions@github.com
   COMMITTER_NAME: Github Actions
@@ -12,8 +12,17 @@ env:
 jobs:
   operate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     name: General Pull Operator
     steps:
+    - name: Label Pulls by Changes
+      uses: actions/labeler@v2
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: ".github/workflow-config/labeler.yml"
+        sync-labels: true
     - name: Assign "Lahar's Labor" pulls
       uses: srggrs/assign-one-project-github-action@1.2.1
       if: contains(github.event.pull_request.labels.*.name, 'lahars-labor')
@@ -35,4 +44,8 @@ jobs:
     - name: Apply proper labels to Issues assigned to Projects
       uses: d-i-bondarenko/project-labeler@v0.2.0
       with:
-        repo-token: "${{ secrets.IO_TOKEN }}"
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+    - uses: actions/first-interaction@v1
+      with:
+       repo-token: ${{ secrets.GITHUB_TOKEN }}
+       pr-message: '#Welcome!\n\nThis looks like it''s your first contribution! Thank you for taking the time to directly contribute to Additional Clockwork, and we hope to review your Pull Request shortly!'
