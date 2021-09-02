@@ -2,7 +2,7 @@ name: General Pull Operator
 on:
   workflow_dispatch:
   pull_request:
-    types: [opened, labeled]
+    types: [opened, edited, labeled]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   OUTPUT_FILE_NAME: IssuesReport.md
@@ -25,19 +25,19 @@ jobs:
         sync-labels: true
     - name: Assign "Lahar's Labor" pulls
       uses: srggrs/assign-one-project-github-action@1.2.1
-      if: contains(github.event.pull_request.labels.*.name, 'lahars-labor')
+      if: contains(github.event.pull_request.labels.*.name, 'lahars-labor') && github.event.action == 'opened'
       with:
         project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/4'
         column_name: 'In-Progress'
     - name: Assign "Minor Fixes and Changes" pulls
       uses: srggrs/assign-one-project-github-action@1.2.1
-      if: contains(github.event.pull_request.labels.*.name, 'bug-in-clockwork')
+      if: contains(github.event.pull_request.labels.*.name, 'bug-in-clockwork') && github.event.action == 'opened'
       with:
         project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/8'
         column_name: 'Reported &amp; Known'
     - name: Assign "Patches" pulls
       uses: srggrs/assign-one-project-github-action@1.2.1
-      if: contains(github.event.pull_request.labels.*.name, 'patch-suggestion')
+      if: contains(github.event.pull_request.labels.*.name, 'patch-suggestion') && github.event.action == 'opened'
       with:
         project: 'https://github.com/BellCubeDev/AdditionalClockwork/projects/9'
         column_name: 'Considered'
@@ -46,6 +46,7 @@ jobs:
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
     - uses: actions/first-interaction@v1
+      if: github.event.action == 'opened'
       with:
        repo-token: ${{ secrets.GITHUB_TOKEN }}
        pr-message: '#Welcome!\n\nThis looks like it''s your first contribution! Thank you for taking the time to directly contribute to Additional Clockwork, and we hope to review your Pull Request shortly!'
