@@ -49,6 +49,7 @@ body:
       label: Current Container
       description: Which container is the item going to currently?
       options:
+        - Not Sorted
         - "Kitchen: Cheese & Seasonings"
         - "Kitchen: Drinks"
         - "Kitchen: Meat (Raw)"
@@ -85,6 +86,7 @@ body:
       label: Proper Container
       description: Which container should it go to?
       options:
+        - Not Sorted
         - "Kitchen: Cheese & Seasonings"
         - "Kitchen: Drinks"
         - "Kitchen: Meat (Raw)"
