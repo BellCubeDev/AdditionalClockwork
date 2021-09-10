@@ -1,0 +1,119 @@
+name: Sorting Suggestion
+description: Request overrides for my SKSE sorting system
+title: "[C] Item --> Container"
+labels: [suggestion]
+assignees:
+  - BellCube
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this request!
+  - type: input
+    id: item-name
+    attributes:
+      label: Item Name
+      description: Which item isn't being sorted properly?
+      placeholder: ex. Stalhrim
+    validations:
+      required: true
+  - type: input
+    id: item-mod
+    attributes:
+      label: Item Mod
+      description: Which mod is the item from?
+      placeholder: ex. Vanilla
+    validations:
+      required: true
+  - type: input
+    id: mod-link
+    attributes:
+      label: Mod Link
+      description: Link to the mod the item is from (preferably on the Nexus)
+    validations:
+      required: false
+  - type: textarea
+    id: reason
+    attributes:
+      label: What happened?
+      description: Why do you think the container should change?
+      placeholder: |
+        Leave blank if obvious
+        ex. Stahlrim is treated as an ingot in crafting
+        Also specify bookcase letters here if need be
+    validations:
+      required: false
+  - type: dropdown
+    id: cont-bug
+    attributes:
+      label: Current Container
+      description: Which container is the item going to currently?
+      options:
+        - Not Sorted
+        - "Kitchen: Cheese & Seasonings"
+        - "Kitchen: Drinks"
+        - "Kitchen: Meat (Raw)"
+        - "Kitchen: Bread"
+        - "Kitchen: Prepared Meals"
+        - "Mage's Study: Ingredients"
+        - "Mage's Study: Potions"
+        - "Mage's Study: Poisons"
+        - "Mage's Study: Empty Soul Gems"
+        - "Mage's Study: Filled Soul Gems"
+        - "Mage's Study: Potion Recipes"
+        - "Mage's Study: Notes"
+        - "Mage's Study: Spell Tomes"
+        - "Mage's Study: Bookshelf (specify above)"
+        - "Work Room: Ores"
+        - "Work Room: Hides"
+        - "Work Room: Gems"
+        - "Work Room: Ingots"
+        - "Work Room: Assorted Smithing Materials"
+        - "Armoury: Heavy Armor"
+        - "Armoury: Light Armor"
+        - "Armoury: Clothes"
+        - "Armoury: Jewelry"
+        - "Armoury: Staffs"
+        - "Armoury: 2-Handed"
+        - "Armoury: 1-Handed"
+        - "Armoury: Bows"
+        - "Armoury: Ammunition (Arrows)"
+    validations:
+      required: true
+  - type: dropdown
+    id: cont-fix
+    attributes:
+      label: Proper Container
+      description: Which container should it go to?
+      options:
+        - Not Sorted
+        - "Kitchen: Cheese & Seasonings"
+        - "Kitchen: Drinks"
+        - "Kitchen: Meat (Raw)"
+        - "Kitchen: Bread"
+        - "Kitchen: Prepared Meals"
+        - "Mage's Study: Ingredients"
+        - "Mage's Study: Potions"
+        - "Mage's Study: Poisons"
+        - "Mage's Study: Empty Soul Gems"
+        - "Mage's Study: Filled Soul Gems"
+        - "Mage's Study: Potion Recipes"
+        - "Mage's Study: Notes"
+        - "Mage's Study: Spell Tomes"
+        - "Mage's Study: Bookshelf (specify above)"
+        - "Work Room: Ores"
+        - "Work Room: Hides"
+        - "Work Room: Gems"
+        - "Work Room: Ingots"
+        - "Work Room: Assorted Smithing Materials"
+        - "Armoury: Heavy Armor"
+        - "Armoury: Light Armor"
+        - "Armoury: Clothes"
+        - "Armoury: Jewelry"
+        - "Armoury: Staffs"
+        - "Armoury: 2-Handed"
+        - "Armoury: 1-Handed"
+        - "Armoury: Bows"
+        - "Armoury: Ammunition (Arrows)"
+    validations:
+      required: true
