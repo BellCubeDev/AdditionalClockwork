@@ -12,8 +12,10 @@
           <plugins order="Explicit">
             <plugin name="Description">
               <description>Additional Clockwork is a suite of fully-voiced and lore-friendly Clockwork changes and tweaks intended to fit the origional feel of Clockwork. In addition, I've also made patches to acomadate changes made by other mods that, either intentionally or unintentionally, have an impact on Clockwork.</description>
+              <image path="fomod\images\AdditionalClockwork.png" />
+              <conditionFlags><flag name="haha_stop_throwing_errors_MO2">butter</flag></conditionFlags>
               <typeDescriptor>
-                <type name="Optional"/>
+                <type name="Required"/>
               </typeDescriptor>
             </plugin>
           </plugins>
@@ -22,6 +24,7 @@
           <plugins order="Explicit">
             <plugin name="Second Person">
               <description>All texts are phrased in Second Person, as they are by default in Skyrim.</description>
+              <image path="fomod\images\AdditionalClockwork.png" />
               <conditionFlags>
                 <flag name="Perspective">2</flag>
               </conditionFlags>
@@ -46,7 +49,7 @@
             <plugin name="Author's Reccomendations">
               <description>Applies BellCube's recommendations to the installer. You still have to go through each step, but my personal preferences are already selected.&#13;
 
-(Does NOT include Integration, Patches, &amp;amp; Consistency modules)</description>
+(Does NOT include Integration, Patches, &amp; Consistency modules)</description>
               <image path="fomod\images\CubicBell-256.png"/>
               <conditionFlags>
                 <flag name="RecAuthor">1</flag>
@@ -459,6 +462,12 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
   </installSteps>
   <conditionalFileInstalls>
     <patterns>
+      <pattern>
+        <dependencies operator="And"><fommDependency version="" /></dependencies>
+        <files>
+          <file source="meta.ini" destination="meta.ini" alwaysInstall="true" installIfUsable="false"/>
+        </files>
+      </pattern>
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="WoodWhimMount" value="1"/>
