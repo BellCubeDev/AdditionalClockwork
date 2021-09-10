@@ -43,7 +43,7 @@ body:
         Also specify bookcase letters here if need be
     validations:
       required: false
-  - type: input
+  - type: dropdown
     id: cont-bug
     attributes:
       label: Current Container
@@ -79,7 +79,7 @@ body:
         - Armoury: Ammunition (Arrows)
     validations:
       required: true
-  - type: input
+  - type: dropdown
     id: cont-fix
     attributes:
       label: Proper Container
