@@ -10,8 +10,13 @@ assignees: BellCubeDev
 <!-- Things in these comment tags aren't shown in Markdown, so you don't have to remove them! -->
 # Change
 ---
-Item:
-Mod: <!-- e.g. "Vanilla", "" -->
+Item: 123 <!-- e.g. "Stalhrim" -->
+Mod: 123 <!-- e.g. "Vanilla", "[Complete Alchemmy and Cooking Overhaul](https://www.nexusmods.com/skyrimspecialedition/mods/19924)" -->
+
+---
+| Current Container | 123455 |
+|-------------------|-----|
+|Requested Container| 987 |
 
 ---
 
