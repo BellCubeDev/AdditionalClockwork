@@ -15,7 +15,7 @@ Links:
 #### Specific Contributions
 
 * [Mentioning that detail about WIEventsEnabled](https://forums.nexusmods.com/index.php?/topic/5060895-clockwork-sse/page-154#:~:text=someone%20did%20mention%20to%20me%20a%20while%20ago%20though%20that%20setting%20the%20wieventsenabled%20global%20to%200%20(in%20other%20words%20disabling%20%22world%20interaction%22%20events)%20should%20stop%20the%20courier%20from%20showing%20up.)
-* 123
+* [Giving his guide on making Guilded voices](https://forums.nexusmods.com/index.php?showtopic=5060895/#entry91927523)
 
 -----
 
