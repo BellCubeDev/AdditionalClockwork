@@ -18,7 +18,7 @@ body:
     validations:
       required: true
   - type: input
-    id: item-name
+    id: item-mod
     attributes:
       label: Item Mod
       description: Which mod is the item from?
@@ -29,7 +29,7 @@ body:
     id: mod-link
     attributes:
       label: Mod Link
-      description: Link to the mod the item is from
+      description: Link to the mod the item is from (preferably on the Nexus)
     validations:
       required: false
   - type: textarea
@@ -43,8 +43,8 @@ body:
         Also specify bookcase letters here if need be
     validations:
       required: false
-  - type: cont-bug
-    id: version
+  - type: input
+    id: cont-bug
     attributes:
       label: Current Container
       description: Which container is the item going to currently?
@@ -79,8 +79,8 @@ body:
         - Armoury: Ammunition (Arrows)
     validations:
       required: true
-  - type: cont-fix
-    id: version
+  - type: input
+    id: cont-fix
     attributes:
       label: Proper Container
       description: Which container should it go to?
