@@ -49,34 +49,34 @@ body:
       label: Current Container
       description: Which container is the item going to currently?
       options:
-        - Kitchen: Cheese & Seasonings
-        - Kitchen: Drinks
-        - Kitchen: Meat (Raw)
-        - Kitchen: Bread
-        - Kitchen: Prepared Meals
-        - Mage's Study: Ingredients
-        - Mage's Study: Potions
-        - Mage's Study: Poisons
-        - Mage's Study: Empty Soul Gems
-        - Mage's Study: Filled Soul Gems
-        - Mage's Study: Potion Recipes
-        - Mage's Study: Notes
-        - Mage's Study: Spell Tomes
-        - Mage's Study: Bookshelf (specify above)
-        - Work Room: Ores
-        - Work Room: Hides
-        - Work Room: Gems
-        - Work Room: Ingots
-        - Work Room: Assorted Smithing Materials
-        - Armoury: Heavy Armor
-        - Armoury: Light Armor
-        - Armoury: Clothes
-        - Armoury: Jewelry
-        - Armoury: Staffs
-        - Armoury: 2-Handed
-        - Armoury: 1-Handed
-        - Armoury: Bows
-        - Armoury: Ammunition (Arrows)
+        - "Kitchen: Cheese & Seasonings"
+        - "Kitchen: Drinks"
+        - "Kitchen: Meat (Raw)"
+        - "Kitchen: Bread"
+        - "Kitchen: Prepared Meals"
+        - "Mage's Study: Ingredients"
+        - "Mage's Study: Potions"
+        - "Mage's Study: Poisons"
+        - "Mage's Study: Empty Soul Gems"
+        - "Mage's Study: Filled Soul Gems"
+        - "Mage's Study: Potion Recipes"
+        - "Mage's Study: Notes"
+        - "Mage's Study: Spell Tomes"
+        - "Mage's Study: Bookshelf (specify above)"
+        - "Work Room: Ores"
+        - "Work Room: Hides"
+        - "Work Room: Gems"
+        - "Work Room: Ingots"
+        - "Work Room: Assorted Smithing Materials"
+        - "Armoury: Heavy Armor"
+        - "Armoury: Light Armor"
+        - "Armoury: Clothes"
+        - "Armoury: Jewelry"
+        - "Armoury: Staffs"
+        - "Armoury: 2-Handed"
+        - "Armoury: 1-Handed"
+        - "Armoury: Bows"
+        - "Armoury: Ammunition (Arrows)"
     validations:
       required: true
   - type: dropdown
@@ -85,33 +85,33 @@ body:
       label: Proper Container
       description: Which container should it go to?
       options:
-        - Kitchen: Cheese & Seasonings
-        - Kitchen: Drinks
-        - Kitchen: Meat (Raw)
-        - Kitchen: Bread
-        - Kitchen: Prepared Meals
-        - Mage's Study: Ingredients
-        - Mage's Study: Potions
-        - Mage's Study: Poisons
-        - Mage's Study: Empty Soul Gems
-        - Mage's Study: Filled Soul Gems
-        - Mage's Study: Potion Recipes
-        - Mage's Study: Notes
-        - Mage's Study: Spell Tomes
-        - Mage's Study: Bookshelf (specify above)
-        - Work Room: Ores
-        - Work Room: Hides
-        - Work Room: Gems
-        - Work Room: Ingots
-        - Work Room: Assorted Smithing Materials
-        - Armoury: Heavy Armor
-        - Armoury: Light Armor
-        - Armoury: Clothes
-        - Armoury: Jewelry
-        - Armoury: Staffs
-        - Armoury: 2-Handed
-        - Armoury: 1-Handed
-        - Armoury: Bows
-        - Armoury: Ammunition (Arrows)
+        - "Kitchen: Cheese & Seasonings"
+        - "Kitchen: Drinks"
+        - "Kitchen: Meat (Raw)"
+        - "Kitchen: Bread"
+        - "Kitchen: Prepared Meals"
+        - "Mage's Study: Ingredients"
+        - "Mage's Study: Potions"
+        - "Mage's Study: Poisons"
+        - "Mage's Study: Empty Soul Gems"
+        - "Mage's Study: Filled Soul Gems"
+        - "Mage's Study: Potion Recipes"
+        - "Mage's Study: Notes"
+        - "Mage's Study: Spell Tomes"
+        - "Mage's Study: Bookshelf (specify above)"
+        - "Work Room: Ores"
+        - "Work Room: Hides"
+        - "Work Room: Gems"
+        - "Work Room: Ingots"
+        - "Work Room: Assorted Smithing Materials"
+        - "Armoury: Heavy Armor"
+        - "Armoury: Light Armor"
+        - "Armoury: Clothes"
+        - "Armoury: Jewelry"
+        - "Armoury: Staffs"
+        - "Armoury: 2-Handed"
+        - "Armoury: 1-Handed"
+        - "Armoury: Bows"
+        - "Armoury: Ammunition (Arrows)
     validations:
       required: true
