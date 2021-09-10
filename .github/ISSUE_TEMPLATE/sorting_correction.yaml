@@ -112,6 +112,6 @@ body:
         - "Armoury: 2-Handed"
         - "Armoury: 1-Handed"
         - "Armoury: Bows"
-        - "Armoury: Ammunition (Arrows)
+        - "Armoury: Ammunition (Arrows)"
     validations:
       required: true
