@@ -1,4 +1,4 @@
-<fomod>
+<fomod xmlns="https://raw.githubusercontent.com/BellCubeDev/fomod-schema/master/info.xsd">
   <Name>Additional Clockwork</Name>
   <Author>BellCube Dev</Author>
   <Version>1.0.5</Version>
