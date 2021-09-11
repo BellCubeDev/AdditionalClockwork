@@ -3,12 +3,9 @@ Scriptname CLWA_SKSE_Sorting Extends ObjectReference
 Script by BellCube Dev
 Feel free to modify for your own purposes}
 
-;/
- Since I work is VSCode with the Minimap on, I like to generate text art to show up on my minimap
- Also, either one or both of the Papyrus extension I use adds colapsing for comments, so I can, for instance, colapse the Containers section.
-
- https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Big%20Money-nw
-/;
+;/ Since I work is VSCode with the Minimap on, I like to generate text art to show up on my minimap
+   Also, either one or both of the Papyrus extension I use adds colapsing for comments, so I can, for instance, colapse the Containers section.
+   https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Big%20Money-nw /;
 
 Import PO3_SKSEFunctions
 Import StringUtil
@@ -62,7 +59,6 @@ $$ |      \$$$$$$$ |$$ |      \$$$$$$$ |$$ | $$ | $$ |\$$$$$$$\   \$$$$  |\$$$$$
  {Should button properties be used? Defaults to false}
  Bool Property aNeedsSteam = False  Auto
  {Should button properties be used? Defaults to false}
-
  Bool Property aRequirePlayer = true  Auto
  {Is this player-only, or can anything activate this ref?
  Defaults to true}
@@ -441,42 +437,35 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FoodToSort.Length
     int i = 1
-    ObjectReference CurrentPotion
+    Potion CurrentPotion
     while i < itemsLeft
-        CurrentPotion = (FoodToSort[i] as ObjectReference)
-        if (CurrentPotion.GetBaseObject() as Potion).IsFood()
+        CurrentPotion = FoodToSort[i] as Potion
+        if CurrentPotion.IsFood()
             obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
         endif
         i += 1
     endwhile
  endfunction
  Function SortDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
-    Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-    Int itemsLeft = FoodToSort.Length
+    Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    Int itemsLeft = PotionsToSort.Length
     int i = 1
-    ObjectReference CurrentPotion
+    Potion CurrentPotion
     while i < itemsLeft
-        CurrentPotion = (FoodToSort[i] as ObjectReference)
-        if (CurrentPotion.GetBaseObject() as Potion).IsFood()
+        CurrentPotion = PotionsToSort[i] as Potion
+        if CurrentPotion.IsFood() == False
             obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
         endif
         i += 1
     endwhile
- endfunction
- Function SortDestWork(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
-    ;/
-    Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-    itemsLeft = FoodToSort.Length
-    int i = 1
-    ObjectReference CurrentPotion
+    Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    itemsLeft = IngredientsToSort.Length
+    i = 0
+    Form CurrentIngredient
     while i < itemsLeft
-        CurrentPotion = (FoodToSort[i] as ObjectReference)
-        if (CurrentPotion.GetBaseObject() as Potion).IsFood()
-            obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
-        endif
+        obSortRef.RemoveItem(IngredientsToSort[i], 9999, true, obDestination01)
         i += 1
     endwhile
-    /;
  endfunction
  Function SortDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
@@ -616,17 +605,21 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
 \$$$$$$/ |\$$$$$$  |$$ |  $$ |  \$$$$  |\$$$$$$$ |$$ |$$ |  $$ |\$$$$$$$\ $$ |      $$$$$$$  |
 .\______/  \______/ \__|  \__|   \____/  \_______|\__|\__|  \__| \_______|\__|      \_______/;
 
+ ; If we're being completely honest, the labels for the zDestinations are more for me than for anyone else.
+ ; Seriously, how am I supposed to remember which barrel to point zDestination03 to?
+
  ObjectReference Property zDestination00PnumoTube  Auto
  {Will transfer items from zDestination01 to this container once sorting is complete} 
  ObjectReference Property zDestination01  Auto
  {Destination container. Will be sorted in to.
  
- Books:       A
- Work Room:   Ingots
- Food:        Cheese and Seasonings
- Potions:     Beneficial (Potions)
- Ingredients: Normal
- Soul Gems:   Empty}
+ Books:        A
+ Work Room:    Ingots
+ Food:         Cheese and Seasonings
+ Potions:      Beneficial (Potions)
+ Ingredients:  Normal
+ Soul Gems:    Empty
+ Sort by Type: Only Destination}
  ObjectReference Property zDestination02  Auto
  {Destination container. May or may not be used depending on sorted form.
  
@@ -639,118 +632,118 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  ObjectReference Property zDestination03  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Food:       Fruits and Veggies
- Work Room:  Hides
- Books:      C}
+ Books:     C
+ Food:      Fruits and Veggies
+ Work Room: Hides}
  ObjectReference Property zDestination04  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Food:       Meat
- Work Room:  Gems
- Books:      D}
+ Books:     D
+ Food:      Meat
+ Work Room: Gems}
  ObjectReference Property zDestination05  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Food:       Prepared Food/Meals
- Work Room:  Assorted Prepared Materials (Misc.)
- Books:      E}
+ Books:     E
+ Food:      Prepared Food/Meals
+ Work Room: Assorted Prepared Materials (Misc.)}
  ObjectReference Property zDestination06  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      F}
+ Books: F}
  ObjectReference Property zDestination07  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      G}
+ Books: G}
  ObjectReference Property zDestination08  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      H}
+ Books: H}
  ObjectReference Property zDestination09  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      I}
+ Books: I}
  ObjectReference Property zDestination10  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      J}
+ Books: J}
  ObjectReference Property zDestination11  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      K}
+ Books: K}
  ObjectReference Property zDestination12  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      L}
+ Books: L}
  ObjectReference Property zDestination13  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      M}
+ Books: M}
  ObjectReference Property zDestination14  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      N}
+ Books: N}
  ObjectReference Property zDestination15  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      O}
+ Books: O}
  ObjectReference Property zDestination16  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      P}
+ Books: P}
  ObjectReference Property zDestination17  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      Q}
+ Books: Q}
  ObjectReference Property zDestination18  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      R}
+ Books: R}
  ObjectReference Property zDestination19  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      S}
+ Books: S}
  ObjectReference Property zDestination20  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      T}
+ Books: T}
  ObjectReference Property zDestination21  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      U}
+ Books: U}
  ObjectReference Property zDestination22  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      V}
+ Books: V}
  ObjectReference Property zDestination23  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      W, X}
+ Books: W, X}
  ObjectReference Property zDestination24  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      Y, Z}
+ Books: Y, Z}
  ObjectReference Property zDestination25  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      Notes and Letters}
+ Books: Notes and Letters}
  ObjectReference Property zDestination26  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      Spell Tomes}
+ Books: Spell Tomes}
  ObjectReference Property zDestination27  Auto
  {Destination container. May or may not be used depending on sorted form.
  
- Books:      Potion Recipes}
+ Books: Potion Recipes}
 
-;/$$$$$\                                           $$\       $$\                     
-$$  __$$\                                          \__|      $$ |                    
-$$ /  $$ |$$\    $$\  $$$$$$\   $$$$$$\   $$$$$$\  $$\  $$$$$$$ | $$$$$$\   $$$$$$$\ 
-$$ |  $$ |\$$\  $$  |$$  __$$\ $$  __$$\ $$  __$$\ $$ |$$  __$$ |$$  __$$\ $$  _____|
-$$ |  $$ | \$$\$$  / $$$$$$$$ |$$ |  \__|$$ |  \__|$$ |$$ /  $$ |$$$$$$$$ |\$$$$$$\  
-$$ |  $$ |  \$$$  /  $$   ____|$$ |      $$ |      $$ |$$ |  $$ |$$   ____| \____$$\ 
-$$$$$$$/ |   \$  /   \$$$$$$$\ $$ |      $$ |      $$ |\$$$$$$$ |\$$$$$$$\ $$$$$$$  |
-\_______/     \_/     \_______|\__|      \__|      \__| \_______| \_______|\_______/; 
+;/$\      $$\ $$\       $$\   $$\               $$\ $$\             $$\               
+|$$ | $\  $$ |$$ |      \__|  $$ |              $$ |\__|            $$ |              
+|$$ |$$$\ $$ |$$$$$$$\  $$\ $$$$$$\    $$$$$$\  $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
+|$$ $$ $$\$$ |$$  __$$\ $$ |\_$$  _|  $$  __$$\ $$ |$$ |$$  _____|\_$$  _|  $$  _____|
+|$$$$  _$$$$ |$$ |  $$ |$$ |  $$ |    $$$$$$$$ |$$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
+|$$$  / \$$$ |$$ |  $$ |$$ |  $$ |$$\ $$   ____|$$ |$$ | \____$$\   $$ |$$\  \____$$\ 
+|$$  /   \$$ |$$ |  $$ |$$ |  \$$$$  |\$$$$$$$\ $$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+.\__/     \__|\__|  \__|\__|   \____/  \_______|\__|\__|\_______/    \____/ \_______/;
                                                                                      
  FormList Property pOverridePLFoodCheeseSeasonings  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
@@ -784,6 +777,15 @@ $$$$$$$/ |   \$  /   \$$$$$$$\ $$ |      $$ |      $$ |\$$$$$$$ |\$$$$$$$\ $$$$$
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property pOverridePLzzzzz  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+
+;/$$$$$$\  $$\                     $$\       $$\ $$\             $$\               
+|$$  __$$\ $$ |                    $$ |      $$ |\__|            $$ |              
+|$$ |  $$ |$$ | $$$$$$\   $$$$$$$\ $$ |  $$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
+|$$$$$$$\ |$$ | \____$$\ $$  _____|$$ | $$  |$$ |$$ |$$  _____|\_$$  _|  $$  _____|
+|$$  __$$\ $$ | $$$$$$$ |$$ /      $$$$$$  / $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
+|$$ |  $$ |$$ |$$  __$$ |$$ |      $$  _$$<  $$ |$$ | \____$$\   $$ |$$\  \____$$\ 
+|$$$$$$$  |$$ |\$$$$$$$ |\$$$$$$$\ $$ | \$$\ $$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+.\_______/ \__| \_______| \_______|\__|  \__|\__|\__|\_______/    \____/ \_______/; 
 
  FormList Property pOverrideBLFoodCheeseSeasonings  Auto
  {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
