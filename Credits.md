@@ -59,11 +59,19 @@ Everyone whose ideas and suggestions have influenced and shaped the future of th
 
 Informing me of standard practices when creating patches
 
+### Nexus User [Abbraaxus](https://forums.nexusmods.com/index.php?/user/707602-abbraaxus)
+
+Bringing a missing scripts folder to my attention
+
+### Nexus User [zerorage1983](https://forums.nexusmods.com/index.php?/user/7727148-zerorage1983)
+
+Bringing a fatal crash caused by corrupted translation files to my attention
+
 -----
 
 ## Assets
 
-Let's not forget about everyone whose artwork has made it into the mod/installer! (excluding things like the HPP logo)
+Let's not forget about everyone whose artwork has made it into the mod/installer!
 
 [LucidAPs](https://www.nexusmods.com/skyrimspecialedition/users/3180451) - [High poly Project](https://www.nexusmods.com/skyrimspecialedition/mods/12029)'s Smelter Coal mesh
 
@@ -77,8 +85,15 @@ I *literally* couldn't have done it without them.
 
 ### [Creation Kit Wiki](https://creationkit.com)
 
-Somewhat easy to use and has a index of Papyrus and the CK in general
+Somewhat easy to use and has a index of Papyrus and the CK in general. INCREDIBLY useful!
 
 ### [DarkFox127](https://youtube.com/Darkfox127)
 
 Maybe not the best audio quality, but the content quality is unrivaled!
+
+### [Joel Day's Papyrus VSCode Extension](https://marketplace.visualstudio.com/items?itemName=joelday.papyrus-lang-vscode)
+
+Advanced language support for Bethesda Game Studio's Papyrus scripting language. Incredibly useful and 
+
+### [Andrew's Papyrus VSCode Extension](https://marketplace.visualstudio.com/items?itemName=plankton020.papyrus)
+Useful syntax highlighting for Papyrus that is not included in Joel Day's extension
