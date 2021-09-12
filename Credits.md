@@ -73,7 +73,7 @@ Bringing a fatal crash caused by corrupted translation files to my attention
 
 Let's not forget about everyone whose artwork has made it into the mod/installer!
 
-[LucidAPs](https://www.nexusmods.com/skyrimspecialedition/users/3180451) - [High poly Project](https://www.nexusmods.com/skyrimspecialedition/mods/12029)'s Smelter Coal mesh
+[LucidAPs](https://www.nexusmods.com/skyrimspecialedition/users/3180451) - [High Poly Project](https://www.nexusmods.com/skyrimspecialedition/mods/12029)'s Smelter Coal mesh
 
 [Twicolabs](https://twicolabs.com) - [Chuck Noon font](https://www.dafont.com/chuck-noon.font)
 
