@@ -12,8 +12,6 @@ Import StringUtil
 
 ; These should all be auto-fillable since I used their Editor IDs
 
-; 12345
-
 Keyword Property VendorItemSpellTome  Auto
 {Keyword used to detect spell tomes}
 Keyword Property VendorItemRecipe  Auto
@@ -30,6 +28,14 @@ Keyword Property VendorItemGem  Auto
 {Keyword used to detect gems}
 Keyword Property VendorItemFireword  Auto
 {Keyword used to detect Firewood}
+Keyword Property BYOHHouseCraftingCategorySmithing  Auto
+{Keyword used to detect house locks, hinges, nails, and iron fittings}
+Keyword Property VendorItemIngredient  Auto
+{Keyword used to detect Misc Items that are also ingredients - Not present in vanilla, but present with CACO}
+Keyword Property VendorItemClutter  Auto
+{Keyword used as a NOT filter (lookin' at you, VendorItemOreIngot!)}
+Keyword Property VendorItemAnimalPart  Auto
+{Keyword used to detect animal parts}
 
 Message Property pSortingCompleteMsg Auto
 {Message to show then sorting completes}
@@ -317,30 +323,36 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         CurrentFormName = CurrentForm.GetName()
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        if ;/ Ingots /; pOverridePLIngots.HasForm(CurrentForm) || (pOverrideBLIngots.HasForm(CurrentForm) == false && CurrentForm.HasKeyword(VendorItemOreIngot) && (Find(CurrentForm.GetWorldModelPath(), "Ingot") != -1 || Find(CurrentForm.GetWorldModelPath(), "ingot") != -1))
+        if ;/ Ingots /; pOverridePLIngots.HasForm(CurrentForm) || (!pOverrideBLIngots.HasForm(CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentForm.GetWorldModelPath(), "Ingot") != -1 || Find(CurrentForm.GetWorldModelPath(), "ingot") != -1 || Find(CurrentForm.GetWorldModelPath(), "Dwarven") != -1 || Find(CurrentForm.GetWorldModelPath(), "dwarven") != -1))
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination02)
-        elseif ;/ Ores /; pOverridePLOres.HasForm(CurrentForm) || (pOverrideBLOres.HasForm(CurrentForm) == false && CurrentForm.HasKeyword(VendorItemOreIngot))
+        elseif ;/ Ores /; pOverridePLOres.HasForm(CurrentForm) || (!pOverrideBLOres.HasForm(CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentForm.GetWorldModelPath(), "Ore") != -1 || Find(CurrentForm.GetWorldModelPath(), "ore") != -1))
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
-        elseif ;/ Leather & Hides /; pOverridePLIngots.HasForm(CurrentForm) || (pOverrideBLIngots.HasForm(CurrentForm) == false && CurrentForm.HasKeyword(VendorItemAnimalHide))
+        elseif ;/ Leather & Hides /; pOverridePLHides.HasForm(CurrentForm) || (!pOverrideBLIngots.HasForm(CurrentForm) && CurrentForm.HasKeyword(VendorItemAnimalHide))
             if ;/ Leather /; pOverridePLWorkRoomMisc.HasForm(CurrentForm) || (pOverrideBLWorkRoomMisc.HasForm(CurrentForm) == false && Find(CurrentForm.GetWorldModelPath(), "Leather") != -1 || Find(CurrentForm.GetWorldModelPath(), "leather") != -1)
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            else ; Hides
+            else ; Hides 
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination03)
             endif
-        elseif ;/ Gems /; CurrentForm.HasKeyword(VendorItemGem)
+        elseif ;/ Gems /; CurrentForm.HasKeyword(VendorItemGem) && !pOverrideBLGems.HasForm(CurrentForm)
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination04)
-        elseif ;/ Firewood /; CurrentForm.HasKeyword(VendorItemFireword)
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-        elseif ;/ Charcoal /; Find(CurrentForm.GetWorldModelPath(), "Coal") != -1 || Find(CurrentForm.GetWorldModelPath(), "coal") != -1
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-        elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-        elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-        elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-        elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+        elseif !pOverrideBLWorkRoomMisc.HasForm(CurrentForm)
+            if ;/ Overrides /; pOverridePLWorkRoomMisc.HasForm(CurrentForm)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Firewood /; CurrentForm.HasKeyword(VendorItemFireword)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Charcoal /; Find(CurrentForm.GetWorldModelPath(), "Coal") != -1 || Find(CurrentForm.GetWorldModelPath(), "coal") != -1
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Somphting /; CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemIngredient)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Somphting /; CurrentForm.HasKeyword(VendorItemFireword)
+                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+            elseif ;/ Useful Animal Parts and Ingredients /; (CurrentForm.HasKeyword(VendorItemAnimalPart) || CurrentForm.HasKeyword(VendorItemIngredient)) && CurrentForm.HasKeyword(VendorItemOreIngot)
+
+            endif
         endif
         i += 1
     endwhile
@@ -524,7 +536,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
 .\______/ \__|  \__|\__|  \__| \_______|   \____/ \__|    \_/     \_______|   \____/  \_______|  \___|\___/;
  Event OnActivate(ObjectReference akActionRef)    
     Debug.Trace("Started sorting using SKSE")
-    if Running == False && (akActionRef == PlayerREF || aRequirePlayer == false)
+    if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
         
         ; Prevent further processing
         Running = TRUE
