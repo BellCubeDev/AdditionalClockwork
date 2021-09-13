@@ -4,13 +4,15 @@ Script by BellCube Dev
 Feel free to modify for your own purposes}
 
 ;/ Since I work is VSCode with the Minimap on, I like to generate text art to show up on my minimap
-   Also, either one or both of the Papyrus extension I use adds colapsing for comments, so I can, for instance, colapse the Containers section.
+   Also, Joel Day's Papyrus extension adds colapsing for comments, so I can, for instance, colapse the Containers section.
    https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Big%20Money-nw /;
 
 Import PO3_SKSEFunctions
 Import StringUtil
 
 ; These should all be auto-fillable since I used their Editor IDs
+
+; 12345
 
 Keyword Property VendorItemSpellTome  Auto
 {Keyword used to detect spell tomes}
@@ -736,15 +738,15 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  
  Books: Potion Recipes}
 
-;/$\      $$\ $$\       $$\   $$\               $$\ $$\             $$\               
-|$$ | $\  $$ |$$ |      \__|  $$ |              $$ |\__|            $$ |              
-|$$ |$$$\ $$ |$$$$$$$\  $$\ $$$$$$\    $$$$$$\  $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
-|$$ $$ $$\$$ |$$  __$$\ $$ |\_$$  _|  $$  __$$\ $$ |$$ |$$  _____|\_$$  _|  $$  _____|
-|$$$$  _$$$$ |$$ |  $$ |$$ |  $$ |    $$$$$$$$ |$$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
-|$$$  / \$$$ |$$ |  $$ |$$ |  $$ |$$\ $$   ____|$$ |$$ | \____$$\   $$ |$$\  \____$$\ 
-|$$  /   \$$ |$$ |  $$ |$$ |  \$$$$  |\$$$$$$$\ $$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
-.\__/     \__|\__|  \__|\__|   \____/  \_______|\__|\__|\_______/    \____/ \_______/;
-                                                                                     
+;/$$$$$$\                                $$\ $$\             $$\               
+|$$  __$$\                               $$ |\__|            $$ |              
+|$$ |  $$ | $$$$$$\   $$$$$$$\  $$$$$$$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
+|$$$$$$$  | \____$$\ $$  _____|$$  _____|$$ |$$ |$$  _____|\_$$  _|  $$  _____|
+|$$  ____/  $$$$$$$ |\$$$$$$\  \$$$$$$\  $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
+|$$ |      $$  __$$ | \____$$\  \____$$\ $$ |$$ | \____$$\   $$ |$$\  \____$$\ 
+|$$ |      \$$$$$$$ |$$$$$$$  |$$$$$$$  |$$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+|\__|       \_______|\_______/ \_______/ \__|\__|\_______/    \____/ \_______/; 
+
  FormList Property pOverridePLFoodCheeseSeasonings  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property pOverridePLFoodRawMeat  Auto
