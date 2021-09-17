@@ -30,3 +30,6 @@ There are three main ways you can contribute:
 - [`Credits.md`](Credits.md) - Attribution for anything and everything made by anybody else used while creating/in this project
 - [`Nexus-Description.bbcode`](Nexus-Description.bbcode) - Exactly what the name & extension suggest
 - [`Testing.md`](Testing.md) - Information on and guide to testing
+
+## Miscellaneous Stuff
+I made [a flowchart](https://www.zenflowchart.com/docs/view/g5m6QnXe0g7MvdxrLjly) detailing the development process of an SSE mod using GitHub & Nexus
