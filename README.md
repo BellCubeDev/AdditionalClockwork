@@ -31,5 +31,5 @@ There are three main ways you can contribute:
 - [`Nexus-Description.bbcode`](Nexus-Description.bbcode) - Exactly what the name & extension suggest
 - [`Testing.md`](Testing.md) - Information on and guide to testing
 
-## Miscellaneous Stuff
-I made [a flowchart](https://www.zenflowchart.com/docs/view/g5m6QnXe0g7MvdxrLjly) detailing the development process of an SSE mod using GitHub & Nexus
+## A Flowchart I Made Because I Could
+![Making an SSE mod with GitHub process flowchart](https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/Creating_SSE_Mod_w-GitHub.svg)
