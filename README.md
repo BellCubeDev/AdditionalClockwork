@@ -1,6 +1,6 @@
-[![GitHub repo size](https://img.shields.io/github/repo-size/BellCubeDev/AdditionalClockwork?style=for-the-badge)](https://github.com/BellCubeDev/AdditionalClockwork#:~:text=Readme-,-%C2%A9%202021%20GitHub%2C%20Inc)
+[![GitHub repo size](https://img.shields.io/github/repo-size/BellCubeDev/AdditionalClockwork?style=for-the-badge)](#)
 
-[![Copyright 2021 BellCubeDev, All Rights Reserved](https://img.shields.io/badge/©%202021%20BellCubeDev-%20All%20Rights%20Reserved-blue?style=for-the-badge)](README.md) [![All .PSC Files are Public Domain](https://img.shields.io/badge/All%20.PSC%20Files-Are%20Public%20Domain-00bd5e?style=for-the-badge)](README.md)
+[![Copyright 2021 BellCubeDev, All Rights Reserved](https://img.shields.io/badge/©%202021%20BellCubeDev-%20All%20Rights%20Reserved-blue?style=for-the-badge)](#) [![All .PSC Files are Public Domain](https://img.shields.io/badge/All%20.PSC%20Files-Are%20Public%20Domain-00bd5e?style=for-the-badge)](#)
 
 
 # Additional Clockwork
