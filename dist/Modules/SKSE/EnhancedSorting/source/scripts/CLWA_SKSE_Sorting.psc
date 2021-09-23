@@ -13,7 +13,6 @@ Import StringUtil
 
 ; These should all be auto-fillable since I used their Editor IDs
 
-
 Keyword Property VendorItemSpellTome  Auto
 {Keyword used to detect spell tomes}
 Keyword Property VendorItemRecipe  Auto
@@ -45,14 +44,11 @@ Keyword Property ArmorClothing  Auto
 Keyword Property ArmorJewelry  Auto
 {Keyword used to detect armor that is considered jewelry}
 
-Message Property pSortingCompleteMsg Auto
-{Message to show then sorting completes}
-
 ; Sounds
 Sound property QSTAstrolabeButtonPressX auto
 {BUTTONS: Played when the button is pressed}
-Sound property pItemsSentSound auto
-{Played when items are sent to zDestination00PnumoTube}
+Sound property CLWNPCDwarvenCenturionAttackBreathOutMarker auto
+{Played when sorting is complete if aPlayTransferSound = True}
 
 ; Steam
 Message Property CLWNoSteamPower01Msg Auto
@@ -74,10 +70,14 @@ $$ |      \$$$$$$$ |$$ |      \$$$$$$$ |$$ | $$ | $$ |\$$$$$$$\   \$$$$  |\$$$$$
  Bool Property aIsButton = False  Auto
  {Should button properties be used? Defaults to false}
  Bool Property aNeedsSteam = False  Auto
- {Should button properties be used? Defaults to false}
+ {Should we require the global to have the value of 1? Defaults to false}
+ Bool Property aPlayTransferSound = False  Auto
+ {Should the transfer sound be played? Defaults to false}
  Bool Property aRequirePlayer = true  Auto
  {Is this player-only, or can anything activate this ref?
  Defaults to true}
+ Message Property aSortingCompleteMsg Auto
+ {Message to show then sorting completes}
  
  ObjectReference Property aFormToDisable  Auto
  {Form to disable on init}
@@ -270,31 +270,32 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
 
 
 
- Function SortBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, ObjectReference obDestination10 = None, ObjectReference obDestination11 = None, ObjectReference obDestination12 = None, ObjectReference obDestination13 = None, ObjectReference obDestination14 = None, ObjectReference obDestination15 = None, ObjectReference obDestination16 = None, ObjectReference obDestination17 = None, ObjectReference obDestination18 = None, ObjectReference obDestination19 = None, ObjectReference obDestination20 = None, ObjectReference obDestination21 = None, ObjectReference obDestination22 = None, ObjectReference obDestination23 = None, ObjectReference obDestination24 = None, ObjectReference obDestination25 = None, ObjectReference obDestination26 = None, ObjectReference obDestination27)
+ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, ObjectReference obDestination10 = None, ObjectReference obDestination11 = None, ObjectReference obDestination12 = None, ObjectReference obDestination13 = None, ObjectReference obDestination14 = None, ObjectReference obDestination15 = None, ObjectReference obDestination16 = None, ObjectReference obDestination17 = None, ObjectReference obDestination18 = None, ObjectReference obDestination19 = None, ObjectReference obDestination20 = None, ObjectReference obDestination21 = None, ObjectReference obDestination22 = None, ObjectReference obDestination23 = None, ObjectReference obDestination24 = None, ObjectReference obDestination25 = None, ObjectReference obDestination26 = None, ObjectReference obDestination27)
+    {Sorts books alphabetically (merging W/X and Y/Z)
+    NOT intended for languages using a non-English alphabet}
     int i = 0
     Int j = 0
     String ItemName
-    Form CurrentBook
+    Book CurrentBook
     String FirstChar
     String CurrentChar
     Int ItemNameLength
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int ItemsLeft = BooksToSort.Length
     while i < itemsLeft
-        Debug.Trace("while "+i+" < "+itemsLeft+" && "+BooksToSort[i]+" != None")
-        Debug.Trace("Sorting book number "+(i+1)+"/"+itemsLeft)
-        CurrentBook = None
-        CurrentBook = BooksToSort[i]
-        Debug.Trace("Current Book: "+CurrentBook)
-        if obDestination26 && CurrentBook.HasKeyword(VendorItemSpellTome) || (CurrentBook as Book).GetSpell() != None ; If it has a spell or the keyword, it is almost certainly a spell tome 
+        CurrentBook = BooksToSort[i] as Book
+        Debug.Trace(CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
+        if obDestination26 && (CurrentBook.HasKeyword(VendorItemSpellTome) || CurrentBook.GetSpell() != None) ; If it has a spell or the keyword, it is almost certainly a spell tome 
+            Debug.trace("Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination26)
         elseif obDestination27 && CurrentBook.HasKeyword(VendorItemRecipe) ; If it has the Potion Recipe keyword, then send it to the new Potion Recipe container.
+            Debug.Trace("Sorted as a Potion Recipe")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination27)
-        elseif obDestination25 && Find(CurrentBook.GetWorldModelPath(), "Note") > -1 || Find(CurrentBook.GetWorldModelPath(), "note") > -1 ; Does the book have the word "note" in its model path? If so, it's probably a note. 
+        elseif obDestination25 && (Find(CurrentBook.GetWorldModelPath(), "Note") > -1 || Find(CurrentBook.GetWorldModelPath(), "note") > -1) ; Does the book have the word "note" in its model path? If so, it's probably a note.
+            Debug.Trace("Sorted as a Note (NOT a Potion Recipe)")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination25)
         else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
              ; However, Antistar decided he'd make my life miserable. He decided that the word "The" doesn't count. Fun.
-            ItemName = None
             ItemName = CurrentBook.GetName()
             debug.trace("Name: "+ItemName)
             ItemNameLength = -1
@@ -307,7 +308,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
                 CurrentChar = GetNthChar(ItemName, j)
                 if isLetter(CurrentChar)
                     debug.trace("Current letter: "+CurrentChar)
-                    if (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && (isLetter(GetNthChar(ItemName, j+3)) == False)
+                    if (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
                         j+=2
                     else
                         FirstChar = CurrentChar
@@ -316,17 +317,11 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
                     debug.trace("Current Digit: "+CurrentChar)
                     if CurrentChar == "1"
                         FirstChar = "o"
-                    elseif CurrentChar == "2"
+                    elseif CurrentChar == "2" || CurrentChar == "3"
                         FirstChar = "t"
-                    elseif CurrentChar == "3"
-                        FirstChar = "t"
-                    elseif CurrentChar == "4"
+                    elseif CurrentChar == "4"|| CurrentChar == "5"
                         FirstChar = "f"
-                    elseif CurrentChar == "5"
-                        FirstChar = "f"
-                    elseif CurrentChar == "6"
-                        FirstChar = "s"
-                    elseif CurrentChar == "7"
+                    elseif CurrentChar == "6" || CurrentChar == "7"
                         FirstChar = "s"
                     elseif CurrentChar == "8"
                         FirstChar = "e"
@@ -341,53 +336,53 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
             if FirstChar != None as String
                 debug.trace("First character: " + FirstChar)
                 ; This is a BIG if statement
-                if obDestination01 && FirstChar == "a" || FirstChar == "A"
+                if obDestination01 && (FirstChar == "a" || FirstChar == "A")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination01)
-                elseif obDestination02 && FirstChar == "b" || FirstChar == "B"
+                elseif obDestination02 && (FirstChar == "b" || FirstChar == "B")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination02)
-                elseif obDestination03 && FirstChar == "c" || FirstChar == "C"
+                elseif obDestination03 && (FirstChar == "c" || FirstChar == "C")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination03)
-                elseif obDestination04 && FirstChar == "d" || FirstChar == "D"
+                elseif obDestination04 && (FirstChar == "d" || FirstChar == "D")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination04)
-                elseif obDestination05 && FirstChar == "e" || FirstChar == "E"
+                elseif obDestination05 && (FirstChar == "e" || FirstChar == "E")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination05)
-                elseif obDestination06 && FirstChar == "f" || FirstChar == "F"
+                elseif obDestination06 && (FirstChar == "f" || FirstChar == "F")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination06)
-                elseif obDestination07 && FirstChar == "g" || FirstChar == "G"
+                elseif obDestination07 && (FirstChar == "g" || FirstChar == "G")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination07)
-                elseif obDestination08 && FirstChar == "h" || FirstChar == "H"
+                elseif obDestination08 && (FirstChar == "h" || FirstChar == "H")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination08)
-                elseif obDestination09 && FirstChar == "i" || FirstChar == "I"
+                elseif obDestination09 && (FirstChar == "i" || FirstChar == "I")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination09)
-                elseif obDestination10 && FirstChar == "j" || FirstChar == "J"
+                elseif obDestination10 && (FirstChar == "j" || FirstChar == "J")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination10)
-                elseif obDestination11 && FirstChar == "k" || FirstChar == "K"
+                elseif obDestination11 && (FirstChar == "k" || FirstChar == "K")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination11)
-                elseif obDestination12 && FirstChar == "l" || FirstChar == "L"
+                elseif obDestination12 && (FirstChar == "l" || FirstChar == "L")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination12)
-                elseif obDestination13 && FirstChar == "m" || FirstChar == "M"
+                elseif obDestination13 && (FirstChar == "m" || FirstChar == "M")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination13)
-                elseif obDestination14 && FirstChar == "n" || FirstChar == "N"
+                elseif obDestination14 && (FirstChar == "n" || FirstChar == "N")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination14)
-                elseif obDestination15 && FirstChar == "o" || FirstChar == "O"
+                elseif obDestination15 && (FirstChar == "o" || FirstChar == "O")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination15)
-                elseif obDestination16 && FirstChar == "p" || FirstChar == "P"
+                elseif obDestination16 && (FirstChar == "p" || FirstChar == "P")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination16)
-                elseif obDestination17 && FirstChar == "q" || FirstChar == "Q"
+                elseif obDestination17 && (FirstChar == "q" || FirstChar == "Q")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination17)
-                elseif obDestination18 && FirstChar == "r" || FirstChar == "R"
+                elseif obDestination18 && (FirstChar == "r" || FirstChar == "R")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination18)
-                elseif obDestination19 && FirstChar == "s" || FirstChar == "S"
+                elseif obDestination19 && (FirstChar == "s" || FirstChar == "S")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination19)
-                elseif obDestination20 && FirstChar == "t" || FirstChar == "T"
+                elseif obDestination20 && (FirstChar == "t" || FirstChar == "T")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination20)
-                elseif obDestination21 && FirstChar == "u" || FirstChar == "U"
+                elseif obDestination21 && (FirstChar == "u" || FirstChar == "U")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination21)
-                elseif obDestination22 && FirstChar == "v" || FirstChar == "V"
+                elseif obDestination22 && (FirstChar == "v" || FirstChar == "V")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination22)
-                elseif obDestination23 && FirstChar == "w" || FirstChar == "W" || FirstChar == "x" || FirstChar == "X"
+                elseif obDestination23 && (FirstChar == "w" || FirstChar == "W" || FirstChar == "x" || FirstChar == "X")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination23)
-                elseif obDestination24 && FirstChar == "y" || FirstChar == "Y" || FirstChar == "y" || FirstChar == "Y"
+                elseif obDestination24 && (FirstChar == "y" || FirstChar == "Y" || FirstChar == "y" || FirstChar == "Y")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination24)
                 endif
             endif
@@ -397,18 +392,20 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endwhile
  endfunction ; DONE
  
- Function SortPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02)
+ Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None)
+    {Sorts potions and poisons into two seperate containers}
+    
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
     while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        if CurrentPotion.IsFood() == false
-            if CurrentPotion.IsPoison() || CurrentPotion.IsHostile()
+        if !CurrentPotion.IsFood()
+            if obDestination02 && (CurrentPotion.IsPoison() || CurrentPotion.IsHostile())
                 debug.trace(CurrentPotion+" (#"+i+") is a poison")
                 obSortRef.RemoveItem(CurrentPotion as Potion, 9999, true, obDestination02)
-            else
+            elseif obDestination01
                 debug.trace(CurrentPotion+" (#"+i+") is not a poison")
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
             endif
@@ -419,7 +416,9 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endwhile
  endfunction ; DONE
 
- Function SortIngredients(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02)
+ Function SortForIngredients(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None)
+    {Sorts ingredients into two containers: One for ingredients used for cullinary purposes, and everything else}
+    
     Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = IngredientsToSort.Length
     int i = 0
@@ -435,7 +434,9 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endwhile
  endfunction ; DONE
 
- Function SortWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06)
+ Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None)
+    {Sorts various smithing materials into their appropriate containers, including a misc. container}
+
     Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 32, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FormsToSort.Length
     int i = 0
@@ -448,15 +449,16 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         CurrentFormName = CurrentForm.GetName()
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        debug.trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords+"\n==================================================")
-        if obDestination02 &&      ;/               Ingots               /; !(pOverrideBLIngots && !pOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentForm.GetWorldModelPath(), "Ingot") != -1 || Find(CurrentForm.GetWorldModelPath(), "ingot" != -1) || Find(CurrentForm.GetWorldModelPath(), "Dwarven") != -1 || Find(CurrentForm.GetWorldModelPath(), "dwarven") != -1)
+        debug.trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
+        if obDestination01 &&      ;/               Ingots               /; !(pOverrideBLIngots && !pOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot" != -1))
             debug.Trace("Sorted as an Ingot")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
-        elseif obDestination01 &&  ;/                Ores                /; !(pOverrideBLOres && !pOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentForm.GetWorldModelPath(), "Ore") != -1 || Find(CurrentForm.GetWorldModelPath(), "ore") != -1)
+        elseif obDestination02 &&  ;/                Ores                /; !(pOverrideBLOres && !pOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1 || Find(CurrentFormModelPath, "Dwarven") != -1 || Find(CurrentFormModelPath, "dwarven") != -1)
             debug.Trace("Sorted as Ore")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination02)
+
         elseif                     ;/          Leather &  Hides          /; CurrentForm.HasKeyword(VendorItemAnimalHide)
-            if obDestination05 &&  ;/               Leather /; !(pOverrideBLWorkRoomMisc && !pOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (Find(CurrentForm.GetWorldModelPath(), "Leather") != -1 || Find(CurrentForm.GetWorldModelPath(), "leather") != -1)
+            if obDestination05 &&  ;/               Leather /; !(pOverrideBLWorkRoomMisc && !pOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (Find(CurrentFormModelPath, "Leather") != -1 || Find(CurrentFormModelPath, "leather") != -1)
                 debug.Trace("Sorted as Leather")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif obDestination03 ;                 Hides 
@@ -472,7 +474,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
             elseif                 ;/               Firewood              /; CurrentForm.HasKeyword(VendorItemFireword)
                 Debug.Trace("Sorted as a Misc. Item (Firewood)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            elseif                 ;/               Charcoal              /; Find(CurrentForm.GetWorldModelPath(), "Coal") != -1 || Find(CurrentForm.GetWorldModelPath(), "coal") != -1
+            elseif                 ;/               Charcoal              /; Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1
                 Debug.Trace("Sorted as a Misc. Item (Charcoal)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing)
@@ -486,11 +488,12 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             endif
         endif
+        debug.trace("========================")
         i += 1
     endwhile
  endfunction
 
- Function SortFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05)
+ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None)
    {Sorts foods in to 5 categories (accepts PassLists & BlackLists):
    Drinks
    Cheese & Seasonings
@@ -555,7 +558,9 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endwhile
  endfunction ; DONE
 
- Function SortArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None)
+ Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None)
+    {Sorts armor and weapons into specific containers}
+    
     Int itemsLeft
     int i
     if obDestination06 || obDestination07 || obDestination08 || obDestination09
@@ -569,13 +574,13 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
             curWeapSkill = curWeap.GetSkill()
             Debug.Trace(curWeap+" Skill: \""+curWeapSkill+"\"\nKeywords: "+curWeap.GetKeywords())
             if obDestination08 &&     ;/  Ranged  /; curWeapSkill == "Marksman"
-                obSortRef.RemoveItem(WeaponsToSort[i], 9999999, true, obDestination08)
+                obSortRef.RemoveItem(curWeap, 9999999, true, obDestination08)
             elseif obDestination06 && ;/ 1-Handed /; curWeapSkill == "OneHanded"
-                obSortRef.RemoveItem(WeaponsToSort[i], 9999999, true, obDestination06)
+                obSortRef.RemoveItem(curWeap, 9999999, true, obDestination06)
             elseif obDestination07 && ;/ 2-Handed /; curWeapSkill == "TwoHanded"
-                obSortRef.RemoveItem(WeaponsToSort[i], 9999999, true, obDestination07)
-            elseif obDestination09 && ;/  Staves  /; (curWeap.HasKeyword(WeapTypeStaff) || (curWeapSkill == "Destruction" || curWeapSkill == "Conjuration" || curWeapSkill == "Alteration" || curWeapSkill == "Illusion" || curWeapSkill == "Restoration"))
-                obSortRef.RemoveItem(WeaponsToSort[i], 9999999, true, obDestination09)
+                obSortRef.RemoveItem(curWeap, 9999999, true, obDestination07)
+            elseif obDestination09 && ;/  Staves  /; (curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
+                obSortRef.RemoveItem(curWeap, 9999999, true, obDestination09)
             endif
             i += 1
         endwhile
@@ -615,7 +620,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endif
  endfunction ; DONE
 
- Function SortSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02)
+ Function SortForSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None)
     Form[] SoulGemsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 52, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     int itemsLeft = SoulGemsToSort.Length
     int i = 0
@@ -624,7 +629,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     bool hasSoul
     while i < itemsLeft
         sGem = SoulGemsToSort[i] as SoulGem
-        Debug.trace(sGem+" has soul "+sGem.GetSoulSize()+"/"+sGem.GetGemSize())
+        Debug.trace(sGem+" #"+(i+1)+"/"+itemsLeft+" has soul "+sGem.GetSoulSize()+"/"+sGem.GetGemSize())
         GemRef = self.PlaceAtMe(sGem, 1, false, true)
         hasSoul = PO3_SKSEFunctions.GetStoredSoulSize(GemRef) > 0
         debug.trace(sGem+" #"+(i+1)+"/"+itemsLeft+", has soul? "+hasSoul)
@@ -639,7 +644,23 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
  endfunction
 
  ; Sorting functions for each room
- Function SortDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
+ Function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
+    if pOverridePLFoodFruitsNVeggies
+        obSortRef.RemoveItem(pOverridePLFoodFruitsNVeggies, 999999, true, obDestination01)
+    endif
+    if pOverridePLFoodMedeAndCo
+        obSortRef.RemoveItem(pOverridePLFoodMedeAndCo, 999999, true, obDestination01)
+    endif
+    if pOverridePLFoodRawMeat
+        obSortRef.RemoveItem(pOverridePLFoodRawMeat, 999999, true, obDestination01)
+    endif
+    if pOverridePLFoodMeelz
+        obSortRef.RemoveItem(pOverridePLFoodMeelz, 999999, true, obDestination01)
+    endif
+    if pOverridePLFoodCheeseSeasonings
+        obSortRef.RemoveItem(pOverridePLFoodCheeseSeasonings, 999999, true, obDestination01)
+    endif
+    
     Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FoodToSort.Length
     int i = 0
@@ -652,18 +673,19 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         i += 1
     endwhile
  endfunction
- Function SortDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
+ Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
     while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        if obDestination01 && CurrentPotion.IsFood() == False
+        if obDestination01 && !CurrentPotion.IsFood()
             obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
         endif
         i += 1
     endwhile
+
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = BooksToSort.Length
     i = 0
@@ -671,6 +693,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         obSortRef.RemoveItem(BooksToSort[i], 9999, true, obDestination01)
         i += 1
     endwhile
+
     Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = IngredientsToSort.Length
     i = 0
@@ -678,6 +701,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         obSortRef.RemoveItem(IngredientsToSort[i], 9999, true, obDestination01)
         i += 1
     endwhile 
+
     Form[] sGemsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 52, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = sGemsToSort.Length
     i = 0
@@ -686,7 +710,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         i += 1
     endwhile 
  endfunction
- Function SortDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
+ Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = WeaponsToSort.Length
     int i = 0
@@ -715,6 +739,42 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         i += 1
     endwhile
  endfunction
+ Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
+    
+    if pOverridePLGems
+        obSortRef.RemoveItem(pOverridePLGems, 999999, true, obDestination01)
+    endif
+    if pOverridePLHides
+        obSortRef.RemoveItem(pOverridePLHides, 999999, true, obDestination01)
+    endif
+    if pOverridePLIngots
+        obSortRef.RemoveItem(pOverridePLIngots, 999999, true, obDestination01)
+    endif
+    if pOverridePLOres
+        obSortRef.RemoveItem(pOverridePLOres, 999999, true, obDestination01)
+    endif
+    if pOverridePLWorkRoomMisc
+        obSortRef.RemoveItem(pOverridePLWorkRoomMisc, 999999, true, obDestination01)
+    endif
+
+    Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 32, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    Int itemsLeft = FormsToSort.Length
+    int i = 0
+    Form CurrentForm
+    String CurrentFormName
+    String CurrentFormNameKeywords
+    String CurrentFormModelPath
+    while i < itemsLeft
+        CurrentForm = FormsToSort[i]
+        CurrentFormName = CurrentForm.GetName()
+        CurrentFormNameKeywords = CurrentForm.GetKeywords()
+        CurrentFormModelPath = CurrentForm.GetWorldModelPath()
+        if (!(pOverrideBLHides && !pOverrideBLHides.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemAnimalHide)) || (!(pOverrideBLGems && !pOverrideBLGems.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemGem)) || (!(pOverrideBLIngots && !pOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || (!(pOverrideBLWorkRoomMisc && !pOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (CurrentForm.HasKeyword(VendorItemFireword) || CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing) || CurrentForm.HasKeyword(VendorItemIngredient) || (CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1))
+            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
+        endif
+        i += 1
+    endwhile
+ endfunction
 
 ;/$$$$$\            $$$$$$\           $$\   $$\       $$$\ $$$\   
 $$  __$$\           \_$$  _|          \__|  $$ |     $$  _| \$$\  
@@ -726,12 +786,22 @@ $$ |  $$ |$$ |  $$ |  $$ |  $$ |  $$ |$$ |  $$ |$$\ \$$\     $$  |
 .\______/ \__|  \__|\______|\__|  \__|\__|   \____/   \___|\___/;
  
  Event OnInit()
+    ; Check if SKSE is not installed
     if SKSE.GetVersionRelease() < 0
         Debug.TraceAndBox("SKSE not tinstalled!\nSorting will not work and will spam Papyrus logs if attempted.", 2)
     endif
+
+    ; Check if Papyrus Extender is installed
+    if PO3_SKSEFunctions.IsPluginFound("Skyrim.esm")
+        Debug.TraceAndBox("powerofthree's Papyrus Extender not tinstalled!\nSorting will not work and will spam Papyrus logs if attempted.", 2)
+    endif
+
+    ; Optionally disable a form on startup (used to allow mid-game installs)
     if aFormToDisable
         aFormToDisable.DisableNoWait()
     endif
+
+    ; Fill a property now to eliminate unnecessary processing
     PlayerREF = Game.GetPlayer()
  endevent
 
@@ -747,7 +817,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
     Debug.Trace("Started sorting using SKSE")
     if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
         
-        ; Prevent further processing
+        ; Prevent further processing (likely initiated by player impatience)
         Running = TRUE
         self.BlockActivation(true)
 
@@ -760,45 +830,75 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
         if aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check if a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
             CLWNoSteamPower01Msg.Show()
         else ; Actually sort
+
+            ; Sorting for the sort buttons
+            if xDestinationStudy
+                Debug.Trace("Begin sorting ingredients")
+                SortForDestStudy(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
+                Debug.Trace("Finished sorting ingredients")
+            endif
+            if xDestinationWork
+                Debug.Trace("Begin sorting smithing materials")
+                SortForDestWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
+                Debug.Trace("Finished sorting smithing materials")
+            endif
+            if xDestinationKitchen
+                Debug.Trace("Begin sorting food")
+                SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
+                Debug.Trace("Finished sorting food")
+            endif
+            if xDestinationArmoury
+                Debug.Trace("Begin sorting Armoury items")
+                SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
+                Debug.Trace("Finished sorting Armoury items")
+            endif
             
+            ; Sorting Scales
             if SortBooks
                 debug.trace("Begin sorting books")
-                SortBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, zDestination10, zDestination11, zDestination12, zDestination13, zDestination14, zDestination15, zDestination16, zDestination17, zDestination18, zDestination19, zDestination20, zDestination21, zDestination22, zDestination23, zDestination24, zDestination25, zDestination26, zDestination27)
+                SortForBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, zDestination10, zDestination11, zDestination12, zDestination13, zDestination14, zDestination15, zDestination16, zDestination17, zDestination18, zDestination19, zDestination20, zDestination21, zDestination22, zDestination23, zDestination24, zDestination25, zDestination26, zDestination27)
                 debug.trace("Finished sorting books")
             endif
             if SortPotions
                 Debug.Trace("Begin sorting potions")
-                SortPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
+                SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
                 Debug.Trace("Finished sorting potions")
             endif
             if sortSoulGems
                 Debug.Trace("Begin sorting soul gems")
-                SortSoulGems(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
+                SortForSoulGems(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
                 Debug.Trace("Finished sorting soul gems")
             endif
             if sortIngredients
-                SortIngredients(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
+                Debug.Trace("Begin sorting ingredients")
+                SortForIngredients(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
+                Debug.Trace("Finished sorting ingredients")
             endif
             if sortFood
-                SortFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05)
+                Debug.Trace("Begin sorting food")
+                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05)
+                Debug.Trace("Finished sorting food")
             endif
             if sortWorkRoom
-                SortWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06)
+                Debug.Trace("Begin sorting smithing materials")
+                SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06)
+                Debug.Trace("Finished sorting smithing materials")
             endif
             if sortArmoury
-                SortArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09)
+                Debug.Trace("Begin sorting Armoury items")
+                SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09)
+                Debug.Trace("Finished sorting Armoury items")
             endif
 
-            if zDestination00PnumoTube ; If a Pnumatic Tube is defined, send items from Destination01 to it and play the sending sound.
-                zDestination01.RemoveAllItems(zDestination00PnumoTube, true, true)
-                if pItemsSentSound
-                    pItemsSentSound.Play(self)
-                endif
+            ; Play Sound
+            if aPlayTransferSound
+                CLWNPCDwarvenCenturionAttackBreathOutMarker.Play(self)
             endif
 
+            ; Show Message (and warn if not present)
             if akActionRef == PlayerREF
-                if pSortingCompleteMsg
-                    pSortingCompleteMsg.Show()
+                if aSortingCompleteMsg
+                    aSortingCompleteMsg.Show()
                 else
                     Debug.Trace("No completion message is set for "+self, 1)
                 endif
@@ -828,8 +928,6 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  ; If we're being completely honest, the labels for the zDestinations are more for me than for anyone else.
  ; Seriously, how am I supposed to remember which barrel to point zDestination03 to?
 
- ObjectReference Property zDestination00PnumoTube  Auto
- {Will transfer items from zDestination01 to this container once sorting is complete} 
  ObjectReference Property zDestination01  Auto
  {Destination container. Will be sorted in to.
  
