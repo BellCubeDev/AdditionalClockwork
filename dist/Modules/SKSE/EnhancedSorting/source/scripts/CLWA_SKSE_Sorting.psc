@@ -49,6 +49,9 @@ Sound property QSTAstrolabeButtonPressX auto
 {BUTTONS: Played when the button is pressed}
 Sound property CLWNPCDwarvenCenturionAttackBreathOutMarker auto
 {Played when sorting is complete if aPlayTransferSound = True}
+FormList Property CLWAItemPotionUse  Auto
+{FormList with the SoundDescriptor ITMPotionUse at the first index (i.e. Index 0)
+I was genuinely stuck on this one for a while, thanks CK wiki!}
 
 ; Steam
 Message Property CLWNoSteamPower01Msg Auto
@@ -255,7 +258,7 @@ $$ |      \$$$$$$$ |$$ |      \$$$$$$$ |$$ | $$ | $$ |\$$$$$$$\   \$$$$  |\$$$$$
  Bool Property pBlockQuestItems = true  Auto
  {Prevent quest items from being sorted?
  Defaults to true}
- 
+
  Bool Running
  ObjectReference PlayerREF
 
@@ -522,6 +525,8 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     Potion CurrentPotion
     String CurrentPotionKeywords
     String potName
+    Form ITMPotionUse = CLWAItemPotionUse.GetAt(0)
+    Debug.Trace("ITMPotionUse Value vs Expected\n"+ITMPotionUse+"\n[Form < (000B6435)>]")
     while i < itemsLeft
         CurrentPotion = FoodToSort[i] as Potion
         if CurrentPotion.IsFood()
@@ -533,15 +538,12 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
 
             CurrentPotionKeywords = CurrentPotion.GetKeywords() as String        
             potName = CurrentPotion.GetName()
-            debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\n"+CurrentPotionKeywords+"\n====================")
+            debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
 
-            if     obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
+            if     obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
             
-            elseif obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") || CurrentPotion.GetUseSound() == "ITMPotionUse")
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
-            
-            elseif obDestination01 && ;/ Cheese 'n Seasonings /; !(pOverrideBLFoodCheeseSeasonings && !pOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
+            elseif obDestination01 && ;/ Cheese 'n Seasonings /; !(pOverrideBLFoodCheeseSeasonings && !pOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
             
             elseif obDestination03 && ;/  Fruits and Veggies  /; !(pOverrideBLFoodFruitsNVeggies && !pOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
@@ -549,6 +551,9 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
             
             elseif obDestination04 && ;/         Meat         /; !(pOverrideBLFoodRawMeat && !pOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(VendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination04)
+            
+            elseif obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
             
             elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion))
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
@@ -686,6 +691,14 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         i += 1
     endwhile
 
+    Form[] ScrollsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 23, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    itemsLeft = ScrollsToSort.Length
+    i = 0
+    while i < itemsLeft
+        obSortRef.RemoveItem(ScrollsToSort[i], 9999, true, obDestination01)
+        i += 1
+    endwhile
+
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = BooksToSort.Length
     i = 0
@@ -788,12 +801,12 @@ $$ |  $$ |$$ |  $$ |  $$ |  $$ |  $$ |$$ |  $$ |$$\ \$$\     $$  |
  Event OnInit()
     ; Check if SKSE is not installed
     if SKSE.GetVersionRelease() < 0
-        Debug.TraceAndBox("SKSE not tinstalled!\nSorting will not work and will spam Papyrus logs if attempted.", 2)
+        Debug.TraceAndBox("SKSE not tinstalled!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs if attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
     endif
 
     ; Check if Papyrus Extender is installed
-    if PO3_SKSEFunctions.IsPluginFound("Skyrim.esm")
-        Debug.TraceAndBox("powerofthree's Papyrus Extender not tinstalled!\nSorting will not work and will spam Papyrus logs if attempted.", 2)
+    if PO3_SKSEFunctions.StringToInt("128") != 128
+        Debug.TraceAndBox("powerofthree's Papyrus Extender not tinstalled!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs if attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
     endif
 
     ; Optionally disable a form on startup (used to allow mid-game installs)
@@ -888,6 +901,15 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
                 Debug.Trace("Begin sorting Armoury items")
                 SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09)
                 Debug.Trace("Finished sorting Armoury items")
+            endif
+            if pFormTypeToSort
+                Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(akActionRef, 23, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                int itemsLeft = FormsToSort.Length
+                int i = 0
+                while i < itemsLeft
+                    akActionRef.RemoveItem(FormsToSort[i], 9999, true, zDestination01)
+                    i += 1
+                endwhile
             endif
 
             ; Play Sound
