@@ -575,7 +575,7 @@ With this module isntalled, checks are run on each relevant object to determine 
           <flagDependency flag="Perspective" value="1"/>
         </dependencies>
         <files>
-          <folder source="translations\1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -584,7 +584,7 @@ With this module isntalled, checks are run on each relevant object to determine 
           <flagDependency flag="Perspective" value="1"/>
         </dependencies>
         <files>
-          <folder source="translations\1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -593,7 +593,7 @@ With this module isntalled, checks are run on each relevant object to determine 
           <flagDependency flag="Perspective" value="2"/>
         </dependencies>
         <files>
-          <folder source="translations\2p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-2p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -602,7 +602,7 @@ With this module isntalled, checks are run on each relevant object to determine 
           <flagDependency flag="Perspective" value="2"/>
         </dependencies>
         <files>
-          <folder source="translations\2p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-2p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
 
