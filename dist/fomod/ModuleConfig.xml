@@ -8,11 +8,9 @@
 
   <installSteps order="Explicit">
 
-
-
     <installStep name="Additional Clockwork">
       <optionalFileGroups order="Explicit">
-        <group name="Description" type="SelectAll"><plugins><plugin name="description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
         <group name="Perspective" type="SelectExactlyOne">
           <plugins order="Explicit">
             <plugin name="Second Person">
@@ -50,6 +48,7 @@ SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</descri
               </typeDescriptor>
             </plugin>
 
+            <!-- No SKSE substitutions exist at this time-->
             <!--plugin name="Enable SKSE Substitutions">
               <description>If checked, modules with added/better functionallity with SKSE will be enabled</description>
               <image path="fomod/images/SKSE.jpg" />
@@ -91,8 +90,6 @@ SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</descri
       </optionalFileGroups>
     </installStep>
 
-
-
     <installStep name="Just Clockwork">
       <optionalFileGroups order="Explicit">
 
@@ -124,25 +121,6 @@ SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</descri
                       </pattern>
                     </patterns>
                   </dependencyType>
-                </typeDescriptor>
-              </plugin>
-            </plugins>
-          </group>
-          <group name="Interesting Inhabitants" type="SelectAny">
-            <plugins order="Explicit">
-              <plugin name="Merged">
-                <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up. &#13;
-Now, Lahar has many hundreds of potential actions distributed across each room of the castle and a scheduled day, and Lamashtu can read books occasionally.
- &#13;
-I develop in Merged modules to simplify workflow and split them later. In fact, some modules are created entirely inside of other modules and seperated out later&#13;
- &#13;
-https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
-                <image path="fomod\images\AdditionalClockwork.png"/>
-                <conditionFlags>
-                  <flag name="InterestingInhabitants_Merged" />
-                </conditionFlags>
-                <typeDescriptor>
-                  <type name="Optional" />
                 </typeDescriptor>
               </plugin>
             </plugins>
@@ -334,9 +312,7 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
         </group>
       </optionalFileGroups>
     </installStep>
-
-
-
+    
     <installStep name="SKSE">
       <visible><flagDependency flag="Enable_SKSE" value="1" /></visible>
       <optionalFileGroups order="Explicit">
@@ -357,8 +333,6 @@ With this module isntalled, checks are run on each relevant object to determine 
         </group>
       </optionalFileGroups>
     </installStep>
-
-
 
     <installStep name="Integration, Patches, &amp; Consistency">
       <optionalFileGroups order="Explicit">
@@ -418,8 +392,6 @@ With this module isntalled, checks are run on each relevant object to determine 
         </group>
       </optionalFileGroups>
     </installStep>
-
-
 
     <installStep name="Sorting">
       <optionalFileGroups order="Explicit">
@@ -529,6 +501,27 @@ With this module isntalled, checks are run on each relevant object to determine 
                   </patterns>
                 </dependencyType>
               </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
+    <installStep name="Testing Modules">
+      <optionalFileGroups order="Explicit">
+        <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.&#13;
+&#13;
+That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">2</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+        <group name="Interesting Inhabitants" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Merged">
+              <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up. &#13;
+Now, Lahar has many hundreds of potential actions distributed across each room of the castle and a scheduled day, and Lamashtu can read books occasionally.
+&#13;
+https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
+              <image path="fomod\images\AdditionalClockwork.png"/>
+              <conditionFlags><flag name="InterestingInhabitants_Merged" />  </conditionFlags>
+              <typeDescriptor><type name="Optional" /></typeDescriptor>
             </plugin>
           </plugins>
         </group>
@@ -729,6 +722,15 @@ With this module isntalled, checks are run on each relevant object to determine 
         </dependencies>
         <files>
           <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+      <!-- Superior Sorting SKSE -->
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
     </patterns>
