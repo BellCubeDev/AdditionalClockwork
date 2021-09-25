@@ -340,14 +340,14 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
     <installStep name="SKSE">
       <visible><flagDependency flag="Enable_SKSE" value="1" /></visible>
       <optionalFileGroups order="Explicit">
-        <group name="Enhanced Sorting" type="SelectAny">
+        <group name="Superior Sorting" type="SelectAny">
           <plugins>
-            <plugin name="Enhanced Sorting">
+            <plugin name="Superior Sorting">
               <description>The very reason I created this project!&#13;
-Enhanced Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!&#13;
+Superior Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!&#13;
 With this module isntalled, checks are run on each relevant object to determine where it goes, even common books! All properly-designed modded items are sorted too! Doesn't matter what mod, they're sorted!</description>
               <!--image path="" /-->
-              <conditionFlags><flag name="SKSE_EnhancedSorting">1</flag></conditionFlags>
+              <conditionFlags><flag name="SKSE_SuperiorSorting">1</flag></conditionFlags>
               <typeDescriptor><dependencyType>
                 <defaultType name="Optional" />
                 <patterns><pattern><dependencies><flagDependency flag="RecAuthor" value="1" /><flagDependency flag="Enable_SKSE" value="1" /></dependencies><type name="Recommended" /></pattern></patterns>
@@ -719,6 +719,16 @@ With this module isntalled, checks are run on each relevant object to determine 
         </dependencies>
         <files>
           <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+
+      <!-- Superior Sorting SKSE -->
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="SKSE_SuperiorSorting" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
     </patterns>
