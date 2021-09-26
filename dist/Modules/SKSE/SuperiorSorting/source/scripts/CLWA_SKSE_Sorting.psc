@@ -419,24 +419,6 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
     endwhile
  endfunction ; DONE
 
- Function SortForIngredients(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None)
-    {Sorts ingredients into two containers: One for ingredients used for cullinary purposes, and everything else}
-    
-    Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-    Int itemsLeft = IngredientsToSort.Length
-    int i = 0
-    Form CurrentIngredient
-    while i < itemsLeft
-        CurrentIngredient = IngredientsToSort[i]
-        if obDestination02 && CurrentIngredient.HasKeyword(VendorItemFood) || ((pOverridePLFoodCheeseSeasonings && pOverridePLFoodCheeseSeasonings && pOverridePLFoodCheeseSeasonings && pOverridePLFoodCheeseSeasonings.HasForm(CurrentIngredient)))
-            obSortRef.RemoveItem(CurrentIngredient, 9999, true, obDestination02)
-        elseif obDestination01 && CurrentIngredient
-            obSortRef.RemoveItem(CurrentIngredient, 9999, true, obDestination01)
-        endif
-        i += 1
-    endwhile
- endfunction ; DONE
-
  Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None)
     {Sorts various smithing materials into their appropriate containers, including a misc. container}
 
@@ -453,10 +435,10 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
         debug.trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
-        if obDestination01 &&      ;/               Ingots               /; !(pOverrideBLIngots && !pOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot" != -1))
+        if obDestination01 &&      ;/               Ingots               /; !(pOverrideBLIngots && !pOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot") != -1)
             debug.Trace("Sorted as an Ingot")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
-        elseif obDestination02 &&  ;/                Ores                /; !(pOverrideBLOres && !pOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1 || Find(CurrentFormModelPath, "Dwarven") != -1 || Find(CurrentFormModelPath, "dwarven") != -1)
+        elseif obDestination02 &&  ;/                Ores                /; !(pOverrideBLOres && !pOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1 || Find(CurrentFormModelPath, "Dwemer") != -1 || Find(CurrentFormModelPath, "dwemer") != -1 || Find(CurrentFormModelPath, "Dwarven") != -1 || Find(CurrentFormModelPath, "dwarven") != -1)
             debug.Trace("Sorted as Ore")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination02)
 
@@ -494,9 +476,9 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         debug.trace("========================")
         i += 1
     endwhile
- endfunction
+ endfunction ; DONE
 
- Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None)
+ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None)
    {Sorts foods in to 5 categories (accepts PassLists & BlackLists):
    Drinks
    Cheese & Seasonings
@@ -519,48 +501,61 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         obSortRef.RemoveItem(pOverridePLFoodMeelz, 999999, true, obDestination05)
     endif
     
-    Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-    Int itemsLeft = FoodToSort.Length
+    Int itemsLeft
     int i = 0
-    Potion CurrentPotion
-    String CurrentPotionKeywords
-    String potName
-    Form ITMPotionUse = CLWAItemPotionUse.GetAt(0)
-    Debug.Trace("ITMPotionUse Value vs Expected\n"+ITMPotionUse+"\n[Form < (000B6435)>]")
-    while i < itemsLeft
-        CurrentPotion = FoodToSort[i] as Potion
-        if CurrentPotion.IsFood()
-            ;/ Here, since Complete Alchemy and Cooking Overhaul is a thing, I check not only with FormLists and weird ways to find fruits (HINT: none exist),
-             * but also with Keywords. See, CACO adds keywords like VendorItemDrinkAlcohol (and three other "VendorItemDrink" keywords), VendorItemFruit, etc.
-             * So, by adding the item's keywords into a single string, I can check it for specific occurances, and may even detect
-             * foods I didn't anticipate while I'm at it! Just nobody add VendorItemNotFruit please, you can invert your bool check.
-            /;
 
-            CurrentPotionKeywords = CurrentPotion.GetKeywords() as String        
-            potName = CurrentPotion.GetName()
-            debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
+    if obDestination06
+        Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+        itemsLeft = IngsToSort.Length
+        while i < itemsLeft
+            obSortRef.RemoveItem(IngsToSort[i], 9999999, true, obDestination06)
+            i += 1
+        endwhile
+    endif
 
-            if     obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
-            
-            elseif obDestination01 && ;/ Cheese 'n Seasonings /; !(pOverrideBLFoodCheeseSeasonings && !pOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
-            
-            elseif obDestination03 && ;/  Fruits and Veggies  /; !(pOverrideBLFoodFruitsNVeggies && !pOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination03)
-            
-            elseif obDestination04 && ;/         Meat         /; !(pOverrideBLFoodRawMeat && !pOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(VendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination04)
-            
-            elseif obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
-            
-            elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion))
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
+    if obDestination01 || obDestination02 || obDestination03 || obDestination04 || obDestination05
+        Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+        itemsLeft = FoodToSort.Length
+        i = 0
+        Potion CurrentPotion
+        String CurrentPotionKeywords
+        String potName
+        Form ITMPotionUse = CLWAItemPotionUse.GetAt(0)
+        while i < itemsLeft
+            CurrentPotion = FoodToSort[i] as Potion
+            if CurrentPotion.IsFood()
+                ;/ Here, since Complete Alchemy and Cooking Overhaul is a thing, I check not only with FormLists and weird ways to find fruits (HINT: none exist),
+                * but also with Keywords. See, CACO adds keywords like VendorItemDrinkAlcohol (and three other "VendorItemDrink" keywords), VendorItemFruit, etc.
+                * So, by adding the item's keywords into a single string, I can check it for specific occurances, and may even detect
+                * foods I didn't anticipate while I'm at it! Just nobody add VendorItemNotFruit please, you can invert your bool check.
+                /;
+
+                CurrentPotionKeywords = CurrentPotion.GetKeywords() as String        
+                potName = CurrentPotion.GetName()
+                debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
+
+                if     obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
+                
+                elseif obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
+                
+                elseif obDestination01 && ;/ Cheese 'n Seasonings /; !(pOverrideBLFoodCheeseSeasonings && !pOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
+                
+                elseif obDestination03 && ;/  Fruits and Veggies  /; !(pOverrideBLFoodFruitsNVeggies && !pOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination03)
+                
+                elseif obDestination04 && ;/         Meat         /; !(pOverrideBLFoodRawMeat && !pOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(VendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination04)
+                
+                elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion))
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
+                endif
             endif
-        endif
-        i += 1
-    endwhile
+            i += 1
+        endwhile
+    endif
  endfunction ; DONE
 
  Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None)
@@ -677,7 +672,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         endif
         i += 1
     endwhile
- endfunction
+ endfunction ; DONE
  Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
@@ -722,7 +717,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         obSortRef.RemoveItem(sGemsToSort[i], 9999, true, obDestination01)
         i += 1
     endwhile 
- endfunction
+ endfunction ; DONE
  Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = WeaponsToSort.Length
@@ -751,7 +746,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         obSortRef.RemoveItem(ArrowsToSort[i], 9999999, true, obDestination01)
         i += 1
     endwhile
- endfunction
+ endfunction ; DONE
  Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01)
     
     if pOverridePLGems
@@ -787,7 +782,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
         endif
         i += 1
     endwhile
- endfunction
+ endfunction ; DONE
 
 ;/$$$$$\            $$$$$$\           $$\   $$\       $$$\ $$$\   
 $$  __$$\           \_$$  _|          \__|  $$ |     $$  _| \$$\  
@@ -882,14 +877,9 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
                 SortForSoulGems(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
                 Debug.Trace("Finished sorting soul gems")
             endif
-            if sortIngredients
-                Debug.Trace("Begin sorting ingredients")
-                SortForIngredients(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
-                Debug.Trace("Finished sorting ingredients")
-            endif
             if sortFood
                 Debug.Trace("Begin sorting food")
-                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05)
+                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06)
                 Debug.Trace("Finished sorting food")
             endif
             if sortWorkRoom
@@ -958,7 +948,6 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  Work Room:    Ingots
  Food:         Cheese and Seasonings
  Potions:      Beneficial (Potions)
- Ingredients:  Normal
  Soul Gems:    Empty
  Sort by Type: Only Destination}
  ObjectReference Property zDestination02  Auto
@@ -969,7 +958,6 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  Work Room:   Ores
  Food:        Drinks
  Potions:     Harmful (Poisons)
- Ingredients: Interchangeable
  Soul Gems:   Filled}
  ObjectReference Property zDestination03  Auto
  {Destination container. May or may not be used depending on sorted form.
@@ -996,7 +984,8 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  {Destination container. May or may not be used depending on sorted form.
  
  Books:   F
- Armoury: 1-Handed}
+ Armoury: 1-Handed
+ Food: Ingredients}
  ObjectReference Property zDestination07  Auto
  {Destination container. May or may not be used depending on sorted form.
  
