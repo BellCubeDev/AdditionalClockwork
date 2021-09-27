@@ -893,7 +893,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
                 Debug.Trace("Finished sorting Armoury items")
             endif
             if pFormTypeToSort
-                Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(akActionRef, 23, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(akActionRef, pFormTypeToSort, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 int itemsLeft = FormsToSort.Length
                 int i = 0
                 while i < itemsLeft
