@@ -534,7 +534,7 @@ $$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$
                 potName = CurrentPotion.GetName()
                 debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
 
-                if     obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                if     obDestination02 && ;/        Drinks        /; !(pOverrideBLFoodMedeAndCo && !pOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && Find(CurrentPotionKeywords, "Stew") == -1 && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
                 
                 elseif obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(pOverrideBLFoodMeelz && !pOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
