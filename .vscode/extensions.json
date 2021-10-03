@@ -1,1 +1,11 @@
-{"recommendations":["bierner.markdown-preview-github-styles","rickvansloten.bbcode","plankton020.papyrus","redhat.vscode-yaml","joelday.papyrus-lang-vscode","redhat.vscode-xml","elypia.magick-image-reader","ms-vscode.hexeditor"]}
+{"recommendations":[
+        "bierner.markdown-preview-github-styles",
+        "rickvansloten.bbcode",
+        "plankton020.papyrus",
+        "redhat.vscode-yaml",
+        "joelday.papyrus-lang-vscode",
+        "redhat.vscode-xml",
+        "elypia.magick-image-reader",
+        "ms-vscode.hexeditor",
+        "exodiusstudios.comment-anchors"
+    ]}

@@ -1,1 +1,101 @@
-{"folders":[{"name":"Project Folder","path":"."},{"name":"SSE Data Folder","path":"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data"},{"name":"Scripts","path":"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\scripts"},{"name":"LOOT Masterlist","path":"C:\\Users\\zacha\\AppData\\Local\\LOOT\\Skyrim Special Edition"}],"settings":{"papyrus.skyrimSpecialEdition.enabled":true,"papyrus.fallout4.enabled":false,"papyrus.skyrim.enabled":false,"xml.symbols.enabled":true,"taskExplorer.exclude":["**/.vscode-test/**","**/bin/**","**/build/**","**/CompiledOutput/**","**/dist/**","**/doc/**","**/ext/**","**/out/**","**/output/**","**/packages/**","**/release/**","**/releases/**","**/samples/**","**/sdks/**","**/static/**","**/target/**","**/test/**","**/third_party/**","**/vendor/**","**/work/**","/c:/Users/zacha/Modding/Skyrim/AdditionalClockwork/.vscode/zip.bat"]}}
+{
+    "folders": [{
+            "name": "Project Folder",
+            "path": "."
+        },
+        {
+            "name": "SSE Data Folder",
+            "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data"
+        },
+        {
+            "name": "Scripts",
+            "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\scripts"
+        },
+        {
+            "name": "LOOT Masterlist",
+            "path": "C:\\Users\\zacha\\AppData\\Local\\LOOT\\Skyrim Special Edition"
+        }
+    ],
+    "settings": {
+        "commentAnchors.tags.list": [{
+                "highlightColor": "#A8C023",
+                "iconColor": "default",
+                "scope": "file",
+                "tag": "ANCHOR"
+            },
+            {
+                "highlightColor": "#3ea8ff",
+                "iconColor": "blue",
+                "scope": "workspace",
+                "tag": "TODO"
+            },
+            {
+                "highlightColor": "#F44336",
+                "iconColor": "red",
+                "scope": "workspace",
+                "tag": "FIXME"
+            },
+            {
+                "highlightColor": "#BA68C8",
+                "iconColor": "purple",
+                "scope": "file",
+                "tag": "STUB"
+            },
+            {
+                "highlightColor": "#FFB300",
+                "iconColor": "orange",
+                "scope": "file",
+                "tag": "NOTE"
+            },
+            {
+                "highlightColor": "#64DD17",
+                "iconColor": "green",
+                "scope": "workspace",
+                "tag": "REVIEW"
+            },
+            {
+                "behavior": "region",
+                "highlightColor": "#896afc",
+                "iconColor": "blurple",
+                "scope": "workspace",
+                "tag": "SECTION"
+            },
+            {
+                "behavior": "link",
+                "highlightColor": "#2ecc71",
+                "iconColor": "#2ecc71",
+                "scope": "workspace",
+                "tag": "LINK"
+            },
+            {
+                "behavior": "region",
+                "highlightColor": "#FF8F00",
+                "iconColor": "#FF8F00",
+                "scope": "file",
+                "tag": "PARAM"
+            },
+            {
+                "behavior": "region",
+                "highlightColor": "#85C1E9",
+                "iconColor": "#85C1E9",
+                "scope": "file",
+                "tag": "FUNCTION"
+            },
+            {
+                "behavior": "region",
+                "highlightColor": "#48C9B0",
+                "iconColor": "#48C9B0",
+                "scope": "file",
+                "tag": "EVENT"
+            }
+        ],
+        "papyrus.fallout4.enabled": false,
+        "papyrus.skyrim.enabled": false,
+        "papyrus.skyrimSpecialEdition.enabled": true,
+        "taskExplorer.exclude": [
+            "**/dist/**",
+            ".vscode/zip.bat"
+        ],
+        "xml.symbols.enabled": true
+    }
+}
