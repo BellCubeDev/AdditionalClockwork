@@ -67,6 +67,10 @@ Bringing a missing scripts folder to my attention
 
 Bringing a fatal crash caused by corrupted translation files to my attention
 
+### Nexus User [ReverendFelix](https://forums.nexusmods.com/index.php?/user/35558880-reverendfelix)
+
+Informing me of problems that arrise with XPMSE and Realistic Ragdolls and Force
+
 -----
 
 ## Assets
