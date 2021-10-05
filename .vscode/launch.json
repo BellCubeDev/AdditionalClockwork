@@ -1,1 +1,9 @@
-{"version":"0.2.0","configurations":[{"name":"Skyrim SE","type":"papyrus","request":"attach","game":"skyrimSpecialEdition"}]}
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "Skyrim SE",
+        "type": "papyrus",
+        "request": "attach",
+        "game": "skyrimSpecialEdition"
+    }]
+}

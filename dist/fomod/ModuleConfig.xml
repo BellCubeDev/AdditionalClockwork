@@ -1,30 +1,20 @@
 <!-- Created with FOMOD Creation Tool 1.7.0.37 [http://www.nexusmods.com/fallout4/mods/6821]
-            Yes, I'm aware that this is here, and I don't care.
-              - BellCube Dev
+												Yes, I'm aware that this is here, and I don't care.
+														- BellCube Dev
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
   <moduleName position="Left" colour="000000">Additional Clockwork</moduleName>
   <moduleImage path="fomod\images\AdditionalClockwork.png" showImage="true" showFade="true" height="-1"/>
+
   <installSteps order="Explicit">
+
     <installStep name="Additional Clockwork">
       <optionalFileGroups order="Explicit">
-        <group name="Description" type="SelectAll">
-          <plugins order="Explicit">
-            <plugin name="Description">
-              <description>Additional Clockwork is a suite of fully-voiced and lore-friendly Clockwork changes and tweaks intended to fit the origional feel of Clockwork. In addition, I've also made patches to acomadate changes made by other mods that, either intentionally or unintentionally, have an impact on Clockwork.</description>
-              <image path="fomod\images\AdditionalClockwork.png" />
-              <conditionFlags><flag name="haha_stop_throwing_errors_MO2">butter</flag></conditionFlags>
-              <typeDescriptor>
-                <type name="Required"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
+        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
         <group name="Perspective" type="SelectExactlyOne">
           <plugins order="Explicit">
             <plugin name="Second Person">
-              <description>All texts are phrased in Second Person, as they are by default in Skyrim.</description>
-              <image path="fomod\images\AdditionalClockwork.png" />
+              <description>All messages and texts are phrased in Second Person, as they are by default in Skyrim.</description>
               <conditionFlags>
                 <flag name="Perspective">2</flag>
               </conditionFlags>
@@ -33,7 +23,7 @@
               </typeDescriptor>
             </plugin>
             <plugin name="First Person">
-              <description>All messages and texts are phrased in the First Person perspective. Useful when you're using mods like Your Own Thoughts.</description>
+              <description>All messages and texts are phrased in First Person. Useful when you're using mods like Your Own Thoughts.</description>
               <image path="fomod\images\YOT.png"/>
               <conditionFlags>
                 <flag name="Perspective">1</flag>
@@ -44,12 +34,49 @@
             </plugin>
           </plugins>
         </group>
+        <group name="SKSE" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Enable SKSE Modules">
+              <description>Check this box to enable SKSE modules&#13;
+SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</description>
+              <image path="fomod/images/SKSE.jpg" />
+              <conditionFlags>
+                <flag name="Enable_SKSE">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <type name="Optional" />
+              </typeDescriptor>
+            </plugin>
+
+            <!-- No SKSE substitutions exist at this time-->
+            <!--plugin name="Enable SKSE Substitutions">
+              <description>If checked, modules with added/better functionallity with SKSE will be enabled</description>
+              <image path="fomod/images/SKSE.jpg" />
+              <conditionFlags>
+                <flag name="Enable_SKSE_Subs"></flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="NotUsable" />
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <flagDependency flag="Enable_SKSE" value="1" />
+                      </dependencies>
+                      <type name="Recommended" />
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin-->
+
+          </plugins>
+        </group>
         <group name="Reccomendations" type="SelectAny">
           <plugins order="Explicit">
             <plugin name="Author's Reccomendations">
               <description>Applies BellCube's recommendations to the installer. You still have to go through each step, but my personal preferences are already selected.&#13;
-
-(Does NOT include Integration, Patches, &amp; Consistency modules)</description>
+(Does NOT include Sorting or Integration, Patches, &amp; Consistency modules)</description>
               <image path="fomod\images\CubicBell-256.png"/>
               <conditionFlags>
                 <flag name="RecAuthor">1</flag>
@@ -62,32 +89,49 @@
         </group>
       </optionalFileGroups>
     </installStep>
+
     <installStep name="Just Clockwork">
       <optionalFileGroups order="Explicit">
-        <group name="Courier Counterspell" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Courier Counterspell">
-              <description>Uses a script to disable World Interaction events (aka Random Encounters) when at Clockwork Castle, which primarily fixes the courier issue. No more monomaniacal correspondence-wizard. Rain or shine, GET OFF MY LAWN!</description>
-              <image path="fomod\images\CourierCounterspell.png"/>
-              <conditionFlags>
-                <flag name="CourierCounterspell">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
+
+
+
+<!-- BEGIN Testing Modules -->
+
+
+          <group name="Bug Fixes" type="SelectAny">
+            <plugins order="Explicit">
+              <plugin name="Bug Fixes">
+                <description>Fixes a plethora of bugs. Some examples:&#13;
+  • Courier at the Castle&#13;
+  • Vampires can feed on Guilded&#13;
+  • A plethora of positioning fixes</description>
+                <image path="fomod\images\BugFixes.png"/>
+                <conditionFlags>
+                  <flag name="BugFixes">1</flag>
+                </conditionFlags>
+                <typeDescriptor>
+                  <dependencyType>
+                    <defaultType name="Optional" />
+                    <patterns>
+                      <pattern>
+                        <dependencies operator="And">
+                          <flagDependency flag="RecAuthor" value="1" />
+                        </dependencies>
+                        <type name="Recommended" />
+                      </pattern>
+                    </patterns>
+                  </dependencyType>
+                </typeDescriptor>
+              </plugin>
+            </plugins>
+          </group>
+
+
+
+<!-- END Testing Modules -->
+
+
+
         <group name="Marked Shadows" type="SelectAny">
           <plugins order="Explicit">
             <plugin name="Termini">
@@ -180,7 +224,7 @@
           <plugins order="Explicit">
             <plugin name="Script - Enabled Globally">
               <description>Adds a script for the player to search for a nearby axe in the worldspace (i.e. not in a container) if they don't have one in their inventory.&#13;
-
+&#13;
 This module applies the script to EVERY instance of the vanilla Wood Chopping Block (even ones added by mods).</description>
               <image path="fomod\images\WoodworkersWhimScript.png"/>
               <conditionFlags>
@@ -202,7 +246,7 @@ This module applies the script to EVERY instance of the vanilla Wood Chopping Bl
             </plugin>
             <plugin name="Script - Work Room Only">
               <description>Adds a script for the player to search for a nearby axe in the worldspace (i.e. not in a container) if they don't have one in their inventory.&#13;
-
+&#13;
 This module applies the script ONLY to the Wood Chopping Block in Clockwork Castle's Work Room.</description>
               <image path="fomod\images\WoodworkersWhimScript.png"/>
               <conditionFlags>
@@ -251,27 +295,7 @@ This module applies the script ONLY to the Wood Chopping Block in Clockwork Cast
           </plugins>
         </group>
         <group name="Minor Fixes and Changes" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Mausoleum Dummy Door Fix">
-              <description>When speaking with Lamashtu after returning the first time from Nurndural, a fake door is used instead of the real door. to stop you from leaving before the scene is completed. However, if you leave dialogue before Lamashtu finishes her last line, you can EASILY watch as the door pops out of existance... BECAUSE IT IS ONE WHOLE DOOR IN FRONT OF THE OTHER! With this installed, the door has no noticeable pop-out.</description>
-              <image path="fomod\images\SmallFixMausoleumDoor.png"/>
-              <conditionFlags>
-                <flag name="Small_DDoorFix">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
+          <plugins>
             <plugin name="Clockwork Title Remover">
               <description>Thanks to Foamimi for the idea!&#13;
 
@@ -288,12 +312,34 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
         </group>
       </optionalFileGroups>
     </installStep>
+    
+    <installStep name="SKSE">
+      <visible><flagDependency flag="Enable_SKSE" value="1" /></visible>
+      <optionalFileGroups order="Explicit">
+        <group name="Superior Sorting" type="SelectAny">
+          <plugins>
+            <plugin name="Superior Sorting">
+              <description>The very reason I created this project!&#13;
+Superior Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!&#13;
+With this module isntalled, checks are run on each relevant object to determine where it goes, even common books! All properly-designed modded items are sorted too! Doesn't matter what mod, they're sorted!</description>
+              <!--image path="" /-->
+              <conditionFlags><flag name="SKSE_SuperiorSorting">1</flag></conditionFlags>
+              <typeDescriptor><dependencyType>
+                <defaultType name="Optional" />
+                <patterns><pattern><dependencies><flagDependency flag="RecAuthor" value="1" /><flagDependency flag="Enable_SKSE" value="1" /></dependencies><type name="Recommended" /></pattern></patterns>
+              </dependencyType></typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
     <installStep name="Integration, Patches, &amp; Consistency">
       <optionalFileGroups order="Explicit">
         <group name="High Poly Project" type="SelectAny">
           <plugins order="Explicit">
-            <plugin name=" Extra Coals Fix">
-              <description>Uses High Poly Project's mesh for the Work Room's extra smelter coals. Because this mesh is used elsewhere (in the Velothi Mountain Tunnels and in Nurndural), the plugin also makes changes there.</description>
+            <plugin name="Extra Coals Mesh Fix">
+              <description>Uses High Poly Project's mesh for the Work Room's extra smelter coals. Because this mesh is used elsewhere (e.g. in Nurndural), the plugin also makes changes there.</description>
               <image path="fomod\images\HPP_CoalsFix.png"/>
               <conditionFlags>
                 <flag name="IPC_HPP_Coals">1</flag>
@@ -312,8 +358,8 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
                 </dependencyType>
               </typeDescriptor>
             </plugin>
-            <plugin name="Hay Z-Fight Fix">
-              <description>Fixes z-fighting that occurs in various points around the castle and in some Terminus locations by raising or lowering the hay piles' meshes.</description>
+            <plugin name="Hay Z-Fighting Fix">
+              <description>Fixes z-fighting that occurs in various points around the castle and in some Terminus locations by either raising or lowering each hay pile mesh.</description>
               <image path="fomod\images\HPP_HayFix.png"/>
               <conditionFlags>
                 <flag name="IPC_HPP_Hay">1</flag>
@@ -346,6 +392,7 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
         </group>
       </optionalFileGroups>
     </installStep>
+
     <installStep name="Sorting">
       <optionalFileGroups order="Explicit">
         <group name="Ingredients" type="SelectAny">
@@ -459,15 +506,34 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
         </group>
       </optionalFileGroups>
     </installStep>
+
+    <installStep name="Testing Modules">
+      <optionalFileGroups order="Explicit">
+        <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.&#13;
+&#13;
+That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">2</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+        <group name="Interesting Inhabitants" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Merged">
+              <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up. &#13;
+Now, Lahar has many hundreds of potential actions distributed across each room of the castle and a scheduled day, and Lamashtu can read books occasionally.
+&#13;
+https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
+              <image path="fomod\images\AdditionalClockwork.png"/>
+              <conditionFlags><flag name="InterestingInhabitants_Merged" />  </conditionFlags>
+              <typeDescriptor><type name="Optional" /></typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
   </installSteps>
+
   <conditionalFileInstalls>
     <patterns>
-      <pattern>
-        <dependencies operator="And"><fommDependency version="" /></dependencies>
-        <files>
-          <file source="meta.ini" destination="meta.ini" alwaysInstall="true" installIfUsable="false"/>
-        </files>
-      </pattern>
+
+      <!-- Woodworker's Whim plugins -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="WoodWhimMount" value="1"/>
@@ -494,13 +560,15 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <folder source="Modules\Normal\WoodworkersWhim\ScriptAndSource" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- Woodworker's Whim Perspectives -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="WoodWhimScriptLevel" value="2"/>
           <flagDependency flag="Perspective" value="1"/>
         </dependencies>
         <files>
-          <folder source="translations\englsish-1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -509,7 +577,7 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <flagDependency flag="Perspective" value="1"/>
         </dependencies>
         <files>
-          <folder source="translations\englsish-1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -518,7 +586,7 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <flagDependency flag="Perspective" value="2"/>
         </dependencies>
         <files>
-          <folder source="translations\englsish-1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-2p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -527,9 +595,11 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <flagDependency flag="Perspective" value="2"/>
         </dependencies>
         <files>
-          <folder source="translations\englsish-1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="translations\english-2p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- High Poly Project IP&C -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="IPC_HPP_Merged" value="1"/>
@@ -556,14 +626,18 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPHayFix.esp" destination="ClockworkHPPHayFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- Bug Fixes -->
       <pattern>
         <dependencies operator="And">
-          <flagDependency flag="CourierCounterspell" value="1"/>
+          <flagDependency flag="BugFixes" value="1"/>
         </dependencies>
         <files>
-          <folder source="Modules\Normal\CourierCounterspell" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="Modules\Normal\BugFixes" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- Marked Shadows -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="ShadowmarksTravelRoom" value="1"/>
@@ -604,6 +678,8 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <folder source="Modules\Normal\Shadowmarks\Scripts" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- Ingredient Sorting -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="Sorting_Ing_ccCurios" value="1"/>
@@ -628,12 +704,33 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
           <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
+
+      <!-- Food Sorting -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="Sorting_Food_CACO" value="1"/>
         </dependencies>
         <files>
           <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+
+      <!-- Superior Sorting SKSE -->
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="SKSE_SuperiorSorting" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+      <!-- Superior Sorting SKSE -->
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
     </patterns>
