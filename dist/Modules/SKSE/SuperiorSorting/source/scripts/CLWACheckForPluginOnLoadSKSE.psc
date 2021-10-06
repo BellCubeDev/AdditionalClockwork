@@ -12,7 +12,7 @@ String Property pPluginName Auto
 ObjectReference Property pRefToEnableDisable Auto
 {Optional ref to disable}
 Bool Property AllowDisableRef = True Auto
-{Allow the script to enable this ref?}
+{Allow the script to disable this ref?}
 Bool Property AllowEnableRef = True Auto
 {Allow the script to enable this ref?}
 Bool Property bIsModPresent Auto Hidden Conditional
@@ -25,7 +25,7 @@ endevent
 Event OnUpdate()
     ; This event is only called once by the script itself,
     ; though other scripts _can_ cause an update.
-    ; It is thus not adviseable to attach this to a script that registers updates
+    ; It is thus not adviseable to attach alongside a script that registers updates
     int targetPluginIndex = Game.GetModByName(pPluginName)
     if targetPluginIndex > 0 && targetPluginIndex < 255 ; then the mod IS present
         bIsModPresent = True

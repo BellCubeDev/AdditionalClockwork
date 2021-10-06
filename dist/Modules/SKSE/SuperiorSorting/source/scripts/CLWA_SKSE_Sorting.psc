@@ -312,7 +312,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     {Sorts books alphabetically (merging W/X and Y/Z)
     NOT intended for languages using a non-English alphabet}
     int i = 0
-    Int j = 0
+    Int j
     String ItemName
     Book CurrentBook
     String FirstChar
@@ -342,86 +342,105 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
             j = 0 
             FirstChar = None as String
             CurrentChar = None as String
+            Int NextChar
             While j < ItemNameLength && FirstChar == None as String
-                CurrentChar = GetNthChar(ItemName, j)
+                CurrentChar = GetNthChar(ItemName, j) ; Store the current character to prevent spamming the same function over and over again
                 if isLetter(CurrentChar)
                     debug.trace("Current letter: "+CurrentChar)
-                    if (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
+                    if ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
                         j+=2
                     else
                         FirstChar = CurrentChar
                     endif
                 elseif IsDigit(CurrentChar)
                     debug.trace("Current Digit: "+CurrentChar)
-                    if CurrentChar == "1"
-                        FirstChar = "o"
-                    elseif CurrentChar == "2" || CurrentChar == "3"
-                        FirstChar = "t"
+                    if CurrentChar == "2" || CurrentChar == "3"
+                        FirstChar = "T"
+                    elseif CurrentChar == "1"
+                        ; English is MEAN!
+                        ; Checks for numbers 10-19
+                        FirstChar = "O"
+                        if !isDigit(GetNthChar(ItemName, j+2))
+                            NextChar = GetNthChar(ItemName, j+1) as Int
+                            if NextChar == 1 || NextChar == 8
+                                FirstChar = "E"
+                            elseif NextChar == 2 || NextChar == 0
+                                FirstChar = "T"
+                                ; Top 10 Reasons to Hate English
+                            elseif NextChar == 4 || NextChar == 5
+                                FirstChar = "F"
+                            elseif NextChar == 6 || NextChar == 7
+                                FirstChar = "S"
+                            elseif NextChar == 9
+                                FirstChar = "N"
+                            endif
+                        endif
                     elseif CurrentChar == "4"|| CurrentChar == "5"
-                        FirstChar = "f"
+                        FirstChar = "F"
                     elseif CurrentChar == "6" || CurrentChar == "7"
-                        FirstChar = "s"
+                        FirstChar = "S"
                     elseif CurrentChar == "8"
-                        FirstChar = "e"
+                        FirstChar = "E"
                     elseif CurrentChar == "9"
-                        FirstChar = "n"
+                        FirstChar = "N"
                     elseif CurrentChar == "0"
-                        FirstChar = "z"
+                        FirstChar = "Z"
                     endif
+
                 endif
                 j += 1
             endwhile
             if FirstChar != None as String
                 debug.trace("First character: " + FirstChar)
                 ; This is a BIG if statement
-                if obDestination01 && (FirstChar == "a" || FirstChar == "A")
+                if obDestination01 && (FirstChar == "A" || FirstChar == "a")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination01)
-                elseif obDestination02 && (FirstChar == "b" || FirstChar == "B")
+                elseif obDestination02 && (FirstChar == "B" || FirstChar == "b")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination02)
-                elseif obDestination03 && (FirstChar == "c" || FirstChar == "C")
+                elseif obDestination03 && (FirstChar == "C" || FirstChar == "c")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination03)
-                elseif obDestination04 && (FirstChar == "d" || FirstChar == "D")
+                elseif obDestination04 && (FirstChar == "D" || FirstChar == "d")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination04)
-                elseif obDestination05 && (FirstChar == "e" || FirstChar == "E")
+                elseif obDestination05 && (FirstChar == "E" || FirstChar == "e")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination05)
-                elseif obDestination06 && (FirstChar == "f" || FirstChar == "F")
+                elseif obDestination06 && (FirstChar == "F" || FirstChar == "f")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination06)
-                elseif obDestination07 && (FirstChar == "g" || FirstChar == "G")
+                elseif obDestination07 && (FirstChar == "G" || FirstChar == "g")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination07)
-                elseif obDestination08 && (FirstChar == "h" || FirstChar == "H")
+                elseif obDestination08 && (FirstChar == "H" || FirstChar == "h")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination08)
-                elseif obDestination09 && (FirstChar == "i" || FirstChar == "I")
+                elseif obDestination09 && (FirstChar == "I" || FirstChar == "i")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination09)
-                elseif obDestination10 && (FirstChar == "j" || FirstChar == "J")
+                elseif obDestination10 && (FirstChar == "J" || FirstChar == "j")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination10)
-                elseif obDestination11 && (FirstChar == "k" || FirstChar == "K")
+                elseif obDestination11 && (FirstChar == "K" || FirstChar == "k")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination11)
-                elseif obDestination12 && (FirstChar == "l" || FirstChar == "L")
+                elseif obDestination12 && (FirstChar == "L" || FirstChar == "l")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination12)
-                elseif obDestination13 && (FirstChar == "m" || FirstChar == "M")
+                elseif obDestination13 && (FirstChar == "M" || FirstChar == "m")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination13)
-                elseif obDestination14 && (FirstChar == "n" || FirstChar == "N")
+                elseif obDestination14 && (FirstChar == "N" || FirstChar == "n")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination14)
-                elseif obDestination15 && (FirstChar == "o" || FirstChar == "O")
+                elseif obDestination15 && (FirstChar == "O" || FirstChar == "o")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination15)
-                elseif obDestination16 && (FirstChar == "p" || FirstChar == "P")
+                elseif obDestination16 && (FirstChar == "P" || FirstChar == "p")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination16)
-                elseif obDestination17 && (FirstChar == "q" || FirstChar == "Q")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination17)
-                elseif obDestination18 && (FirstChar == "r" || FirstChar == "R")
+                elseif obDestination18 && (FirstChar == "R" || FirstChar == "r")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination18)
-                elseif obDestination19 && (FirstChar == "s" || FirstChar == "S")
+                elseif obDestination19 && (FirstChar == "S" || FirstChar == "s")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination19)
-                elseif obDestination20 && (FirstChar == "t" || FirstChar == "T")
+                elseif obDestination20 && (FirstChar == "T" || FirstChar == "t")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination20)
-                elseif obDestination21 && (FirstChar == "u" || FirstChar == "U")
+                elseif obDestination21 && (FirstChar == "U" || FirstChar == "u")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination21)
-                elseif obDestination22 && (FirstChar == "v" || FirstChar == "V")
+                elseif obDestination22 && (FirstChar == "V" || FirstChar == "v")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination22)
-                elseif obDestination23 && (FirstChar == "w" || FirstChar == "W" || FirstChar == "x" || FirstChar == "X")
+                elseif obDestination23 && (FirstChar == "W" || FirstChar == "w" || FirstChar == "X" || FirstChar == "x")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination23)
-                elseif obDestination24 && (FirstChar == "y" || FirstChar == "Y" || FirstChar == "y" || FirstChar == "Y")
+                elseif obDestination24 && (FirstChar == "Y" || FirstChar == "y" || FirstChar == "Y" || FirstChar == "y")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination24)
+                elseif obDestination17 && (FirstChar == "Q" || FirstChar == "q")
+                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination17)
                 endif
             endif
         endif
