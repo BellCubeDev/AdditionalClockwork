@@ -450,9 +450,15 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
   endfunction ; DONE !FUNCTION
 
   ; FUNCTION SortForPotions
-   Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None) Global
+   Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flCLWASortingPLStudyPotions = None, FormList flCLWASortingPLStudyPoisons = None, FormList flCLWASortingBLStudyPotions = None, FormList flCLWASortingBLStudyPoisons = None) Global
     {Sorts potions and poisons into two seperate containers}
     
+    if obDestination01 && flCLWASortingPLStudyPotions
+        obSortRef.RemoveItem(flCLWASortingPLStudyPotions, 999999, false, obDestination01)
+    endif
+    if obDestination02 && flCLWASortingPLStudyPoisons
+        obSortRef.RemoveItem(flCLWASortingPLStudyPoisons, 999999, false, obDestination02)
+    endif
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
@@ -460,10 +466,12 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
         if !CurrentPotion.IsFood()
-            if obDestination02 && (CurrentPotion.IsPoison() || CurrentPotion.IsHostile())
+            if (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!flCLWASortingBLStudyPoisons || flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))
                 debug.trace(CurrentPotion+" (#"+i+") is a poison")
-                obSortRef.RemoveItem(CurrentPotion as Potion, 9999, true, obDestination02)
-            elseif obDestination01
+                if obDestination02
+                    obSortRef.RemoveItem(CurrentPotion as Potion, 9999, true, obDestination02)
+                endif
+            elseif obDestination01 && (!flCLWASortingBLStudyPotions || flCLWASortingBLStudyPotions.HasForm(CurrentPotion))
                 debug.trace(CurrentPotion+" (#"+i+") is not a poison")
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
             endif
@@ -625,6 +633,17 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     
     Int itemsLeft
     int i
+
+    if obDestination01
+        Form[] ArrowsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 42, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+        itemsLeft = ArrowsToSort.Length
+        i = 0
+        while i < itemsLeft
+            obSortRef.RemoveItem(ArrowsToSort[i], 9999999, true, obDestination01)
+            i += 1
+        endwhile
+    endif
+
     if obDestination06 || obDestination07 || obDestination08 || obDestination09
         Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = WeaponsToSort.Length
@@ -667,16 +686,6 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
             elseif obDestination05 && curArmor.HasKeyword(kArmorClothing)
                 obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination05)
             endif
-            i += 1
-        endwhile
-    endif
-
-    if obDestination01
-        Form[] ArrowsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 42, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-        itemsLeft = ArrowsToSort.Length
-        i = 0
-        while i < itemsLeft
-            obSortRef.RemoveItem(ArrowsToSort[i], 9999999, true, obDestination01)
             i += 1
         endwhile
     endif
