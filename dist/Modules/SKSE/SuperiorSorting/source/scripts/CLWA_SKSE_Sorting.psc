@@ -554,6 +554,18 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     Raw Meats
     Fruits and Vegetables
     Prepared Food}
+    Int itemsLeft
+    int i = 0
+
+    if obDestination06
+        Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+        itemsLeft = IngsToSort.Length
+        while i < itemsLeft
+            obSortRef.RemoveItem(IngsToSort[i], 9999999, true, obDestination06)
+            i += 1
+        endwhile
+    endif
+
     if obDestination02 && flOverridePLFoodMedeAndCo
         obSortRef.RemoveItem(flOverridePLFoodMedeAndCo, 999999, true, obDestination02)
     endif
@@ -570,18 +582,6 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         obSortRef.RemoveItem(flOverridePLFoodMeelz, 999999, true, obDestination05)
     endif
     
-    Int itemsLeft
-    int i = 0
-
-    if obDestination06
-        Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
-        itemsLeft = IngsToSort.Length
-        while i < itemsLeft
-            obSortRef.RemoveItem(IngsToSort[i], 9999999, true, obDestination06)
-            i += 1
-        endwhile
-    endif
-
     if obDestination01 || obDestination02 || obDestination03 || obDestination04 || obDestination05
         Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = FoodToSort.Length
@@ -628,7 +628,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
   endfunction ; DONE !FUNCTION
 
   ; FUNCTION SortForArmoury
-   Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorJewelry, Keyword kArmorClothing, Keyword kWeapItemStaff, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, FormList flOverrideBLArmouryArmourLight = None, FormList flOverrideBLArmouryArmourHeavy = None, FormList flOverrideBLArmouryArmourClothes = None, FormList flOverrideBLArmouryArmourJewelry = None, FormList flOverrideBLArmouryWeap1H = None, FormList flOverrideBLArmouryWeap2H = None, FormList flOverrideBLArmouryWeapStaves = None, FormList flOverridePLArmouryArmourLight = None, FormList flOverridePLArmouryArmourHeavy = None, FormList flOverridePLArmouryArmourClothes = None, FormList flOverridePLArmouryArmourJewelry = None, FormList flOverridePLArmouryWeap1H = None, FormList flOverridePLArmouryWeap2H = None, FormList flOverridePLArmouryWeapStaves = None, FormList flOverridePLArmouryAmmo = None, FormList flOverridePLArmouryWeapRanged = None) Global
+   Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorJewelry, Keyword kArmorClothing, Keyword kWeapTypeStaff, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, FormList flOverrideBLArmouryArmourLight = None, FormList flOverrideBLArmouryArmourHeavy = None, FormList flOverrideBLArmouryArmourClothes = None, FormList flOverrideBLArmouryArmourJewelry = None, FormList flOverrideBLArmouryWeapons1H = None, FormList flOverrideBLArmouryWeapons2H = None, FormList flOverrideBLArmouryWeapStaves = None, FormList flOverridePLArmouryArmourLight = None, FormList flOverridePLArmouryArmourHeavy = None, FormList flOverridePLArmouryArmourClothes = None, FormList flOverridePLArmouryArmourJewelry = None, FormList flOverridePLArmouryWeapons1H = None, FormList flOverridePLArmouryWeapons2H = None, FormList flOverridePLArmouryWeapStaves = None, FormList flOverridePLArmouryAmmo = None, FormList flOverridePLArmouryWeapRanged = None) Global
     {Sorts armor and weapons into specific containers}
     
     Int itemsLeft
@@ -660,7 +660,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
                 obSortRef.RemoveItem(curWeap, 999999, true, obDestination07)
             elseif obDestination08 && ;/  Ranged  /; curWeapSkill == "Marksman"
                 obSortRef.RemoveItem(curWeap, 999999, true, obDestination08)
-            elseif obDestination09 && ;/  Staves  /; (curWeap.HasKeyword(kWeapItemStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
+            elseif obDestination09 && ;/  Staves  /; (curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
                 obSortRef.RemoveItem(curWeap, 999999, true, obDestination09)
             endif
             i += 1
@@ -773,7 +773,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     endwhile
   endfunction ; DONE !FUNCTION
   ; FUNCTION SortForDestArmoury
-   Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorClothing, Keyword kArmorJewelry, Keyword kWeapItemStaff, ObjectReference obDestination01, FormList flCLWASortingPLArmouryAmmo = None, FormList flCLWASortingPLArmouryArmourLight = None, FormList flCLWASortingPLArmouryArmourHeavy = None, FormList flCLWASortingPLArmouryArmourClothes = None, FormList flCLWASortingPLArmouryArmourJewelry = None, FormList flCLWASortingPLArmouryWeapons1H = None, FormList flCLWASortingPLArmouryWeapons2H = None, FormList flCLWASortingPLArmouryWeaponsRanged = None, FormList flCLWASortingPLArmouryWeaponsStaves = None, FormList flCLWASortingBLArmouryAmmo = None, FormList flCLWASortingBLArmouryArmourLight = None, FormList flCLWASortingBLArmouryArmourHeavy = None, FormList flCLWASortingBLArmouryArmourClothes = None, FormList flCLWASortingBLArmouryArmourJewelry = None, FormList flCLWASortingBLArmouryWeapons1H = None, FormList flCLWASortingBLArmouryWeapons2H = None, FormList flCLWASortingBLArmouryWeaponsRanged = None, FormList flCLWASortingBLArmouryWeaponsStaves = None) Global
+   Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorClothing, Keyword kArmorJewelry, Keyword kWeapTypeStaff, ObjectReference obDestination01, FormList flCLWASortingPLArmouryAmmo = None, FormList flCLWASortingPLArmouryArmourLight = None, FormList flCLWASortingPLArmouryArmourHeavy = None, FormList flCLWASortingPLArmouryArmourClothes = None, FormList flCLWASortingPLArmouryArmourJewelry = None, FormList flCLWASortingPLArmouryWeapons1H = None, FormList flCLWASortingPLArmouryWeapons2H = None, FormList flCLWASortingPLArmouryWeaponsRanged = None, FormList flCLWASortingPLArmouryWeaponsStaves = None, FormList flCLWASortingBLArmouryAmmo = None, FormList flCLWASortingBLArmouryArmourLight = None, FormList flCLWASortingBLArmouryArmourHeavy = None, FormList flCLWASortingBLArmouryArmourClothes = None, FormList flCLWASortingBLArmouryArmourJewelry = None, FormList flCLWASortingBLArmouryWeapons1H = None, FormList flCLWASortingBLArmouryWeapons2H = None, FormList flCLWASortingBLArmouryWeaponsRanged = None, FormList flCLWASortingBLArmouryWeaponsStaves = None) Global
     obSortRef.RemoveItem(flCLWASortingPLArmouryAmmo, 999999, true, obDestination01)
     obSortRef.RemoveItem(flCLWASortingPLArmouryArmourLight, 999999, true, obDestination01)
     obSortRef.RemoveItem(flCLWASortingPLArmouryArmourHeavy, 999999, true, obDestination01)
@@ -804,7 +804,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     while i < itemsLeft
         curWeap = WeaponsToSort[i] as Weapon
         curWeapSkill = curWeap.GetSkill()
-        if ;/  Staves  /;((curWeap.HasKeyword(kWeapItemStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!flCLWASortingBLArmouryWeaponsStaves || flCLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
+        if ;/  Staves  /;((curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!flCLWASortingBLArmouryWeaponsStaves || flCLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
               1-Handed /; (curWeapSkill == "OneHanded" && (!flCLWASortingBLArmouryWeapons1H || flCLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
               2-Handed /; (curWeapSkill == "TwoHanded" && (!flCLWASortingBLArmouryWeapons2H || flCLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
                Ranged  /; (curWeapSkill == "Marksman" && (!flCLWASortingBLArmouryWeaponsRanged || flCLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
@@ -940,12 +940,12 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
              endif
              if xDestinationKitchen
                  Debug.Trace("Begin sorting food")
-                 SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
+                 SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingPLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodRawMeat, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings)
                  Debug.Trace("Finished sorting food")
              endif
              if xDestinationArmoury
                  Debug.Trace("Begin sorting Armoury items")
-                 SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingPLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodRawMeat, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings)
+                 SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, ArmorClothing, ArmorJewelry, WeapTypeStaff, zDestination01, CLWASortingPLArmouryAmmo, CLWASortingPLArmouryArmourLight, CLWASortingPLArmouryArmourHeavy, CLWASortingPLArmouryArmourClothes, CLWASortingPLArmouryArmourJewelry, CLWASortingPLArmouryWeapons1H, CLWASortingPLArmouryWeapons2H, CLWASortingPLArmouryWeaponsRanged, CLWASortingPLArmouryWeaponsStaves, CLWASortingBLArmouryAmmo, CLWASortingBLArmouryArmourLight, CLWASortingBLArmouryArmourHeavy, CLWASortingBLArmouryArmourClothes, CLWASortingBLArmouryArmourJewelry, CLWASortingBLArmouryWeapons1H, CLWASortingBLArmouryWeapons2H, CLWASortingBLArmouryWeaponsRanged, CLWASortingBLArmouryWeaponsStaves)
                  Debug.Trace("Finished sorting Armoury items")
              endif
 
@@ -957,17 +957,17 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
              endif
              if SortPotions
                 Debug.Trace("Begin sorting potions")
-                SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02)
+                SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, CLWASortingPLStudyPotions, CLWASortingPLStudyPoisons, CLWASortingBLStudyPotions, CLWASortingBLStudyPoisons)
                 Debug.Trace("Finished sorting potions")
              endif
              if sortFood
                 Debug.Trace("Begin sorting food")
-                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, CLWAItemPotionUse, VendorItemFoodRaw, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06)
+                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, CLWAItemPotionUse, VendorItemFoodRaw, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodCheeseSeasonings, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodRawMeat)
                 Debug.Trace("Finished sorting food")
              endif
              if sortWorkRoom
                 Debug.Trace("Begin sorting smithing materials")
-                SortForWorkRoom(akActioNRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemOreIngot, VendorItemClutter, VendorItemIngredient, VendorItemFireword, VendorItemGem, VendorItemAnimalHide, BYOHHouseCraftingCategorySmithing, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomGems)
+                SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemOreIngot, VendorItemClutter, VendorItemIngredient, VendorItemFireword, VendorItemGem, VendorItemAnimalHide, BYOHHouseCraftingCategorySmithing, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomGems)
                 Debug.Trace("Finished sorting smithing materials")
              endif
              if sortArmoury
@@ -1243,6 +1243,8 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  FormList Property CLWASortingBLWorkRoomHides  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomMisc  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryAmmo  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryArmourLight  Auto
  {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
