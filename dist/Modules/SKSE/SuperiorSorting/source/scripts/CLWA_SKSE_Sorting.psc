@@ -1221,49 +1221,49 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  \_______/ \__| \_______| \_______|\__|  \__|\__|\__|\_______/    \____/ \_______/; 
 ; PARAM Blacklists
  FormList Property CLWASortingBLFoodCheeseSeasonings  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLFoodRawMeat  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.} 
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.} 
  FormList Property CLWASortingBLFoodFruitsNVeggies  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLFoodMedeAndCo  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLFoodMeelz  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLStudyPotions  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLStudyPoisons  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomIngots  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomOres  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomGems  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomHides  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLWorkRoomMisc  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryAmmo  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryArmourLight  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryArmourHeavy  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryArmourClothes  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryArmourJewelry  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryWeapons1H  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryWeapons2H  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryWeaponsRanged  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property CLWASortingBLArmouryWeaponsStaves  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
  FormList Property pOverrideBLFormType  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
  This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
 ; !PARAM
 
