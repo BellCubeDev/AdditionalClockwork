@@ -35,4 +35,3 @@ There are three main ways you can contribute:
 
 ## A Flowchart I Made Because I Could
 ![Making an SSE mod with GitHub process flowchart](https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/Creating_SSE_Mod_w-GitHub.svg)
-
