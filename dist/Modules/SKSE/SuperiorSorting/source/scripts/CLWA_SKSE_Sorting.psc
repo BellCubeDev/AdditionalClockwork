@@ -282,11 +282,22 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
 \$$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$$  |
  \__|       \______/ \__|  \__| \_______|   \____/ \__| \______/ \__|  \__|\_______/;
 ; SECTION Sorting Fucntions
+ 
+ ; FUNCTION ResetPassedLists
+  Function ResetPassedLists() Global
+    Debug.Trace("Resetting Superior Sorting's Passed Lists. Sorting will likely take longer than usual next time.")
+     ; TODO Impliment function
+     
+     ; Basic Draft:
+     ; While i < length
+     ;   lists[i].Revert
+     ; endwhile
+ endfunction; !FUNCTION
  ; FUNCTION SortByFormType
-  Function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flOverridePLFormType = None, FormList flOverrideBLFormType = None)
-    obSortRef.RemoveItem(flOverridePLFormType, 999999, true, zDestination02) ; Remove whitelisted items and place them into Container 2
+  Function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Int iFormTypeToSort, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flOverridePLFormType = None, FormList flOverrideBLFormType = None) Global
+    obSortRef.RemoveItem(flOverridePLFormType, 999999, true, obDestination02) ; Remove whitelisted items and place them into Container 2
 
-    Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, pFormTypeToSort, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+    Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, iFormTypeToSort, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     int itemsLeft = FormsToSort.Length
     int i = 0
     if flOverrideBLFormType
@@ -294,13 +305,13 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         while i < itemsLeft
             curForm = FormsToSort[i]
             if !flOverrideBLFormType.HasForm(curForm)
-                obSortRef.RemoveItem(curForm, 999999, true, zDestination01)
+                obSortRef.RemoveItem(curForm, 999999, true, obDestination01)
             endif
             i += 1
         endwhile
     else
         while i < itemsLeft
-            obSortRef.RemoveItem(FormsToSort[i], 999999, true, zDestination01)
+            obSortRef.RemoveItem(FormsToSort[i], 999999, true, obDestination01)
             i += 1
         endwhile
     endif
@@ -905,7 +916,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
 \$$$$$$  |$$ |  $$ |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |   \$  /   \$$$$$$$ |  \$$$$  |\$$$$$$$\  \$$$\ $$$  / 
  \______/ \__|  \__|\__|  \__| \_______|   \____/ \__|    \_/     \_______|   \____/  \_______|  \___|\___/;
 ; EVENT On Activate
- Event OnActivate(ObjectReference akActionRef)    
+ Event OnActivate(ObjectReference akActionRef)
     Debug.Trace("Started sorting using SKSE")
     if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
 
@@ -925,7 +936,6 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
         if aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check if a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
             CLWNoSteamPower01Msg.Show()
         else ; SECTION Sort Functions
-
             ; Sorting for the sort buttons
             ; NOTE Destinations
              if xDestinationStudy
@@ -977,7 +987,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
              endif
 
             if pFormTypeToSort ; NOTE Form Type
-                SortByFormType(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, pOverridePLFormType, pOverrideBLFormType)
+                SortByFormType(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, pFormTypeToSort, zDestination01, zDestination02, pOverridePLFormType, pOverrideBLFormType)
             endif
             ; !SECTION
 
@@ -1266,5 +1276,3 @@ $$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |  
  {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
  This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
 ; !PARAM
-
-
