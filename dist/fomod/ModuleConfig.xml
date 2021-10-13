@@ -321,12 +321,17 @@ Removes the floating Clockwork text above Clockwork Castle when you first enter 
             <plugin name="Superior Sorting">
               <description>The very reason I created this project!&#13;
 Superior Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!&#13;
-With this module isntalled, checks are run on each relevant object to determine where it goes, even common books! All properly-designed modded items are sorted too! Doesn't matter what mod, they're sorted!</description>
-              <!--image path="" /-->
+With this module isntalled, checks are run on each relevant object to determine where they go—even common books! All properly-designed modded items are sorted too! Doesn't matter what mod, they're sorted!</description>
+              <image path="fomod\images\SuperiorSorting.png" />
               <conditionFlags><flag name="SKSE_SuperiorSorting">1</flag></conditionFlags>
               <typeDescriptor><dependencyType>
                 <defaultType name="Optional" />
-                <patterns><pattern><dependencies><flagDependency flag="RecAuthor" value="1" /><flagDependency flag="Enable_SKSE" value="1" /></dependencies><type name="Recommended" /></pattern></patterns>
+                <patterns><pattern><dependencies>
+                  <flagDependency flag="RecAuthor" value="1" />
+                  <flagDependency flag="Enable_SKSE" value="1" />
+                </dependencies>
+                <type name="Recommended" />
+              </pattern></patterns>
               </dependencyType></typeDescriptor>
             </plugin>
           </plugins>
