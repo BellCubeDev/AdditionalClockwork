@@ -2,6 +2,10 @@
 												Yes, I'm aware that this is here, and I don't care.
 														- BellCube Dev
 -->
+
+<!-- FIXME WoodWhim Translation Files -->
+<!-- FIXME Bug Fixes Infinite Load-->
+
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
   <moduleName position="Left" colour="000000">Additional Clockwork</moduleName>
   <moduleImage path="fomod\images\AdditionalClockwork.png" showImage="true" showFade="true" height="-1"/>
@@ -102,8 +106,8 @@ SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</descri
             <plugins order="Explicit">
               <plugin name="Bug Fixes">
                 <description>Fixes a plethora of bugs. Some examples:&#13;
-  • Courier at the Castle&#13;
-  • Vampires can feed on Guilded&#13;
+  • Courier and Rain at the Castle&#13;
+  • Vampires can feed on Gilded&#13;
   • A plethora of positioning fixes</description>
                 <image path="fomod\images\BugFixes.png"/>
                 <conditionFlags>
@@ -330,8 +334,7 @@ With this module isntalled, checks are run on each relevant object to determine 
                   <flagDependency flag="RecAuthor" value="1" />
                   <flagDependency flag="Enable_SKSE" value="1" />
                 </dependencies>
-                <type name="Recommended" />
-              </pattern></patterns>
+                <type name="Recommended" /></pattern></patterns>
               </dependencyType></typeDescriptor>
             </plugin>
           </plugins>
