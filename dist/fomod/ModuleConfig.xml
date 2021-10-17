@@ -3,9 +3,6 @@
 														- BellCube Dev
 -->
 
-<!-- FIXME WoodWhim Translation Files -->
-<!-- FIXME Bug Fixes Infinite Load-->
-
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
   <moduleName position="Left" colour="000000">Additional Clockwork</moduleName>
   <moduleImage path="fomod\images\AdditionalClockwork.png" showImage="true" showFade="true" height="-1"/>
@@ -14,11 +11,12 @@
 
     <installStep name="Additional Clockwork">
       <optionalFileGroups order="Explicit">
-        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="SKSE_SuperiorSorting">0</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><image path="fomod\images\AdditionalClockwork.png" /><conditionFlags><flag name="SKSE_SuperiorSorting">0</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
         <group name="Perspective" type="SelectExactlyOne">
           <plugins order="Explicit">
             <plugin name="Second Person">
               <description>All messages and texts are phrased in Second Person, as they are by default in Skyrim.</description>
+              <image path="fomod\images\AdditionalClockwork.png" />
               <conditionFlags>
                 <flag name="Perspective">2</flag>
               </conditionFlags>
@@ -31,6 +29,30 @@
               <image path="fomod\images\YOT.png"/>
               <conditionFlags>
                 <flag name="Perspective">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <type name="Optional"/>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+        <group name="Upgrading?" type="SelectExactlyOne">
+          <plugins order="Explicit">
+            <plugin name="Never Used on This Playthrough">
+              <description>Select this option if you're not upgrading mid-playthrough</description>
+              <image path="fomod\images\AdditionalClockwork.png" />
+              <conditionFlags>
+                <flag name="Upgrading">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <type name="Optional"/>
+              </typeDescriptor>
+            </plugin>
+            <plugin name="I'm Upgrading">
+              <description>Select this option if you are upgrading from a previous version of this mod to enable bakcwards compatibility.</description>
+              <image path="fomod\images\AdditionalClockwork.png" />
+              <conditionFlags>
+                <flag name="Upgrading">0</flag>
               </conditionFlags>
               <typeDescriptor>
                 <type name="Optional"/>
@@ -649,6 +671,15 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
         </dependencies>
         <files>
           <folder source="Modules\Normal\BugFixes" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+      <pattern> <!-- Backwards Compatibility -->
+        <dependencies operator="And">
+          <flagDependency flag="BugFixes" value="1"/>
+          <flagDependency flag="Upgrading" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="Modules\BackCompat\CourierCounterspell" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
 
