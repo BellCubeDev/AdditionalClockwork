@@ -14,7 +14,7 @@
 
     <installStep name="Additional Clockwork">
       <optionalFileGroups order="Explicit">
-        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><conditionFlags><flag name="SKSE_SuperiorSorting">0</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
         <group name="Perspective" type="SelectExactlyOne">
           <plugins order="Explicit">
             <plugin name="Second Person">
@@ -401,7 +401,34 @@ With this module isntalled, checks are run on each relevant object to determine 
       </optionalFileGroups>
     </installStep>
 
-    <installStep name="Sorting">
+    <!-- Present to make developing patches super easy-->
+    <!--installStep name="Superior Sorting Patches">
+      <visible><flagDependency flag="SKSE_SuperiorSorting" value="1" /></visible>
+      <optionalFileGroups order="Explicit">
+        <group name="Patches" type="SelectAny">
+          <plugins>
+            <plugin name="">
+              <description></description>
+              <image path="" />
+              <files></files>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional" />
+                  <patterns>
+                    <pattern><dependencies>
+                      <fileDependency file="" state="Active" />
+                    </dependencies></pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep-->
+
+    <installStep name="Sorting Patches">
+      <visible><flagDependency flag="SKSE_SuperiorSorting" value="0" /></visible>
       <optionalFileGroups order="Explicit">
         <group name="Ingredients" type="SelectAny">
           <plugins order="Explicit">
@@ -519,7 +546,7 @@ With this module isntalled, checks are run on each relevant object to determine 
       <optionalFileGroups order="Explicit">
         <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.&#13;
 &#13;
-That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">2</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
         <group name="Interesting Inhabitants" type="SelectAny">
           <plugins order="Explicit">
             <plugin name="Merged">
