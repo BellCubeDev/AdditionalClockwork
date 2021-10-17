@@ -528,7 +528,7 @@ Now, Lahar has many hundreds of potential actions distributed across each room o
 &#13;
 https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
               <image path="fomod\images\AdditionalClockwork.png"/>
-              <conditionFlags><flag name="InterestingInhabitants_Merged" />  </conditionFlags>
+              <conditionFlags><flag name="InterestingInhabitants_Merged">1</flag></conditionFlags>
               <typeDescriptor><type name="Optional" /></typeDescriptor>
             </plugin>
           </plugins>
@@ -541,13 +541,31 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
   <conditionalFileInstalls>
     <patterns>
 
+      <!-- Translations -->
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="Perspective" value="1"/>
+        </dependencies>
+        <files>
+          <folder source="translations\first-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+      <pattern>
+        <dependencies operator="And">
+          <flagDependency flag="Perspective" value="2"/>
+        </dependencies>
+        <files>
+          <folder source="translations\second-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+        </files>
+      </pattern>
+
       <!-- Woodworker's Whim plugins -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="WoodWhimMount" value="1"/>
         </dependencies>
         <files>
-          <file source="Modules\Normal\WoodworkersWhim\ClockworkWoodWhimWWMount.esp" destination="ClockworkWoodWhimWWMount.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+          <folder source="Modules\Normal\WoodworkersWhim\WorkRoomMount" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
       <pattern>
@@ -566,44 +584,6 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
         <files>
           <folder source="Modules\Normal\WoodworkersWhim\Global" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
           <folder source="Modules\Normal\WoodworkersWhim\ScriptAndSource" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-
-      <!-- Woodworker's Whim Perspectives -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="2"/>
-          <flagDependency flag="Perspective" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="translations\english-1p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="1"/>
-          <flagDependency flag="Perspective" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="translations\english-1p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="2"/>
-          <flagDependency flag="Perspective" value="2"/>
-        </dependencies>
-        <files>
-          <folder source="translations\english-2p\WoodWhimGlobal" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="1"/>
-          <flagDependency flag="Perspective" value="2"/>
-        </dependencies>
-        <files>
-          <folder source="translations\english-2p\WoodWhimWW" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
 
@@ -732,7 +712,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
           <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
         </files>
       </pattern>
-      <!-- Superior Sorting SKSE -->
+      <!-- Interesting Inhabitants -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
