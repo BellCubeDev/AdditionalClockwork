@@ -42,7 +42,7 @@
               <description>Select this option if you're not upgrading mid-playthrough</description>
               <image path="fomod\images\AdditionalClockwork.png" />
               <conditionFlags>
-                <flag name="Upgrading">1</flag>
+                <flag name="Upgrading">0</flag>
               </conditionFlags>
               <typeDescriptor>
                 <type name="Optional"/>
@@ -52,7 +52,7 @@
               <description>Select this option if you are upgrading from a previous version of this mod to enable bakcwards compatibility.</description>
               <image path="fomod\images\AdditionalClockwork.png" />
               <conditionFlags>
-                <flag name="Upgrading">0</flag>
+                <flag name="Upgrading">1</flag>
               </conditionFlags>
               <typeDescriptor>
                 <type name="Optional"/>
@@ -118,46 +118,33 @@ SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</descri
 
     <installStep name="Just Clockwork">
       <optionalFileGroups order="Explicit">
-
-
-
-<!-- BEGIN Testing Modules -->
-
-
-          <group name="Bug Fixes" type="SelectAny">
-            <plugins order="Explicit">
-              <plugin name="Bug Fixes">
-                <description>Fixes a plethora of bugs. Some examples:&#13;
-  • Courier and Rain at the Castle&#13;
-  • Vampires can feed on Gilded&#13;
-  • A plethora of positioning fixes</description>
-                <image path="fomod\images\BugFixes.png"/>
-                <conditionFlags>
-                  <flag name="BugFixes">1</flag>
-                </conditionFlags>
-                <typeDescriptor>
-                  <dependencyType>
-                    <defaultType name="Optional" />
-                    <patterns>
-                      <pattern>
-                        <dependencies operator="And">
-                          <flagDependency flag="RecAuthor" value="1" />
-                        </dependencies>
-                        <type name="Recommended" />
-                      </pattern>
-                    </patterns>
-                  </dependencyType>
-                </typeDescriptor>
-              </plugin>
-            </plugins>
-          </group>
-
-
-
-<!-- END Testing Modules -->
-
-
-
+        <group name="Bug Fixes" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Bug Fixes">
+              <description>Fixes a plethora of bugs. Some examples:&#13;
+• Courier and Rain at the Castle&#13;
+• Vampires can feed on Gilded&#13;
+• A plethora of positioning fixes</description>
+              <image path="fomod\images\BugFixes.png"/>
+              <conditionFlags>
+                <flag name="BugFixes">1</flag>
+              </conditionFlags>
+              <typeDescriptor>
+                <dependencyType>
+                  <defaultType name="Optional" />
+                  <patterns>
+                    <pattern>
+                      <dependencies operator="And">
+                        <flagDependency flag="RecAuthor" value="1" />
+                      </dependencies>
+                      <type name="Recommended" />
+                    </pattern>
+                  </patterns>
+                </dependencyType>
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
         <group name="Marked Shadows" type="SelectAny">
           <plugins order="Explicit">
             <plugin name="Termini">
@@ -608,7 +595,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
         </files>
       </pattern>
 
-      <!-- Woodworker's Whim plugins -->
+      <!-- Woodworker's Whim -->
       <pattern>
         <dependencies operator="And">
           <flagDependency flag="WoodWhimMount" value="1"/>
