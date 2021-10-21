@@ -14,8 +14,9 @@ Links:
 
 #### Specific Contributions
 
-* [Mentioning that detail about WIEventsEnabled](https://forums.nexusmods.com/index.php?/topic/5060895-clockwork-sse/page-154#:~:text=someone%20did%20mention%20to%20me%20a%20while%20ago%20though%20that%20setting%20the%20wieventsenabled%20global%20to%200%20(in%20other%20words%20disabling%20%22world%20interaction%22%20events)%20should%20stop%20the%20courier%20from%20showing%20up.)
+* [Mentioning that detail about WIEventsEnabled](https://forums.nexusmods.com/index.php?/topic/5060895-clockwork-sse/page-154#:~:text=someone%20did%20mention,showing%20up.)
 * [Giving his guide on making Guilded voices](https://forums.nexusmods.com/index.php?showtopic=5060895/#entry91927523)
+* [Giving me his idea for the scroll basket](https://forums.nexusmods.com/index.php?/topic/5060895-clockwork-sse/page-170#:~:text=If%20I%20was%20to,%20scrolls%20in%20it)
 
 -----
 
@@ -23,7 +24,9 @@ Links:
 
 Everyone who has contributed anything, even just adding a space where I forgot one.
 
-#### Nobody here yet. Maybe ***you*** could be that person!
+### Discord User [Gitchfinder](https://www.nexusmods.com/users/3027732)
+
+Uncovering the culprit of the infinite load glitch in the ***Cursed Bug Fix Plugin*** (a development version of `ClockworkBugFixes.esp`)<br>([Link for those with access to the Nexus Authors Discord](https://discord.com/channels/232168805038686208/232170049413185537/898724627998711840))
 
 -----
 
@@ -69,7 +72,7 @@ Bringing a fatal crash caused by corrupted translation files to my attention
 
 ### Nexus User [ReverendFelix](https://forums.nexusmods.com/index.php?/user/35558880-reverendfelix)
 
-Informing me of problems that arrise with XPMSE and Realistic Ragdolls and Force
+Informing me of problems that arise  with XPMSE and Realistic Ragdolls and Force
 
 -----
 
@@ -77,7 +80,7 @@ Informing me of problems that arrise with XPMSE and Realistic Ragdolls and Force
 
 Let's not forget about everyone whose artwork has made it into the mod/installer!
 
-[LucidAPs](https://www.nexusmods.com/skyrimspecialedition/users/3180451) - [High Poly Project](https://www.nexusmods.com/skyrimspecialedition/mods/12029)'s Smelter Coal mesh
+[LucidAPs](https://www.nexusmods.com/users/3180451) - [High Poly Project](https://www.nexusmods.com/skyrimspecialedition/mods/12029)'s Smelter Coal mesh
 
 [Twicolabs](https://twicolabs.com) - [Chuck Noon font](https://www.dafont.com/chuck-noon.font)
 
@@ -89,7 +92,7 @@ I *literally* couldn't have done it without them.
 
 ### [Creation Kit Wiki](https://creationkit.com)
 
-Somewhat easy to use and has a index of Papyrus and the CK in general. INCREDIBLY useful!
+Somewhat easy to use and has an index of Papyrus and the CK in general. INCREDIBLY useful!
 
 ### [DarkFox127](https://youtube.com/Darkfox127)
 
@@ -101,3 +104,10 @@ Advanced language support for Bethesda Game Studio's Papyrus scripting language.
 
 ### [Andrew's Papyrus VSCode Extension](https://marketplace.visualstudio.com/items?itemName=plankton020.papyrus)
 Useful syntax highlighting for Papyrus that is not included in Joel Day's extension
+
+## Everyone Else
+
+Those who don't fit into a specific category but still deserve credit
+
+### Nexus & Discord user [L.V.X Magick](https://www.nexusmods.com/users/7385511)
+Helping me debug the infinite load glitch in the ***Cursed Bug Fix Plugin*** (a development version of `ClockworkBugFixes.esp`). Though their ideas ultimately were not the issue, their help was nonetheless invaluable.
