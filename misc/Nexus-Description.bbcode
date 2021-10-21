@@ -2,25 +2,34 @@ Additional Clockwork is a [u][b]MODULAR[/b][/u] suite of ESL-flagged ESP addons 
 
 [b][size=6]Want to track my development progress?[/size][/b]
 Check out the [url=https://github.com/BellCubeDev/AdditionalClockwork/projects]GitHub Projects page[/url]!
-If you want to help me test, see the [url=https://github.com/BellCubeDev/AdditionalClockwork/blob/latest/testing.md#testing-additional-clockwork]testing guide[/url].
+
+[size=6][b]Have an idea?[/b][/size]	
+[size=4]Suggest it on [/size][size=4][url=https://github.com/BellCubeDev/AdditionalClockwork/issues/new?assignees=BellCubeDev&labels=suggestion&template=idea-suggestion.md&title=%5BS%5D+Idea+Name+or+Short+Description]GitHub[/url] OR [/size][url=https://www.nexusmods.com/skyrimspecialedition/mods/47087/?tab=forum&topic_id=10280988]the dedicated forum thread[/url][size=4]![/size]
 
 [size=6][b]Modules[/b][/size]
+[img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/2.0.0/Images/SuperiorSortingBanner.png[/img]
+[size=4]Takes advantage of [url=https://skse.silverlock.org]SKSE[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/22854]powerofthree's Papyrus Extender[/url]* to enhance Clockwork's sorting system FAR beyond what was previously possible! No longer are we bound by the days when every mod requires a new patch, and long-gone are the times when you had to sort out your potions, books, or equipment! And, best of all, the system is [i][b]super[/b][/i] easy to patch, so any errors can be squashed rather quickly!
 
-[img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/SwellSorting.png[/img]
-[size=3]Takes advantage of [url=https://skse.silverlock.org]SKSE[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/22854]powerofthree's Papyrus Extender[/url] to enhance Clockwork's sorting system FAR beyond what we are used to! No longer are we bound by the days when every mod requires a new patch, and long-gone are the times when you had to sort out your potions, books, or equipment![/size]
-[size=1]For a deeper look into the technical stuff, see [url=https://www.nexusmods.com/skyrimspecialedition/articles/3232]the dedicated article[/url]. Alternatively, if you can read Ppayrus, you can also look at the [url=https://github.com/BellCubeDev/AdditionalClockwork/blob/latest/dist/Modules/SKSE/EnhancedSorting/source/scripts/CLWA_SKSE_Sorting.psc]source code[/url].[/size]
+Also adds many new sorting scales, such as those in the Armoury, adds a custom activator for sorting scrolls, and adds a separate Poisons cabinet!
+Ingredients from the Kitchen will automatically transfer to the Mage's Study when you're within range, and it will do the same when you enter the Kitchen's Cold Room. Additionally, if the mod detects Ordinator, it will automatically add a new Gems strongbox in the Mage's Study with this auto-transfer functionality baked in.
 
-[img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/BugFixes.png[/img]
-[size=3]Fixes many bugs in Clockwork, like the numerous positioning fixes, some Havok Havoc (when the physics engine throws a fit), children and spouses not using furniture, and, most importantly, the Courier issue. Rain or shine, GET OFF MY LAWN![/size]
+Do note that the additional sorting can take some time. Fortunately, you can do whatever you want while the system sorts! In fact, the sorting button for the Mage's Study shouldn't cause that huge freeze we're used to.[/size]
+[size=2]* Will spam you with notices on startup if you do not have both of the required libraries installed.[/size]
+
+
+[img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/2.0.0/Images/BugFixesBanner.png[/img]
+[size=4]Fixes many bugs in Clockwork, including (but not limited to!) the [color=#ffd966]numerous positioning fixes[/color], [color=#6d9eeb]the castle's weather[/color], and, most importantly, [color=#93c47d]the Courier issue[/color]. Rain or shine, [b]GET OFF MY LAWN![/b][/size]
 [size=1]For an in-depth technical look into my Courier Counterspell, see [url=https://www.nexusmods.com/skyrimspecialedition/articles/3232]the dedicated article[/url].[/size]
+
 
 [img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/ShadowmarksBanner.png[/img]
 [size=4]Made of three modules, which each add "Guild" (Member) shadowmarks to these locations:[/size]
 [list]
 [size=4][*][color=#ffd966]The Castle's front door[/color]
 [*][color=#6d9eeb]The Travel Room's door to the Main Hall[/color]
-[*][color=#93c47d]Each of the Terminus locations[/color] (two in Riften, one everywhere else)
-[/size][/list]
+[*][color=#93c47d]Each of the Terminus locations[/color] (two in Riften, one everywhere else)[/size][/list]
+
+
 [img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/WoodworkersWhim.png[/img]
 [size=4]Adds two things: An Axe Mount to the Work Room and a script that searches for dropped/mounted axes nearby for you to chop wood with.
 
@@ -32,8 +41,12 @@ Really made up of three modules:
 [/list][/size]
 [size=6][b]Minor Tweaks & Changes[/b][/size]
 [size=2]Now with even less impact on gameplay![/size][list]
-[*][b][size=4][color=#6aa84f]Mausoleum Dummy Dor Fix[/color] - [/size][/b]When leaving Nurndural for the first time, there is a scene that plays with Lamashtu and Shadow. While the scene plays out, you are prevented from leaving by a fake door. However, this fake door, when it disappears, is EXTREMELY NOTICEABLE if you look at the door. Of course, I had to fix this. My efficient brethren, you can rest easy now.
 [*][b][size=4][color=#6aa84f]Clockwork Title Remover[/color] - [/size][/b]Removes the giant floating Clockwork title that appears when you first enter the Castle's valley [b]([url=https://forums.nexusmods.com/index.php?showtopic=10280988/#entry97162223]idea[/url] by [url=https://forums.nexusmods.com/index.php?/user/42417205-foamimi/]Foamimi[/url])[/b].
+[/list]
+
+[size=6][b]Testing Modules[/b][/size]
+[size=2]A form of open beta, if you will. While I try to keep them polished and useable, I take no responsibility for any save damage arrising from the use of these modules![/size][list]
+[*][b][size=4]Lahar's Labor - [/size]Adds many interaction points around the castle for Lahar and allows children to enter the Main Hall for events other than meals[/b]
 [/list]
 
 [size=6][b]Integration, Patches, and Consistency[/b][/size]
@@ -68,4 +81,6 @@ You know. Standard patches etc.
 [/list][size=4][url=https://www.nexusmods.com/skyrimspecialedition/users/3180451]LucidAPs[/url][/size][list]
 [*]Allowing me to extract the coals fix mesh from High Poly Project's smelter mesh. Stunning work!
 [/list]
+[size=4]Huge thanks to [url=ttps://www.nexusmods.com/users/3027732]Glitchfinder[/url] for helping me debug an infinite load glitch present in a previous version of the Bug Fixes plugin![/size]
+
 [size=4]And, finally, everyone who downloads, and especially those who contribute with ideas or directly [url=https://github.com/BellCubeDev/AdditionalClockwork/pulls?q=is%3Apr+NOT+author%3ABellCubeDev+]on GitHub[/url]! [b]See [url=https://github.com/BellCubeDev/AdditionalClockwork/blob/latest/Credits.md#contributors-to-additional-clockwork]Credits.md[/url] for a full list.[/b][/size]
