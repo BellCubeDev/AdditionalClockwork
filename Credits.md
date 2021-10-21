@@ -24,7 +24,7 @@ Links:
 
 Everyone who has contributed anything, even just adding a space where I forgot one.
 
-### Discord User [Gitchfinder](https://www.nexusmods.com/users/3027732)
+### Discord User [Glitchfinder](https://www.nexusmods.com/users/3027732)
 
 Uncovering the culprit of the infinite load glitch in the ***Cursed Bug Fix Plugin*** (a development version of `ClockworkBugFixes.esp`)<br>([Link for those with access to the Nexus Authors Discord](https://discord.com/channels/232168805038686208/232170049413185537/898724627998711840))
 
