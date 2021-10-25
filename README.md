@@ -30,8 +30,7 @@ There are three main ways you can contribute:
 - [`Images\`](Images/) - Folder for images. Includes images used on the Nexus and in the FOMOD as well as PSDs (Photoshop Documents) for each
 - [`Changes.md`](Changes.md) - Changelog
 - [`Credits.md`](Credits.md) - Attribution for anything and everything made by anybody else used while creating/in this project
-- [`Nexus-Description.bbcode`](Nexus-Description.bbcode) - Exactly what the name & extension suggest
-- [`Testing.md`](Testing.md) - Information on and guide to testing
+- [`misc\`](misc/) - Miscellaneous stuff like the Nexus description
 
 ## A Flowchart I Made Because I Could
 ![Making an SSE mod with GitHub process flowchart](https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/Creating_SSE_Mod_w-GitHub.svg)
