@@ -285,7 +285,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
  
  ; FUNCTION ResetPassedLists
   Function ResetPassedLists() Global
-    Debug.Trace("Resetting Superior Sorting's Passed Lists. Sorting will likely take longer than usual next time.")
+    ;Debug.Trace("Resetting Superior Sorting's Passed Lists. Sorting will likely take longer than usual next time.")
      ; TODO Impliment function
      
      ; Basic Draft:
@@ -333,23 +333,23 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     Int ItemsLeft = BooksToSort.Length
     while i < itemsLeft
         CurrentBook = BooksToSort[i] as Book
-        Debug.Trace(CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
+        ;Debug.Trace(CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
         if obDestination26 && (CurrentBook.HasKeyword(kVendorItemSpellTome) || CurrentBook.GetSpell() != None) ; If it has a spell or the keyword, it is almost certainly a spell tome 
-            Debug.trace("Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
+            ;Debug.Trace("Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination26)
         elseif obDestination27 && CurrentBook.HasKeyword(kVendorItemRecipe) ; If it has the Potion Recipe keyword, then send it to the new Potion Recipe container.
-            Debug.Trace("Sorted as a Potion Recipe")
+            ;Debug.Trace("Sorted as a Potion Recipe")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination27)
         elseif obDestination25 && (Find(CurrentBook.GetWorldModelPath(), "Note") > -1 || Find(CurrentBook.GetWorldModelPath(), "note") > -1) ; Does the book have the word "note" in its model path? If so, it's probably a note.
-            Debug.Trace("Sorted as a Note (NOT a Potion Recipe)")
+            ;Debug.Trace("Sorted as a Note (NOT a Potion Recipe)")
             obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination25)
         else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
              ; However, Antistar decided he'd make my life miserable. He decided that the word "The" doesn't count. Fun.
             ItemName = CurrentBook.GetName()
-            debug.trace("Name: "+ItemName)
+            ;Debug.Trace("Name: "+ItemName)
             ItemNameLength = -1
             ItemNameLength = StringUtil.GetLength(ItemName)
-            debug.trace("Name Length: "+ItemNameLength)
+            ;Debug.Trace("Name Length: "+ItemNameLength)
             j = 0 
             FirstChar = None as String
             CurrentChar = None as String
@@ -357,14 +357,14 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
             While j < ItemNameLength && FirstChar == None as String
                 CurrentChar = GetNthChar(ItemName, j) ; Store the current character to prevent spamming the same function over and over again
                 if isLetter(CurrentChar)
-                    debug.trace("Current letter: "+CurrentChar)
+                    ;Debug.Trace("Current letter: "+CurrentChar)
                     if ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
                         j+=2
                     else
                         FirstChar = CurrentChar
                     endif
                 elseif IsDigit(CurrentChar)
-                    debug.trace("Current Digit: "+CurrentChar)
+                    ;Debug.Trace("Current Digit: "+CurrentChar)
                     if CurrentChar == "2" || CurrentChar == "3"
                         FirstChar = "T"
                     elseif CurrentChar == "1"
@@ -402,7 +402,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
                 j += 1
             endwhile
             if FirstChar != None as String
-                debug.trace("First character: " + FirstChar)
+                ;Debug.Trace("First character: " + FirstChar)
                 ; This is a BIG if statement
                 if obDestination01 && (FirstChar == "A" || FirstChar == "a")
                     obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination01)
@@ -455,7 +455,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
                 endif
             endif
         endif
-        Debug.Trace("Finished with \""+CurrentBook.GetName()+"\"\n")
+        ;Debug.Trace("Finished with \""+CurrentBook.GetName()+"\"\n")
         i += 1
     endwhile
   endfunction ; DONE !FUNCTION
@@ -463,7 +463,9 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
   ; FUNCTION SortForPotions
    Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flCLWASortingPLStudyPotions = None, FormList flCLWASortingPLStudyPoisons = None, FormList flCLWASortingBLStudyPotions = None, FormList flCLWASortingBLStudyPoisons = None) Global
     {Sorts potions and poisons into two seperate containers}
+
     
+    ;Debug.Trace("SORTING POTIONS -- PAY ATTENTION TO ME!!!")
     if obDestination01 && flCLWASortingPLStudyPotions
         obSortRef.RemoveItem(flCLWASortingPLStudyPotions, 999999, false, obDestination01)
     endif
@@ -477,17 +479,17 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
         if !CurrentPotion.IsFood()
-            if (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!flCLWASortingBLStudyPoisons || flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))
-                debug.trace(CurrentPotion+" (#"+i+") is a poison")
+            if (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!flCLWASortingBLStudyPoisons || !flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))
+                ;Debug.Trace(CurrentPotion+" (#"+i+") is a poison")
                 if obDestination02
-                    obSortRef.RemoveItem(CurrentPotion as Potion, 9999, true, obDestination02)
+                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
                 endif
-            elseif obDestination01 && (!flCLWASortingBLStudyPotions || flCLWASortingBLStudyPotions.HasForm(CurrentPotion))
-                debug.trace(CurrentPotion+" (#"+i+") is not a poison")
+            elseif obDestination01 && (!flCLWASortingBLStudyPotions || !flCLWASortingBLStudyPotions.HasForm(CurrentPotion))
+                ;Debug.Trace(CurrentPotion+" (#"+i+") is not a poison")
                 obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
             endif
         else
-            debug.Trace(CurrentPotion+" (#"+i+") is food", 1)
+            ;Debug.Trace(CurrentPotion+" (#"+i+") is food", 1)
         endif
         i += 1
     endwhile
@@ -515,44 +517,44 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         CurrentFormName = CurrentForm.GetName()
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        debug.trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
+        ;Debug.Trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
         if obDestination01 &&      ;/                Ingots               /; !(flOverrideBLIngots && !flOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot") != -1)
-            debug.Trace("Sorted as an Ingot")
+            ;Debug.Trace("Sorted as an Ingot")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
         elseif obDestination02 &&  ;/                 Ores                /; !(flOverrideBLOres && !flOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1)
-            debug.Trace("Sorted as Ore")
+            ;Debug.Trace("Sorted as Ore")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination02)
 
         elseif                     ;/           Leather & Hides           /; CurrentForm.HasKeyword(kVendorItemAnimalHide)
             if obDestination05 &&  ;/               Leather               /; !(flOverrideBLWorkRoomMisc && !flOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (Find(CurrentFormModelPath, "Leather") != -1 || Find(CurrentFormModelPath, "leather") != -1)
-                debug.Trace("Sorted as Leather")
+                ;Debug.Trace("Sorted as Leather")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif obDestination03 ;/                Hides                /; && !(flOverrideBLHides && !flOverrideBLHides.HasForm(CurrentForm))
-                debug.Trace("Sorted as Hide")
+                ;Debug.Trace("Sorted as Hide")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination03)
             endif
         elseif obDestination04 &&  ;/                 Gems                /;!(flOverrideBLGems && !flOverrideBLGems.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemGem)
-            debug.Trace("Sorted as a Gem")
+            ;Debug.Trace("Sorted as a Gem")
             obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination04)
         elseif obDestination05 && !(flOverrideBLWorkRoomMisc && !flOverrideBLWorkRoomMisc.HasForm(CurrentForm))
             if                     ;/               Firewood              /; CurrentForm.HasKeyword(kVendorItemFireword)
-                Debug.Trace("Sorted as a Misc. Item (Firewood)")
+                ;Debug.Trace("Sorted as a Misc. Item (Firewood)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif                 ;/               Charcoal              /; Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1
-                Debug.Trace("Sorted as a Misc. Item (Charcoal)")
+                ;Debug.Trace("Sorted as a Misc. Item (Charcoal)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(kBYOHHouseCraftingCategorySmithing)
-                Debug.Trace("Sorted as a Misc. Item (House Building Materials)")
+                ;Debug.Trace("Sorted as a Misc. Item (House Building Materials)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif                 ;/   Ingredients that are MiscItems?   /; CurrentForm.HasKeyword(kVendorItemIngredient)
-                Debug.Trace("Sorted as a Misc. Item (Ingredients)")
+                ;Debug.Trace("Sorted as a Misc. Item (Ingredients)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             elseif                 ;/     Catch-All for Ores & Ingots     /;  CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter)
-                Debug.Trace("Sorted as a Misc. Item (Ingredients)")
+                ;Debug.Trace("Sorted as a Misc. Item (Ingredients)")
                 obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
             endif
         endif
-        debug.trace("========================")
+        ;Debug.Trace("========================")
         i += 1
     endwhile
   endfunction ; DONE !FUNCTION
@@ -612,24 +614,24 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
 
                 CurrentPotionKeywords = CurrentPotion.GetKeywords() as String        
                 potName = CurrentPotion.GetName()
-                debug.trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
+                ;Debug.Trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
 
-                if     obDestination02 && ;/        Drinks        /; !(flOverrideBLFoodMedeAndCo && !flOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && Find(CurrentPotionKeywords, "Stew") == -1 && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                if     obDestination02 && ;/        Drinks        /; (!flOverrideBLFoodMedeAndCo || !flOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && Find(CurrentPotionKeywords, "Stew") == -1 && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
                 
-                elseif obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(flOverrideBLFoodMeelz && !flOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
+                elseif obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!flOverrideBLFoodMeelz || !flOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
                 
-                elseif obDestination01 && ;/ Cheese 'n Seasonings /; !(flOverrideBLFoodCheeseSeasonings && !flOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
+                elseif obDestination01 && ;/ Cheese 'n Seasonings /; (!flOverrideBLFoodCheeseSeasonings || !flOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
                 
-                elseif obDestination03 && ;/  Fruits and Veggies  /; !(flOverrideBLFoodFruitsNVeggies && !flOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
+                elseif obDestination03 && ;/  Fruits and Veggies  /; (!flOverrideBLFoodFruitsNVeggies || !flOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination03)
                 
-                elseif obDestination04 && ;/         Meat         /; !(flOverrideBLFoodRawMeat && !flOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(kVendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
+                elseif obDestination04 && ;/         Meat         /; (!flOverrideBLFoodRawMeat || !flOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(kVendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination04)
                 
-                elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && !(flOverrideBLFoodMeelz && !flOverrideBLFoodMeelz.HasForm(CurrentPotion))
+                elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!flOverrideBLFoodMeelz || !flOverrideBLFoodMeelz.HasForm(CurrentPotion))
                     obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
                 endif
             endif
@@ -664,7 +666,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         while i < itemsLeft
             curWeap = WeaponsToSort[i] as Weapon
             curWeapSkill = curWeap.GetSkill()
-            Debug.Trace(curWeap+" Skill: \""+curWeapSkill+"\"\nKeywords: "+curWeap.GetKeywords())
+            ;Debug.Trace(curWeap+" Skill: \""+curWeapSkill+"\"\nKeywords: "+curWeap.GetKeywords())
             if obDestination06 &&     ;/ 1-Handed /; curWeapSkill == "OneHanded"
                 obSortRef.RemoveItem(curWeap, 999999, true, obDestination06)
             elseif obDestination07 && ;/ 2-Handed /; curWeapSkill == "TwoHanded"
@@ -687,7 +689,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         while i < itemsLeft
             curArmor = ArmorToSort[i] as Armor
             curArmorWC = curArmor.GetWeightClass()
-            Debug.Trace(curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
+            ;Debug.Trace(curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
             if obDestination02 && curArmorWC == 0
                 obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination02)
             elseif obDestination03 && curArmorWC == 1
@@ -728,7 +730,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     Potion CurrentPotion
     while i < itemsLeft
         CurrentPotion = FoodToSort[i] as Potion
-        if obDestination01 && CurrentPotion.IsFood() &&  !(flOverrideBLFoodRawMeat && !flOverrideBLFoodRawMeat.HasForm(CurrentPotion))
+        if obDestination01 && CurrentPotion.IsFood() &&  (!flOverrideBLFoodRawMeat || !flOverrideBLFoodRawMeat.HasForm(CurrentPotion))
             obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
         endif
         i += 1
@@ -777,7 +779,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     Potion CurrentPotion
     while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        if obDestination01 && !CurrentPotion.IsFood() && ((!flCLWASortingBLStudyPotions || flCLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!flCLWASortingBLStudyPoisons || flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
+        if obDestination01 && !CurrentPotion.IsFood() && ((!flCLWASortingBLStudyPotions || !flCLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!flCLWASortingBLStudyPoisons || !flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
             obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
         endif
         i += 1
@@ -801,7 +803,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     Form curForm
     while i < itemsLeft
         curForm = ArrowsToSort[i]
-        if !flCLWASortingBLArmouryAmmo || flCLWASortingBLArmouryAmmo.HasForm(curForm)
+        if !flCLWASortingBLArmouryAmmo || !flCLWASortingBLArmouryAmmo.HasForm(curForm)
             obSortRef.RemoveItem(curForm, 9999999, true, obDestination01)
         endif
         i += 1
@@ -815,10 +817,10 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     while i < itemsLeft
         curWeap = WeaponsToSort[i] as Weapon
         curWeapSkill = curWeap.GetSkill()
-        if ;/  Staves  /;((curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!flCLWASortingBLArmouryWeaponsStaves || flCLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
-              1-Handed /; (curWeapSkill == "OneHanded" && (!flCLWASortingBLArmouryWeapons1H || flCLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
-              2-Handed /; (curWeapSkill == "TwoHanded" && (!flCLWASortingBLArmouryWeapons2H || flCLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
-               Ranged  /; (curWeapSkill == "Marksman" && (!flCLWASortingBLArmouryWeaponsRanged || flCLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
+        if ;/  Staves  /;((curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!flCLWASortingBLArmouryWeaponsStaves || !flCLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
+              1-Handed /; (curWeapSkill == "OneHanded" && (!flCLWASortingBLArmouryWeapons1H || !flCLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
+              2-Handed /; (curWeapSkill == "TwoHanded" && (!flCLWASortingBLArmouryWeapons2H || !flCLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
+               Ranged  /; (curWeapSkill == "Marksman" && (!flCLWASortingBLArmouryWeaponsRanged || !flCLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
             obSortRef.RemoveItem(curWeap, 999999, true, obDestination01)
         endif
         i += 1
@@ -831,8 +833,8 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     while i < itemsLeft
         SortingArmour = ArmorToSort[i] as Armor
         if  ;/ Normal Armor /;(SortingArmour.GetWeightClass() != 2 && (!flCLWASortingBLArmouryArmourLight || flCLWASortingPLArmouryArmourLight.HasForm(SortingArmour)) && (!flCLWASortingBLArmouryArmourHeavy || flCLWASortingPLArmouryArmourHeavy.HasForm(SortingArmour))) || ;/
-               Clothing     /; (SortingArmour.HasKeyword(kArmorClothing) && (!flCLWASortingBLArmouryArmourClothes || flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour))) ||;/
-               Jewelry      /; (SortingArmour.HasKeyword(kArmorJewelry) && (!flCLWASortingBLArmouryArmourJewelry || flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour)))
+               Clothing     /; (SortingArmour.HasKeyword(kArmorClothing) && (!flCLWASortingBLArmouryArmourClothes || !flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour))) ||;/
+               Jewelry      /; (SortingArmour.HasKeyword(kArmorJewelry) && (!flCLWASortingBLArmouryArmourJewelry || !flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour)))
             obSortRef.RemoveItem(SortingArmour, 9999999, true, obDestination01)
         endif
         i += 1
@@ -917,7 +919,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
  \______/ \__|  \__|\__|  \__| \_______|   \____/ \__|    \_/     \_______|   \____/  \_______|  \___|\___/;
 ; EVENT On Activate
  Event OnActivate(ObjectReference akActionRef)
-    Debug.Trace("Started sorting using SKSE")
+    ;Debug.Trace("Started sorting using SKSE")
     if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
 
         ; Prevent further processing (likely initiated by player impatience)
@@ -939,51 +941,51 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
             ; Sorting for the sort buttons
             ; NOTE Destinations
              if xDestinationStudy
-                 Debug.Trace("Begin sorting ingredients")
+                 ;Debug.Trace("Begin sorting ingredients")
                  SortForDestStudy(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
-                 Debug.Trace("Finished sorting ingredients")
+                 ;Debug.Trace("Finished sorting ingredients")
              endif
              if xDestinationWork
-                 Debug.Trace("Begin sorting smithing materials")
+                 ;Debug.Trace("Begin sorting smithing materials")
                  SortForDestWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemAnimalHide, VendorItemGem, VendorItemOreIngot, VendorItemClutter, VendorItemFireword, BYOHHouseCraftingCategorySmithing, VendorItemIngredient, zDestination01, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomGems, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc)
-                 Debug.Trace("Finished sorting smithing materials")
+                 ;Debug.Trace("Finished sorting smithing materials")
              endif
              if xDestinationKitchen
-                 Debug.Trace("Begin sorting food")
+                 ;Debug.Trace("Begin sorting food")
                  SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingPLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodRawMeat, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings)
-                 Debug.Trace("Finished sorting food")
+                 ;Debug.Trace("Finished sorting food")
              endif
              if xDestinationArmoury
-                 Debug.Trace("Begin sorting Armoury items")
+                 ;Debug.Trace("Begin sorting Armoury items")
                  SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, ArmorClothing, ArmorJewelry, WeapTypeStaff, zDestination01, CLWASortingPLArmouryAmmo, CLWASortingPLArmouryArmourLight, CLWASortingPLArmouryArmourHeavy, CLWASortingPLArmouryArmourClothes, CLWASortingPLArmouryArmourJewelry, CLWASortingPLArmouryWeapons1H, CLWASortingPLArmouryWeapons2H, CLWASortingPLArmouryWeaponsRanged, CLWASortingPLArmouryWeaponsStaves, CLWASortingBLArmouryAmmo, CLWASortingBLArmouryArmourLight, CLWASortingBLArmouryArmourHeavy, CLWASortingBLArmouryArmourClothes, CLWASortingBLArmouryArmourJewelry, CLWASortingBLArmouryWeapons1H, CLWASortingBLArmouryWeapons2H, CLWASortingBLArmouryWeaponsRanged, CLWASortingBLArmouryWeaponsStaves)
-                 Debug.Trace("Finished sorting Armoury items")
+                 ;Debug.Trace("Finished sorting Armoury items")
              endif
 
             ; NOTE Scales
              if SortBooks
-                debug.trace("Begin sorting books")
+                ;Debug.Trace("Begin sorting books")
                 SortForBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemSpellTome, VendorItemRecipe, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, zDestination10, zDestination11, zDestination12, zDestination13, zDestination14, zDestination15, zDestination16, zDestination17, zDestination18, zDestination19, zDestination20, zDestination21, zDestination22, zDestination23, zDestination24, zDestination25, zDestination26, zDestination27)
-                debug.trace("Finished sorting books")
+                ;Debug.Trace("Finished sorting books")
              endif
              if SortPotions
-                Debug.Trace("Begin sorting potions")
+                ;Debug.Trace("Begin sorting potions")
                 SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, CLWASortingPLStudyPotions, CLWASortingPLStudyPoisons, CLWASortingBLStudyPotions, CLWASortingBLStudyPoisons)
-                Debug.Trace("Finished sorting potions")
+                ;Debug.Trace("Finished sorting potions")
              endif
              if sortFood
-                Debug.Trace("Begin sorting food")
+                ;Debug.Trace("Begin sorting food")
                 SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, CLWAItemPotionUse, VendorItemFoodRaw, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodCheeseSeasonings, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodRawMeat)
-                Debug.Trace("Finished sorting food")
+                ;Debug.Trace("Finished sorting food")
              endif
              if sortWorkRoom
-                Debug.Trace("Begin sorting smithing materials")
+                ;Debug.Trace("Begin sorting smithing materials")
                 SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemOreIngot, VendorItemClutter, VendorItemIngredient, VendorItemFireword, VendorItemGem, VendorItemAnimalHide, BYOHHouseCraftingCategorySmithing, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomGems)
-                Debug.Trace("Finished sorting smithing materials")
+                ;Debug.Trace("Finished sorting smithing materials")
              endif
              if sortArmoury
-                Debug.Trace("Begin sorting Armoury items")
+                ;Debug.Trace("Begin sorting Armoury items")
                 SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, ArmorJewelry, ArmorClothing, WeapTypeStaff, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, CLWASortingBLArmouryArmourLight, CLWASortingBLArmouryArmourHeavy, CLWASortingBLArmouryArmourClothes, CLWASortingBLArmouryArmourJewelry, CLWASortingBLArmouryWeapons1H, CLWASortingBLArmouryWeapons2H, CLWASortingBLArmouryWeaponsStaves, CLWASortingPLArmouryArmourLight, CLWASortingPLArmouryArmourHeavy, CLWASortingPLArmouryArmourClothes, CLWASortingPLArmouryArmourJewelry, CLWASortingPLArmouryWeapons1H, CLWASortingPLArmouryWeapons2H, CLWASortingPLArmouryWeaponsStaves, CLWASortingPLArmouryAmmo, CLWASortingPLArmouryWeaponsRanged)
-                Debug.Trace("Finished sorting Armoury items")
+                ;Debug.Trace("Finished sorting Armoury items")
              endif
 
             if pFormTypeToSort ; NOTE Form Type
@@ -999,7 +1001,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
                 if aSortingCompleteMsg
                     aSortingCompleteMsg.Show()
                 else
-                    Debug.Trace("No completion message is set for "+self, 1)
+                    ;Debug.Trace("No completion message is set for "+self, 1)
                 endif
             endif
             
