@@ -90,7 +90,7 @@ Let's not forget about everyone whose artwork has made it into the mod/installer
 
 I *literally* couldn't have done it without them.
 
-### [Creation Kit Wiki](https://creationkit.com)
+### [Creation Kit Wiki](https://ck.uesp.net)
 
 Somewhat easy to use and has an index of Papyrus and the CK in general. INCREDIBLY useful!
 
