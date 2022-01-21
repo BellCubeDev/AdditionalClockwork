@@ -52,3 +52,13 @@ Added: three sorting patches
   * Should be entirely stable and cause no harm to your saved game
     * I take no responsibility for damages to your save caused by using a testing plugin.
 * Restructured `dist\translations\` folder to apply some of my new-found knowledge on the FOMOD installer
+
+## **2.0.1**
+
+* Fixed Unresolvable FormIDs in Interesting Inhabitants and Superior Sorting
+
+## **2.0.2**
+
+* Fixed Blacklist processing in some parts of [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
+* Commented out `Debug.Trace()` calls in [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
+* Removed unused Superior Sorting scripts
