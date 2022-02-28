@@ -67,8 +67,7 @@ Added: three sorting patches
 
 ### Patches
 
-* New "Central Patch API" plugin that supports patching Clockw
-ork's sorting automatically, without the need for messy `Game.GetFormFromFile()` calls.
+* New "Central Patch API" plugin that supports patching Clockwork's sorting automatically, without the need for messy `Game.GetFormFromFile()` calls.
 
 ### Bug Fixes
 
@@ -101,7 +100,13 @@ TODO: Apply change to Work Room box
 
 ### Woodworker's Whim
 
-* COMPLETELY REDONE!
+#### Mount
+
+* Clockwork's axe automatically mounts itself
+
+#### System
+
+* COMPLETELY REDONE! Rebuilt from THE GROUND UP!
 * Split into a separate mod—don't worry, it'll still be bundled with Additional Clockwork, too :wink:
 * Fast & Smooth
 * Still supports all vanilla-compatible axes and still makes no modifications to the vanilla script
