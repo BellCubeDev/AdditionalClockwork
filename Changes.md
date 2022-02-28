@@ -81,6 +81,7 @@ Added: three sorting patches
   * Gave the Shadow race "Advanced Avoidance" (a flag that makes the AI behave somewhat differently)
 * Clockwork Project Optimization
   * Fixes an annoying bug with parts of the castle disappearing when looking at them from certain positions at certain angles.
+    * Fixed by expanding the "Portals" 1 unit into the walls
   * Free FPS! Occlusion Panes are the best!
 * Changed the fix for Lahar not affecting the stealth meter to a scripted method, removing the need for an overwrite
   * TODO: Also applied to Lamashtu
