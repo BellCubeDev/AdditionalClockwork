@@ -316,6 +316,49 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         endwhile
     endif
  endfunction; !FUNCTION
+
+ ; FUNCTION SortForSoulGems
+ Function SortForSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flOverridePLFormType = None, FormList flOverrideBLFormType = None) Global
+    Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, iFormTypeToSort, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    int itemsLeft = FormsToSort.Length
+    int i = 0
+    if flOverrideBLFormType
+        ObjectReference curForm
+        while i < itemsLeft
+            curForm = FormsToSort[i] as ObjectReference
+            if !flOverrideBLFormType.HasForm(curForm)
+                obSortRef.RemoveItem(curForm, 999999, true, obDestination01)
+            endif
+            i += 1
+        endwhile
+    else
+        while i < itemsLeft
+            obSortRef.RemoveItem(FormsToSort[i], 999999, true, obDestination01)
+            i += 1
+        endwhile
+    endif
+
+    obSortRef.RemoveItem(flOverridePLFormType, 999999, true, obDestination02) ; Remove whitelisted items and place them into Container 2
+
+    Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, iFormTypeToSort, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    int itemsLeft = FormsToSort.Length
+    int i = 0
+    if flOverrideBLFormType
+        Form curForm
+        while i < itemsLeft
+            curForm = FormsToSort[i]
+            if !flOverrideBLFormType.HasForm(curForm)
+                obSortRef.RemoveItem(curForm, 999999, true, obDestination01)
+            endif
+            i += 1
+        endwhile
+    else
+        while i < itemsLeft
+            obSortRef.RemoveItem(FormsToSort[i], 999999, true, obDestination01)
+            i += 1
+        endwhile
+    endif
+ endfunction; !FUNCTION
  
  ; SECTION Scales
   ; FUNCTION SortForBooks
