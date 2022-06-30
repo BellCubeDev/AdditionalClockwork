@@ -1,5 +1,6 @@
 {
-    "folders": [{
+    "folders": [
+        {
             "name": "Project Folder",
             "path": "."
         },
@@ -8,12 +9,15 @@
             "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data"
         },
         {
-            "name": "Scripts",
+            "name": "scripts",
             "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\scripts"
         },
         {
             "name": "LOOT Masterlist",
             "path": "C:\\Users\\zacha\\AppData\\Local\\LOOT\\Skyrim Special Edition"
+        },
+        {
+            "path": "dist\\Modules\\Normal\\WoodworkersWhim\\WorkRoomOnly\\source\\scripts"
         }
     ],
     "settings": {
@@ -36,57 +40,10 @@
                 "tag": "FIXME"
             },
             {
-                "highlightColor": "#BA68C8",
-                "iconColor": "purple",
-                "scope": "file",
-                "tag": "STUB"
-            },
-            {
                 "highlightColor": "#FFB300",
                 "iconColor": "orange",
                 "scope": "file",
                 "tag": "NOTE"
-            },
-            {
-                "highlightColor": "#64DD17",
-                "iconColor": "green",
-                "scope": "workspace",
-                "tag": "REVIEW"
-            },
-            {
-                "behavior": "region",
-                "highlightColor": "#896afc",
-                "iconColor": "blurple",
-                "scope": "workspace",
-                "tag": "SECTION"
-            },
-            {
-                "behavior": "link",
-                "highlightColor": "#2ecc71",
-                "iconColor": "#2ecc71",
-                "scope": "workspace",
-                "tag": "LINK"
-            },
-            {
-                "behavior": "region",
-                "highlightColor": "#FF8F00",
-                "iconColor": "#FF8F00",
-                "scope": "file",
-                "tag": "PARAM"
-            },
-            {
-                "behavior": "region",
-                "highlightColor": "#85C1E9",
-                "iconColor": "#85C1E9",
-                "scope": "file",
-                "tag": "FUNCTION"
-            },
-            {
-                "behavior": "region",
-                "highlightColor": "#48C9B0",
-                "iconColor": "#48C9B0",
-                "scope": "file",
-                "tag": "EVENT"
             }
         ],
         "papyrus.fallout4.enabled": false,
@@ -96,6 +53,49 @@
             "**/dist/**",
             ".vscode/zip.bat"
         ],
-        "xml.symbols.enabled": true
+        "xml.symbols.enabled": true,
+        "cSpell.words": [
+            "Antistar",
+            "Bools",
+            "Counterspell",
+            "Dwarven",
+            "failsafes",
+            "favorited",
+            "Lahar",
+            "Lamashtu",
+            "lookin'",
+            "Masterlist",
+            "Ordinator",
+            "Passlist",
+            "Passlists",
+            "Pnumatic",
+            "powerofthree",
+            "questline",
+            "SKSE",
+            "talkin'",
+            "VendorItemFireword"
+        ],
+        "cSpell.ignoreWords": [
+            "ANIO",
+            "ARMA",
+            "BYOH",
+            "BlockEquipedItems",
+            "CACO",
+            "CLWA",
+            "CLWNPC",
+            "CLWSQ",
+            "DLVW",
+            "GMST",
+            "Ings",
+            "Meelz",
+            "NAVI",
+            "PHZD",
+            "TLOD",
+            "Weap",
+            "ltaf",
+            "ltat",
+            "steamapps",
+            "zacha"
+        ]
     }
 }

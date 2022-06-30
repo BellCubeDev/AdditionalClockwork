@@ -1,771 +1,753 @@
 <!-- Created with FOMOD Creation Tool 1.7.0.37 [http://www.nexusmods.com/fallout4/mods/6821]
-												Yes, I'm aware that this is here, and I don't care.
-														- BellCube Dev
+                                                Yes, I'm aware that this is here, and I don't care.
+                                                        - BellCube Dev
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
-  <moduleName position="Left" colour="000000">Additional Clockwork</moduleName>
-  <moduleImage path="fomod\images\AdditionalClockwork.png" showImage="true" showFade="true" height="-1"/>
+    <moduleName position="Left" colour="000000">Additional Clockwork</moduleName>
+    <moduleImage path="fomod\images\AdditionalClockwork.png" showImage="true" showFade="true" height="-1"/>
 
-  <installSteps order="Explicit">
+    <installSteps order="Explicit">
 
-    <installStep name="Additional Clockwork">
-      <optionalFileGroups order="Explicit">
-        <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><image path="fomod\images\AdditionalClockwork.png" /><conditionFlags><flag name="SKSE_SuperiorSorting">0</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
-        <group name="Perspective" type="SelectExactlyOne">
-          <plugins order="Explicit">
-            <plugin name="Second Person">
-              <description>All messages and texts are phrased in Second Person, as they are by default in Skyrim.</description>
-              <image path="fomod\images\AdditionalClockwork.png" />
-              <conditionFlags>
-                <flag name="Perspective">2</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="First Person">
-              <description>All messages and texts are phrased in First Person. Useful when you're using mods like Your Own Thoughts.</description>
-              <image path="fomod\images\YOT.png"/>
-              <conditionFlags>
-                <flag name="Perspective">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="Upgrading?" type="SelectExactlyOne">
-          <plugins order="Explicit">
-            <plugin name="Never Used on This Playthrough">
-              <description>Select this option if you're not upgrading mid-playthrough</description>
-              <image path="fomod\images\AdditionalClockwork.png" />
-              <conditionFlags>
-                <flag name="Upgrading">0</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="I'm Upgrading">
-              <description>Select this option if you are upgrading from a previous version of this mod to enable bakcwards compatibility.</description>
-              <image path="fomod\images\AdditionalClockwork.png" />
-              <conditionFlags>
-                <flag name="Upgrading">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="SKSE" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Enable SKSE Modules">
-              <description>Check this box to enable SKSE modules&#13;
+        <installStep name="Additional Clockwork">
+            <optionalFileGroups order="Explicit">
+                <group name="Description" type="SelectAll"><plugins><plugin name="Description"><description>Additional Clockwork is a modular suite of ESL-ESPs made by BellCube Dev to improve Clockwork beyond its already near-perfection.</description><image path="fomod\images\AdditionalClockwork.png" /><conditionFlags><flag name="SKSE_SuperiorSorting">0</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
+                <group name="SKSE" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Enable SKSE Modules">
+                            <description>Check this box to enable SKSE modules.
 SKSE modules require both SKSE **AND** powerofthree's Papyrus Extender!!</description>
-              <image path="fomod/images/SKSE.jpg" />
-              <conditionFlags>
-                <flag name="Enable_SKSE">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional" />
-              </typeDescriptor>
-            </plugin>
-
-            <!-- No SKSE substitutions exist at this time-->
-            <!--plugin name="Enable SKSE Substitutions">
-              <description>If checked, modules with added/better functionallity with SKSE will be enabled</description>
-              <image path="fomod/images/SKSE.jpg" />
-              <conditionFlags>
-                <flag name="Enable_SKSE_Subs"></flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="NotUsable" />
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="Enable_SKSE" value="1" />
-                      </dependencies>
-                      <type name="Recommended" />
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin-->
-
-          </plugins>
-        </group>
-        <group name="Reccomendations" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Author's Reccomendations">
-              <description>Applies BellCube's recommendations to the installer. You still have to go through each step, but my personal preferences are already selected.&#13;
+                            <image path="fomod/images/SKSE.jpg" />
+                            <conditionFlags>
+                                <flag name="Enable_SKSE">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <type name="Optional" />
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+                <group name="Reccomendations" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Author's Reccomendations">
+                            <description>Applies BellCube's recommendations to the installer. You still have to go through each step, but my personal preferences are already selected.
 (Does NOT include Sorting or Integration, Patches, &amp; Consistency modules)</description>
-              <image path="fomod\images\CubicBell-256.png"/>
-              <conditionFlags>
-                <flag name="RecAuthor">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
+                            <image path="fomod\images\CubicBell-256.png"/>
+                            <conditionFlags>
+                                <flag name="RecAuthor">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <type name="Optional"/>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
 
-    <installStep name="Just Clockwork">
-      <optionalFileGroups order="Explicit">
-        <group name="Bug Fixes" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Bug Fixes">
-              <description>Fixes a plethora of bugs. Some examples:&#13;
-• Courier and Rain at the Castle&#13;
-• Vampires can feed on Gilded&#13;
+        <installStep name="Core Modules">
+            <optionalFileGroups order="Explicit">
+                <group name="Bug Fixes" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Bug Fixes">
+                            <description>Fixes a ton of mostly-small, mostly-unnoticeable bugs. Here are just a few of the ones this module fixes:
+• Courier at the Castle
+• Lahar contributes to your Stealth Meter
+• NIF issues (thanks, DarthVitrial!)
 • A plethora of positioning fixes</description>
-              <image path="fomod\images\BugFixes.png"/>
-              <conditionFlags>
-                <flag name="BugFixes">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional" />
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1" />
-                      </dependencies>
-                      <type name="Recommended" />
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="Marked Shadows" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Termini">
-              <description>Adds a shadowmark easily visible in each of the terminus locations.</description>
-              <image path="fomod\images\ShadowmarksRiftenTerminus.png"/>
-              <conditionFlags>
-                <flag name="ShadowmarksTermini">1</flag>
-                <flag name="Shadowmarks">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="ShadowmarksMerged" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Travel Room">
-              <description>Adds a shadowmark inside the Travel Room beside the stairs (door to the Main Hall).</description>
-              <image path="fomod\images\ShadowmarksTravelRoom.png"/>
-              <conditionFlags>
-                <flag name="ShadowmarksTravelRoom">1</flag>
-                <flag name="Shadowmarks">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="ShadowmarksMerged" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Castle Exterior">
-              <description>Adds a Guild Member shadowmark beside Clockwork Castle's front door.</description>
-              <image path="fomod\images\ShadowmarksCastleExt.png"/>
-              <conditionFlags>
-                <flag name="ShadowmarksCastleExt">1</flag>
-                <flag name="Shadowmarks">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="ShadowmarksMerged" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Merged">
-              <description>Merges all three options into one plugin.</description>
-              <image path="fomod\images\ShadowmarksMerged.png"/>
-              <conditionFlags>
-                <flag name="ShadowmarksMerged">1</flag>
-                <flag name="Shadowmarks">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="Woodworker's Whim" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Script - Enabled Globally">
-              <description>Adds a script for the player to search for a nearby axe in the worldspace (i.e. not in a container) if they don't have one in their inventory.&#13;
-&#13;
-This module applies the script to EVERY instance of the vanilla Wood Chopping Block (even ones added by mods).</description>
-              <image path="fomod\images\WoodworkersWhimScript.png"/>
-              <conditionFlags>
-                <flag name="WoodWhimScriptLevel">2</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="WoodWhimScriptLevel" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Script - Work Room Only">
-              <description>Adds a script for the player to search for a nearby axe in the worldspace (i.e. not in a container) if they don't have one in their inventory.&#13;
-&#13;
-This module applies the script ONLY to the Wood Chopping Block in Clockwork Castle's Work Room.</description>
-              <image path="fomod\images\WoodworkersWhimScript.png"/>
-              <conditionFlags>
-                <flag name="WoodWhimScriptLevel">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="WoodWhimScriptLevel" value="2"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Work Room Axe Mount">
-              <description>Adds an Axe Mount to Clockwork Castle's Work Room, just above the Wood Chopping Block.</description>
-              <image path="fomod\images\WoodworkersWhimMount.png"/>
-              <conditionFlags>
-                <flag name="WoodWhimMount">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="RecAuthor" value="1"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="Minor Fixes and Changes" type="SelectAny">
-          <plugins>
-            <plugin name="Clockwork Title Remover">
-              <description>Thanks to Foamimi for the idea!&#13;
+                            <image path="fomod\images\BugFixes.png"/>
+                            <conditionFlags>
+                                <flag name="BugFixes">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional" />
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="RecAuthor" value="1" />
+                                            </dependencies>
+                                            <type name="Recommended" />
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+
+                    </plugins>
+                </group>
+                <group name="Marked Shadows" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Termini">
+                            <description>Adds a shadowmark easily visible in each of the terminus locations.</description>
+                            <image path="fomod\images\ShadowmarksRiftenTerminus.png"/>
+                            <conditionFlags>
+                                <flag name="ShadowmarksTermini">1</flag>
+                                <flag name="Shadowmarks">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="ShadowmarksMerged" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Travel Room">
+                            <description>Adds a shadowmark inside the Travel Room beside the stairs (door to the Main Hall).</description>
+                            <image path="fomod\images\ShadowmarksTravelRoom.png"/>
+                            <conditionFlags>
+                                <flag name="ShadowmarksTravelRoom">1</flag>
+                                <flag name="Shadowmarks">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="ShadowmarksMerged" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Castle Exterior">
+                            <description>Adds a Guild Member shadowmark beside Clockwork Castle's front door.</description>
+                            <image path="fomod\images\ShadowmarksCastleExt.png"/>
+                            <conditionFlags>
+                                <flag name="ShadowmarksCastleExt">1</flag>
+                                <flag name="Shadowmarks">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="ShadowmarksMerged" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Merged">
+                            <description>Merges all three options into one plugin.</description>
+                            <image path="fomod\images\ShadowmarksMerged.png"/>
+                            <conditionFlags>
+                                <flag name="ShadowmarksMerged">1</flag>
+                                <flag name="Shadowmarks">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="RecAuthor" value="1"/>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+                <group name="Woodworker's Whim" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Work Room Axe Mount">
+                            <description>Adds an Axe Mount to Clockwork Castle's Work Room, just above the Wood Chopping Block.
+
+As of 3.0.0, this module now automatically injects the axe that Clockwork spawns directly into the axe mount.</description>
+                            <image path="fomod\images\WoodworkersWhimMount.png"/>
+                            <conditionFlags>
+                                <flag name="WoodWhimMount">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="RecAuthor" value="1"/>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="What's Woodworker's Whim?">
+                            <description>Woodworker's Whim lets you grab a nearby axe capable of chopping wood as you actiavte a Wood Chopping Block. This was the first module I released, and I'm proud to announce that, as of 3.0.0, it's been rewritten from the ground up to eliminate the plethora of minor bugs that plagued the module. You can even get the Global version and its patches on its own seperate mod page, if you so wish!</description>
+                            <conditionFlags><flag name="___unused"></flag></conditionFlags><typeDescriptor><type name="NotUsable" /></typeDescriptor>
+                        </plugin>
+                        <plugin name="Script - Enabled Globally">
+                            <description>IMPORTANT: This module requires the Unofficial Skyrim Special Edition Patch to be installed!
+
+This option is an install of Woodworker's Whim in full, as distributed on its dedicated mod page. Included in this installer for backwards-compatibility and convenience. This module applies the script to EVERY instance of the vanilla Wood Chopping Block (even ones added by mods). It also applies its magic to Ore Veins, Clay Deposits, and the like.
+
+This option will disable itself if WoodworkersWhim.esp is already detected in your load order.</description>
+                            <image path="fomod\images\WoodworkersWhimScript.png"/>
+                            <conditionFlags>
+                                <flag name="WoodWhimScriptLevel">2</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="Or">
+                                                <flagDependency flag="WoodWhimScriptLevel" value="1"/>
+                                                <fileDependency file="WoodworkersWhim.esp" state="Active" />
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Script - Work Room Only">
+                            <description>Woodworker's Whim lets you grab a nearby axe capable of chopping wood as you actiavte a Wood Chopping Block. This was the first module I released, and I'm proud to announce that, as of 3.0.0, it's been rewritten from the ground up to eliminate the plethora of minor bugs that plagued the module.
+
+This option is a much more specialized version of Woodworker's Whim, restricted only to the chopping block in Clockwork Castle's Work Room, as well as the Clay Deposit and Stone Quarry on the castle grounds.
+
+This option will disable itself if WoodworkersWhim.esp is already detected in your load order.</description>
+                            <image path="fomod\images\WoodworkersWhimScript.png"/>
+                            <conditionFlags>
+                                <flag name="WoodWhimScriptLevel">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="Or">
+                                                <flagDependency flag="WoodWhimScriptLevel" value="2"/>
+                                                <fileDependency file="WoodworkersWhim.esp" state="Active" />
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="RecAuthor" value="1"/>
+                                                <dependencies operator="Or">
+                                                    <fileDependency file="WoodworkersWhim.esp" state="Inactive" />
+                                                    <fileDependency file="WoodworkersWhim.esp" state="Missing" />
+                                                </dependencies>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+                <group name="Minor Fixes and Changes" type="SelectAny">
+                    <plugins>
+                        <plugin name="Clockwork Title Remover">
+                            <description>Thanks to Foamimi for the idea!
 
 Removes the floating Clockwork text above Clockwork Castle when you first enter the valley.</description>
-              <image path="fomod\images\ClockworkTitleRemover.png"/>
-              <conditionFlags>
-                <flag name="Small_NoTitle">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
-    
-    <installStep name="SKSE">
-      <visible><flagDependency flag="Enable_SKSE" value="1" /></visible>
-      <optionalFileGroups order="Explicit">
-        <group name="Superior Sorting" type="SelectAny">
-          <plugins>
-            <plugin name="Superior Sorting">
-              <description>The very reason I created this project!&#13;
-Superior Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!&#13;
+                            <image path="fomod\images\ClockworkTitleRemover.png"/>
+                            <conditionFlags>
+                                <flag name="Small_NoTitle">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <type name="Optional"/>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
+
+        <installStep name="SKSE Modules">
+            <visible><flagDependency flag="Enable_SKSE" value="1" /></visible>
+            <optionalFileGroups order="Explicit">
+                <group name="Superior Sorting" type="SelectAny">
+                    <plugins>
+                        <plugin name="Superior Sorting">
+                            <description>The very reason I created this project!
+Superior Sorting does what it sounds like: It enhances the Clockwork sorting experience. No longer will you install mods like Apocalypse and question why your spell tomes aren't being sorted! No longer will you have the issue of having to manually add potions to your cabinet, and no longer will you have the frustration of mixing your potions with your poisons!
 With this module isntalled, checks are run on each relevant object to determine where they go—even common books! All properly-designed modded items are sorted too! Doesn't matter what mod, they're sorted!</description>
-              <image path="fomod\images\SuperiorSorting.png" />
-              <conditionFlags><flag name="SKSE_SuperiorSorting">1</flag></conditionFlags>
-              <typeDescriptor><dependencyType>
-                <defaultType name="Optional" />
-                <patterns><pattern><dependencies>
-                  <flagDependency flag="RecAuthor" value="1" />
-                  <flagDependency flag="Enable_SKSE" value="1" />
-                </dependencies>
-                <type name="Recommended" /></pattern></patterns>
-              </dependencyType></typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
+                            <image path="fomod\images\SuperiorSorting.png" />
+                            <conditionFlags><flag name="SKSE_SuperiorSorting">1</flag></conditionFlags>
+                            <typeDescriptor><dependencyType>
+                                <defaultType name="Optional" />
+                                <patterns><pattern><dependencies>
+                                    <flagDependency flag="RecAuthor" value="1" />
+                                    <flagDependency flag="Enable_SKSE" value="1" />
+                                </dependencies>
+                                <type name="Recommended" /></pattern></patterns>
+                            </dependencyType></typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
 
-    <installStep name="Integration, Patches, &amp; Consistency">
-      <optionalFileGroups order="Explicit">
-        <group name="High Poly Project" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Extra Coals Mesh Fix">
-              <description>Uses High Poly Project's mesh for the Work Room's extra smelter coals. Because this mesh is used elsewhere (e.g. in Nurndural), the plugin also makes changes there.</description>
-              <image path="fomod\images\HPP_CoalsFix.png"/>
-              <conditionFlags>
-                <flag name="IPC_HPP_Coals">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="IPC_HPP_Merged" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Hay Z-Fighting Fix">
-              <description>Fixes z-fighting that occurs in various points around the castle and in some Terminus locations by either raising or lowering each hay pile mesh.</description>
-              <image path="fomod\images\HPP_HayFix.png"/>
-              <conditionFlags>
-                <flag name="IPC_HPP_Hay">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="IPC_HPP_Merged" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Merged">
-              <description>Merges all of the High Poly Project options into one plugin.</description>
-              <image path="fomod\images\HighPolyProject.png"/>
-              <conditionFlags>
-                <flag name="IPC_HPP_Merged">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <type name="Optional"/>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
+        <installStep name="Integration, Patches, &amp; Consistency">
+            <optionalFileGroups order="Explicit">
+                <group name="High Poly Project" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Extra Coals Mesh Fix">
+                            <description>Uses High Poly Project's mesh for the Work Room's extra smelter coals. Because this mesh is used elsewhere (e.g. in Nurndural), the plugin also makes changes there.</description>
+                            <image path="fomod\images\HPP_CoalsFix.png"/>
+                            <conditionFlags>
+                                <flag name="IPC_HPP_Coals">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="IPC_HPP_Merged" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Hay Z-Fighting Fix">
+                            <description>Fixes z-fighting that occurs in various points around the castle and in some Terminus locations by either raising or lowering each hay pile mesh.</description>
+                            <image path="fomod\images\HPP_HayFix.png"/>
+                            <conditionFlags>
+                                <flag name="IPC_HPP_Hay">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="IPC_HPP_Merged" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Merged">
+                            <description>Merges all of the High Poly Project options into one plugin.</description>
+                            <image path="fomod\images\HighPolyProject.png"/>
+                            <conditionFlags>
+                                <flag name="IPC_HPP_Merged">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <type name="Optional"/>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
 
-    <!-- Present to make developing patches super easy-->
-    <!--installStep name="Superior Sorting Patches">
-      <visible><flagDependency flag="SKSE_SuperiorSorting" value="1" /></visible>
-      <optionalFileGroups order="Explicit">
-        <group name="Patches" type="SelectAny">
-          <plugins>
-            <plugin name="">
-              <description></description>
-              <image path="" />
-              <files></files>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional" />
-                  <patterns>
-                    <pattern><dependencies>
-                      <fileDependency file="" state="Active" />
-                    </dependencies></pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep-->
+        <installStep name="Woodworker's Whim Patches">
+            <visible operator="And"><flagDependency flag="WoodWhimScriptLevel" value="2" /></visible>
+            <optionalFileGroups order="Explicit">
+                <group name="Woodworker's Whim Patches" type="SelectAny"><plugins>
+                    <plugin name="Campfire - Complete Camping System"><!--BackendName: wwPatches_campfire-->
+                        <description>A patch fixing conflicting overwrites between Woodworker's Whim and Chesko's "Campfire" mod.
 
-    <installStep name="Sorting Patches">
-      <visible><flagDependency flag="SKSE_SuperiorSorting" value="0" /></visible>
-      <optionalFileGroups order="Explicit">
-        <group name="Ingredients" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Complete Cooking and Alchemy Overhaul">
-              <description>Adds CACO's items to Clockwork's alchemy list.</description>
-              <image path="fomod\images\CACO.jpg"/>
-              <conditionFlags>
-                <flag name="Sorting_Ing_CACO">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
-                        <dependencies operator="Or">
-                          <fileDependency file="ccbgssse037-curios.esl" state="Inactive"/>
-                          <fileDependency file="ccbgssse037-curios.esl" state="Missing"/>
-                        </dependencies>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Rare Curios">
-              <description>Adds Rare Curios' items to Clockwork's alchemy list.</description>
-              <image path="fomod\images\RareCurios.jpg"/>
-              <conditionFlags>
-                <flag name="Sorting_Ing_ccCurios">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <fileDependency file="ccbgssse037-curios.esl" state="Active"/>
-                        <dependencies operator="Or">
-                          <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Inactive"/>
-                          <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Missing"/>
-                        </dependencies>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                    <pattern>
-                      <dependencies operator="And">
-                        <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
-                      </dependencies>
-                      <type name="NotUsable"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-            <plugin name="Rare Curios + CACO">
-              <description>Adds CACO's AND Rare Curios' items to Clockwork's alchemy list.</description>
-              <image path="fomod\images\CACO_ccCurios.png"/>
-              <conditionFlags>
-                <flag name="Sorting_Ing_ccCuriosCACO">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
-                        <fileDependency file="ccbgssse037-curios.esl" state="Active"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-        <group name="Food" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Complete Cooking and Alchemy Overhaul">
-              <description>Adds CACO's items to Clockwork's Kitchen lists.</description>
-              <image path="fomod\images\CACO.jpg"/>
-              <conditionFlags>
-                <flag name="Sorting_Food_CACO">1</flag>
-              </conditionFlags>
-              <typeDescriptor>
-                <dependencyType>
-                  <defaultType name="Optional"/>
-                  <patterns>
-                    <pattern>
-                      <dependencies operator="And">
-                        <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
-                      </dependencies>
-                      <type name="Recommended"/>
-                    </pattern>
-                  </patterns>
-                </dependencyType>
-              </typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
+https://www.nexusmods.com/skyrimspecialedition/mods/667</description>
+                        <conditionFlags><flag name="__install_wwPatches_campfire">1</flag></conditionFlags>
+                        <typeDescriptor><dependencyType>
+                            <defaultType name="Optional" />
+                            <patterns>
+                                <pattern>
+                                    <dependencies>
+                                        <fileDependency file="Campfire.esm" state="Active" />
+                                        <flagDependency flag="WoodWhimScriptLevel" value="2" />
+                                    </dependencies>
+                                    <type name="Recommended" />
+                                </pattern>
+                            </patterns>
+                        </dependencyType></typeDescriptor>
+                    </plugin>
+                </plugins></group>
+            </optionalFileGroups>
+        </installStep>
 
-    <installStep name="Testing Modules">
-      <optionalFileGroups order="Explicit">
-        <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.&#13;
-&#13;
+        <!-- Present to make developing patches super easy-->
+        <!--installStep name="Superior Sorting Patches">
+            <visible><flagDependency flag="SKSE_SuperiorSorting" value="1" /></visible>
+            <optionalFileGroups order="Explicit">
+                <group name="Patches" type="SelectAny">
+                    <plugins>
+                        <plugin name="">
+                            <description></description>
+                            <image path="" />
+                            <files></files>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional" />
+                                    <patterns>
+                                        <pattern><dependencies>
+                                            <fileDependency file="" state="Active" />
+                                        </dependencies></pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep-->
+
+        <installStep name="Sorting Patches">
+            <visible><flagDependency flag="SKSE_SuperiorSorting" value="0" /></visible>
+            <optionalFileGroups order="Explicit">
+                <group name="Ingredients" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Complete Cooking and Alchemy Overhaul">
+                            <description>Adds CACO's items to Clockwork's alchemy list.</description>
+                            <image path="fomod\images\CACO.jpg"/>
+                            <conditionFlags>
+                                <flag name="Sorting_Ing_CACO">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
+                                                <dependencies operator="Or">
+                                                    <fileDependency file="ccbgssse037-curios.esl" state="Inactive"/>
+                                                    <fileDependency file="ccbgssse037-curios.esl" state="Missing"/>
+                                                </dependencies>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Rare Curios">
+                            <description>Adds Rare Curios' items to Clockwork's alchemy list.</description>
+                            <image path="fomod\images\RareCurios.jpg"/>
+                            <conditionFlags>
+                                <flag name="Sorting_Ing_ccCurios">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <fileDependency file="ccbgssse037-curios.esl" state="Active"/>
+                                                <dependencies operator="Or">
+                                                    <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Inactive"/>
+                                                    <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Missing"/>
+                                                </dependencies>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
+                                            </dependencies>
+                                            <type name="NotUsable"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                        <plugin name="Rare Curios + CACO">
+                            <description>Adds CACO's AND Rare Curios' items to Clockwork's alchemy list.</description>
+                            <image path="fomod\images\CACO_ccCurios.png"/>
+                            <conditionFlags>
+                                <flag name="Sorting_Ing_ccCuriosCACO">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
+                                                <fileDependency file="ccbgssse037-curios.esl" state="Active"/>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+                <group name="Food" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Complete Cooking and Alchemy Overhaul">
+                            <description>Adds CACO's items to Clockwork's Kitchen lists.</description>
+                            <image path="fomod\images\CACO.jpg"/>
+                            <conditionFlags>
+                                <flag name="Sorting_Food_CACO">1</flag>
+                            </conditionFlags>
+                            <typeDescriptor>
+                                <dependencyType>
+                                    <defaultType name="Optional"/>
+                                    <patterns>
+                                        <pattern>
+                                            <dependencies operator="And">
+                                                <fileDependency file="Complete Alchemy &amp; Cooking Overhaul.esp" state="Active"/>
+                                            </dependencies>
+                                            <type name="Recommended"/>
+                                        </pattern>
+                                    </patterns>
+                                </dependencyType>
+                            </typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
+
+        <installStep name="Testing Modules">
+            <optionalFileGroups order="Explicit">
+                <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.
+
 That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
-        <group name="Interesting Inhabitants" type="SelectAny">
-          <plugins order="Explicit">
-            <plugin name="Merged">
-              <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up. &#13;
+                <group name="Interesting Inhabitants" type="SelectAny">
+                    <plugins order="Explicit">
+                        <plugin name="Merged">
+                            <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up.
 Now, Lahar has many hundreds of potential actions distributed across each room of the castle and a scheduled day, and Lamashtu can read books occasionally.
-&#13;
+
 https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
-              <image path="fomod\images\AdditionalClockwork.png"/>
-              <conditionFlags><flag name="InterestingInhabitants_Merged">1</flag></conditionFlags>
-              <typeDescriptor><type name="Optional" /></typeDescriptor>
-            </plugin>
-          </plugins>
-        </group>
-      </optionalFileGroups>
-    </installStep>
+                            <image path="fomod\images\AdditionalClockwork.png"/>
+                            <conditionFlags><flag name="InterestingInhabitants_Merged">1</flag></conditionFlags>
+                            <typeDescriptor><type name="Optional" /></typeDescriptor>
+                        </plugin>
+                    </plugins>
+                </group>
+            </optionalFileGroups>
+        </installStep>
 
-  </installSteps>
+    </installSteps>
 
-  <conditionalFileInstalls>
-    <patterns>
+    <conditionalFileInstalls>
+        <patterns>
 
-      <!-- Translations -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Perspective" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="translations\first-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Perspective" value="2"/>
-        </dependencies>
-        <files>
-          <folder source="translations\second-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Translations -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Perspective" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="translations\first-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Perspective" value="2"/>
+                </dependencies>
+                <files>
+                    <folder source="translations\second-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Woodworker's Whim -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimMount" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\WoodworkersWhim\WorkRoomMount" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\WoodworkersWhim\WorkRoom" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-          <folder source="Modules\Normal\WoodworkersWhim\ScriptAndSource" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="WoodWhimScriptLevel" value="2"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\WoodworkersWhim\Global" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-          <folder source="Modules\Normal\WoodworkersWhim\ScriptAndSource" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Woodworker's Whim -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="WoodWhimMount" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\WoodworkersWhim\Mount" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="WoodWhimScriptLevel" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\WoodworkersWhim\WorkRoomOnly" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="WoodWhimScriptLevel" value="2"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\WoodworkersWhim\Global" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <!-- Woodworker's Whim PATCHES -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="__install_wwPatches_campfire" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\IntegrationPatchesNConsistency\WoodworkersWhim\Campfire" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- High Poly Project IP&C -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="IPC_HPP_Merged" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
-          <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPMergedFixes.esp" destination="ClockworkHPPMergedFixes.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="IPC_HPP_Coals" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPCoalsFix.esp" destination="ClockworkHPPCoalsFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-          <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="IPC_HPP_Hay" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPHayFix.esp" destination="ClockworkHPPHayFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- High Poly Project IP&C -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="IPC_HPP_Merged" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPMergedFixes.esp" destination="ClockworkHPPMergedFixes.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="IPC_HPP_Coals" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPCoalsFix.esp" destination="ClockworkHPPCoalsFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="IPC_HPP_Hay" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPHayFix.esp" destination="ClockworkHPPHayFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Bug Fixes -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="BugFixes" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\BugFixes" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern> <!-- Backwards Compatibility -->
-        <dependencies operator="And">
-          <flagDependency flag="BugFixes" value="1"/>
-          <flagDependency flag="Upgrading" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\BackCompat\CourierCounterspell" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Bug Fixes -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="BugFixes" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\BugFixes" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern> <!-- Backwards Compatibility -->
+                <dependencies operator="And">
+                    <flagDependency flag="BugFixes" value="1"/>
+                    <flagDependency flag="Upgrading" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\BackCompat\CourierCounterspell" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Marked Shadows -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="ShadowmarksTravelRoom" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTravelRoom.esp" destination="ClockworkShadowmarksTravelRoom.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="ShadowmarksTermini" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTermini.esp" destination="ClockworkShadowmarksTermini.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="ShadowmarksCastleExt" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksCastleExt.esp" destination="ClockworkShadowmarksCastleExt.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="ShadowmarksMerged" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksMerged.esp" destination="ClockworkShadowmarksMerged.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Shadowmarks" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\Shadowmarks\Scripts" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Marked Shadows -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="ShadowmarksTravelRoom" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTravelRoom.esp" destination="ClockworkShadowmarksTravelRoom.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="ShadowmarksTermini" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTermini.esp" destination="ClockworkShadowmarksTermini.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="ShadowmarksCastleExt" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksCastleExt.esp" destination="ClockworkShadowmarksCastleExt.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="ShadowmarksMerged" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksMerged.esp" destination="ClockworkShadowmarksMerged.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Shadowmarks" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\Shadowmarks\Scripts" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Ingredient Sorting -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Sorting_Ing_ccCurios" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Sorting_Ing_CACO" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Ingredient Sorting -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Sorting_Ing_ccCurios" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Sorting_Ing_CACO" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Food Sorting -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="Sorting_Food_CACO" value="1"/>
-        </dependencies>
-        <files>
-          <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
+            <!-- Food Sorting -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Sorting_Food_CACO" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
 
-      <!-- Superior Sorting SKSE -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="SKSE_SuperiorSorting" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-      <!-- Interesting Inhabitants -->
-      <pattern>
-        <dependencies operator="And">
-          <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
-        </dependencies>
-        <files>
-          <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
-        </files>
-      </pattern>
-    </patterns>
-  </conditionalFileInstalls>
+            <!-- Superior Sorting SKSE -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="SKSE_SuperiorSorting" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+
+            <!-- Interesting Inhabitants -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
+                </dependencies>
+                <files>
+                    <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                </files>
+            </pattern>
+
+        </patterns>
+    </conditionalFileInstalls>
 </config>

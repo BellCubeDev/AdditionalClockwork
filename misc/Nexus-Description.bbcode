@@ -1,9 +1,11 @@
 Additional Clockwork is a [u][b]MODULAR[/b][/u] suite of ESL-flagged ESP addons developed by BellCube Dev for the mod [url=https://www.nexusmods.com/skyrimspecialedition/mods/4155]Clockwork[/url] by Antistar. Unless otherwise specified, all modules can be imported mid-game.
 
+Also, the VR tag was put there by Pickysuraus (Mike), a Nexus Community Manager, when testing if a bug was fixed. It may or may not actually work in VR, but I trust Picky's a bit more knowledgeable than me.
+
 [b][size=6]Want to track my development progress?[/size][/b]
 Check out the [url=https://github.com/BellCubeDev/AdditionalClockwork/projects]GitHub Projects page[/url]!
 
-[size=6][b]Have an idea?[/b][/size] 
+[size=6][b]Have an idea?[/b][/size]
 [size=4]Suggest it on [/size][size=4][url=https://github.com/BellCubeDev/AdditionalClockwork/issues/new?assignees=BellCubeDev&labels=suggestion&template=idea-suggestion.md&title=%5BS%5D+Idea+Name+or+Short+Description]GitHub[/url] OR [/size][url=https://www.nexusmods.com/skyrimspecialedition/mods/47087/?tab=forum&topic_id=10280988]the dedicated forum thread[/url][size=4]![/size]
 
 [size=6][b]Modules[/b][/size]
@@ -27,21 +29,14 @@ Do note that the additional sorting can take some time. Fortunately, you can do 
 [list]
 [size=4][*][color=#ffd966]The Castle's front door[/color]
 [*][color=#6d9eeb]The Travel Room's door to the Main Hall[/color]
-[*][color=#93c47d]Each of the Terminus locations[/color] (two in Riften, one everywhere else)[/size]
+[/size][*][size=4][color=#93c47d]Each of the Terminus locations[/color] (two in Riften, one everywhere else)[/size]
 [/list]
-
-
-[img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/PatchAPI.png[/img]
-[size=4]An API to allow authors to easily patch their mods and Clockwork.
-For more info, see [url=https://github.com/BellCubeDev/AdditionalClockwork/wiki/Parch-API/Implimentation]the GutHub Wiki page on implementing[/url].
-[/size]
-
 
 [img]https://raw.githubusercontent.com/BellCubeDev/AdditionalClockwork/latest/Images/WoodworkersWhim.png[/img]
 [size=4]Adds two things: An Axe Mount to the Work Room and a script that searches for dropped/mounted axes nearby for you to chop wood with.
 
 Really made up of three modules:
-[list]
+ [list]
 [*][color=#ffd966]The script enabled [b]globally[/b][/color][b] (does [u]NOT[/u] require Clockwork)[/b]
 [*][color=#6d9eeb]The script enabled [b]ONLY in the Work Room[/b][/color] ([b][u]redundant[/u][/b] if the Global module is enabled)
 [*][color=#93c47d]An Axe mount for the Work Room[/color]
@@ -52,15 +47,15 @@ Really made up of three modules:
 [/list]
 
 [size=6][b]Testing Modules[/b][/size]
-[size=2]A form of open beta, if you will. While I try to keep them polished and useable, I take no responsibility for any save damage arising from the use of these modules or their updates![/size][list]
-[*][b][size=4]Lahar's Labor - [/size]Adds many interaction points around the castle for Lahar and allows children to enter the Main Hall for events other than meals[/b]
+[size=2]A form of open beta, if you will. While I try to keep them polished and useable, I take no responsibility for any save damage arising from the use of these modules![/size][list]
+[*][b][size=4]Interesting Inhabitants - [/size]Adds many interaction points around the castle for Lahar and allows children to enter the Main Hall for events other than meals[/b]
 [/list]
 
 [size=6][b]Integration, Patches, and Consistency[/b][/size]
 You know. Standard patches etc.
 [color=#ffd966][size=4][b]High Poly Project[/b][/size][/color]
 [list][*][b][color=#6aa84f][size=4]Coals Fix:[/size][/color][/b][size=4] Uses High Poly Project's mesh for the coals instead of the vanilla mesh.[/size][size=2] (needs new game) (See project images)[/size]
-[*][size=4][b][color=#6aa84f]Hay Fix:[/color][/b] Fixes the hay [url=https://en.wikipedia.org/w/index.php?title=Z-fighting&oldid=1031681976#:~:text=z-fighting%2C%20also%20called%20stitching%20or%20planefighting%2C%20is%20a%20phenomenon%20in%203d%20rendering%20that%20occurs%20when%20two%20or%20more%20primitives%20have%20very%20similar%20distances%20to%20the%20camera.&text=this%20then%20means%20that%20when%20a%20specific%20pixel%20is%20being%20rendered%2C%20it%20is%20nearly%20random%20which%20one%20of%20the%20two%20primitives%20are%20drawn%20in%20that%20pixel]z-fighting[/url] that appears throughout Clockwork Castle when using HPP's mesh [/size]
+[*][size=4][b][color=#6aa84f]Hay Fix:[/color][/b] Fixes the hay [url=https://en.wikipedia.org/w/index.php?title=Z-fighting&oldid=1031681976#:~:text=z-fighting%2C%20also%20called%20stitching%20or%20planefighting%2C%20is%20a%20phenomenon%20in%203d%20rendering%20that%20occurs%20when%20two%20or%20more%20primitives%20have%20very%20similar%20distances%20to%20the%20camera.&text=this%20then%20means%20that%20when%20a%20specific%20pixel%20is%20being%20rendered%2C%20it%20is%20nearly%20random%20which%20one%20of%20the%20two%20primitives%20are%20drawn%20in%20that%20pixel]z-fighting[/url] that appears all throughout Clockwork Castle when using HPP's mesh [/size]
 [size=1](Thankfully, Skyrim's rendering engine doesn't throw hissy fits when there's z-fighting. It just picks one and goes with it, thankfully. Thus, this is more of a small aesthetic change than a must-have like the Coals Fix)[/size][/list]
 [size=6][b]Sorting[/b][/size]
 [size=2]Honestly one of my biggest reasons for creating this project.[/size][list][size=4][*][b][url=https://www.nexusmods.com/skyrimspecialedition/mods/19924]Complete Alchemy and Cooking Overhaul[/url] ([/b][color=#ffd966]Food[/color][b], [/b][color=#93c47d]Ingredients[/color][b])[/b]
@@ -88,6 +83,6 @@ You know. Standard patches etc.
 [/list][size=4][url=https://www.nexusmods.com/skyrimspecialedition/users/3180451]LucidAPs[/url][/size][list]
 [*]Allowing me to extract the coals fix mesh from High Poly Project's smelter mesh. Stunning work!
 [/list]
-[size=4]Huge thanks to [url=ttps://www.nexusmods.com/users/3027732]Glitchfinder[/url] for helping me debug an infinite load glitch present in a previous version of the Bug Fixes plugin![/size]
+[size=4]Huge thanks to [url=https://www.nexusmods.com/users/3027732]Glitchfinder[/url] for helping me debug an infinite load glitch present in a previous version of the Bug Fixes plugin![/size]
 
 [size=4]And, finally, everyone who downloads, and especially those who contribute with ideas or directly [url=https://github.com/BellCubeDev/AdditionalClockwork/pulls?q=is%3Apr+NOT+author%3ABellCubeDev+]on GitHub[/url]! [b]See [url=https://github.com/BellCubeDev/AdditionalClockwork/blob/latest/Credits.md#contributors-to-additional-clockwork]Credits.md[/url] for a full list.[/b][/size]

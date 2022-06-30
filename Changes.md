@@ -63,7 +63,7 @@ Added: three sorting patches
 * Commented out `Debug.Trace()` calls in [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
 * Removed unused Superior Sorting scripts
 
-## 2.1.0
+## 3.0.0
 
 ### Patches
 
@@ -72,33 +72,35 @@ Added: three sorting patches
 ### Bug Fixes
 
 * Clockwork Bug Fixes
-  * Mage's Study Paintings hover in front of the wall
-  * TODO: Dark Brotherhood cannot abduct you during the questline
+  * Fixed many different positioning issues
+  * Dark Brotherhood cannot abduct you during the questline
     * Do note that they will be able to abduct you as soon as the questline completes
+  * Fixed an annoying bug with parts of the castle disappearing when looking at them from certain positions at certain angles.
+    * (Fixed by expanding the "Portals" about 1 unit into the walls)
+  * Have some free FPS! Occlusion Panes are the best!
+  * Added extra safeguards and failsafes to the Courier Counterspell script
+    * Also added a trigger where the Courier spawns to catch them and teleport them back to their holding cell
 * Clockwork Bug fixes by [DarthVitrial](https://forums.nexusmods.com/index.php?/user/5014137-darthvitrial/)
-  * Remove property that was removed from {SCRIPT} from the plugin
+  * Remove property that was removed from `CLWDBAmClawMountActiScript` from the plugin as well (obliterate the log spam)
   * Removed 2 bad tint mappings
-  * Gave the Shadow race "Advanced Avoidance" (a flag that makes the AI behave somewhat differently)
-* Clockwork Project Optimization
-  * Fixes an annoying bug with parts of the castle disappearing when looking at them from certain positions at certain angles.
-    * Fixed by expanding the "Portals" 1 unit into the walls
-  * Free FPS! Occlusion Panes are the best!
+  * Gave the Shadow race "Advanced Avoidance" (a flag that makes the AI behave somewhat differently and should be applied to bipedal races, such as humanoids)
+  * Implemented MANY mesh error fixes
 * Changed the fix for Lahar not affecting the stealth meter to a scripted method, removing the need for an overwrite
-  * TODO: Also applied to Lamashtu
+  * Also applied to Lamashtu
 
 ### Superior Sorting
 
 * Added Ingredients container to the Work Room
-* Fixed steam showing up before Steam Power is completed with the Ordinator compatibility
-TODO: Apply change to Work Room box
-* TODO: Added "Passed Lists," a cache to speed up sorting for items that have already passed/failed the filters.
+* Fixed steam showing up in the Ordinator accommodations before Steam Power is unlocked
+* Added "Passed Lists," a form of cache to speed up sorting for items that have already been sorted into a particular container.
 
 ### Interesting Inhabitants
 
 * Added Wall Lean markers all around the castle
-* TODO (Fix): Added a script to all Wall Lean markers in the Castle, preventing Gilded from using the markers.
+<!--
+* FIXME: Added a script to all Wall Lean markers in the Castle, preventing Gilded from using the markers.
 * TODO: Create multiple elaborate scenes for cooking and tending to children
-
+-->
 ### Woodworker's Whim
 
 #### Mount

@@ -1,5 +1,5 @@
 Scriptname CLWATransferOnEnter extends ObjectReference  
-{When the attached ref is 3D loaded, runs a check using a global.
+{When the trigger is entered, transfer all items to this container
 If successful, removes all items from target container, optionally sending to a second container.}
 
 Float Property pValueToCheckAgainst = 1.0 Auto  
@@ -7,7 +7,7 @@ Float Property pValueToCheckAgainst = 1.0 Auto
 Debaults to 1}
 GlobalVariable Property pGlobalToCheck  Auto  
 {Global used in the compareop. True if equal to pValueToCheckAgainst}
-ObjectReference Property pRemovalContainer  Auto
+ObjectReference[] Property pRemovalContainers  Auto
 {Container to remove all items from
 Will throw Papyrus errors if not filled}
 ObjectReference Property pDestinationContainer  Auto
@@ -20,20 +20,44 @@ Bool Property pRequirePlayer = True Auto
 Defaults to True}
 
 Event OnTriggerEnter(ObjectReference akActionRef)
-    if;/ Check for the player /;(!pRequirePlayer || akActionRef == Game.GetPlayer()) && ;/ Heh, multi-line IF statement. That's cursed.
-        Check the Global /; pGlobalToCheck.GetValue() == pValueToCheckAgainst && ;/
-        Check if the container has any items/; pRemovalContainer.GetNumItems() > 0 
 
-        if pDestinationContainer ; If pDestinationContainer is filled, transfer the items and play the sound there
-            pRemovalContainer.RemoveAllItems(pDestinationContainer, false, false)
-            if pSoundToPlay
-                pSoundToPlay.Play(pDestinationContainer)
-            endif
-        else ; Otherwise delete the items and play the sound at the source container
-            pRemovalContainer.RemoveAllItems(None, false, false)
-            if pSoundToPlay
-                pSoundToPlay.Play(pRemovalContainer)
-            endif
+    ; Early Return conditions
+    if                       ;/
+        Check for the player /; !(!pRequirePlayer || akActionRef == Game.GetPlayer()) && ;/
+            Check the Global /; pGlobalToCheck.GetValue() != pValueToCheckAgainst
+        return
+    EndIf
+
+
+    If pDestinationContainer ; If pDestinationContainer is filled, transfer the items and play the sound there
+        Bool PlaySound = False ; Set to true if items are transfered
+
+        Int i = 0
+        Int iMax = pRemovalContainers.Length
+        While i < iMax
+            If pRemovalContainers[i].GetNumItems() > 0 
+                pRemovalContainers[i].RemoveAllItems(pDestinationContainer, false, false)
+            EndIf
+        EndWhile
+        if pSoundToPlay && PlaySound
+            pSoundToPlay.Play(pDestinationContainer)
         endif
+        return
+    EndIf
+
+    ; If pDestinationContainer is not filled, remove items from and play the sound at the removal containers
+
+    Int i = 0
+    Int iMax = pRemovalContainers.Length
+
+    if pSoundToPlay ; Removes items and plays the sound
+        While i < iMax
+            pRemovalContainers[i].RemoveAllItems(None, None, false)
+            pSoundToPlay.Play(pRemovalContainers[i])
+        EndWhile
+    else ; Removes items, skipping sound-playing
+        While i < iMax
+            pRemovalContainers[i].RemoveAllItems(None, None, false)
+        EndWhile
     endif
 endevent
