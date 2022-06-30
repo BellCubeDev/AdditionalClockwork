@@ -5,15 +5,15 @@ Feel free to modify for your own purposes}
 
 ; About 580 lines of code (NOT including blank lines or comments)
 
-;/ Since I work is VSCode with the Minimap on, I like to generate text art to show up on my minimap
-   Also, Joel Day's Papyrus extension adds colapsing for comments, so I can, for instance, colapse the Containers section.
-   https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Big%20Money-nw /;
+;/ Since I work in VSCode with the Minimap on, I like to generate text art to show up on my minimap
+   Also, Joel Day's Papyrus extension adds collapsing for comments, so I can, for instance, collapse the Containers section.
+   https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Big%20Money-nw
+/;
 
 Import StringUtil
 
 ; These should all be auto-fillable since I used their Editor IDs
 
-; PARAM Keywords
 Keyword Property VendorItemSpellTome  Auto
 {Keyword used to detect spell tomes}
 Keyword Property VendorItemRecipe  Auto
@@ -28,7 +28,7 @@ Keyword Property VendorItemAnimalHide  Auto
 {Keyword used to detect hides}
 Keyword Property VendorItemGem  Auto
 {Keyword used to detect gems}
-Keyword Property VendorItemFireword  Auto
+Keyword Property VendorItemFireword  Auto ; Really, Bethesda? You guys let that ship? I guess I shouldn't be talkin'...
 {Keyword used to detect Firewood}
 Keyword Property BYOHHouseCraftingCategorySmithing  Auto
 {Keyword used to detect house building items like locks, hinges, nails, and iron fittings}
@@ -44,36 +44,381 @@ Keyword Property ArmorClothing  Auto
 {Keyword used to detect armor that is considered clothing}
 Keyword Property ArmorJewelry  Auto
 {Keyword used to detect armor that is considered jewelry}
-; !PARAM
 
-; PARAM Sounds
 Sound property QSTAstrolabeButtonPressX auto
 {BUTTONS: Played when the button is pressed}
 Sound property CLWNPCDwarvenCenturionAttackBreathOutMarker auto
-{Played when sorting is complete if aPlayTransferSound = True}
+{Played when sorting is complete If aPlayTransferSound = True}
 FormList Property CLWAItemPotionUse  Auto
 {FormList with the SoundDescriptor ITMPotionUse at the first index (i.e. Index 0)
-I was genuinely stuck on this one for a while, thanks CK wiki!}
-; !PARAM
+I was genuinely stuck on this one for a While, thanks CK wiki!}
 
-; PARAM Steam
 Message Property CLWNoSteamPower01Msg Auto
 {Message shown when no steam power is present}
 GlobalVariable Property CLWSQ02Machines01GLOB Auto
 {Has steam-power been restored? Treated as a bool}
-; !PARAM
 
 
 
-;/$$$$$\                                                          $$\                                   
-|$$  __$$\                                                         $$ |                                  
-|$$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$$$$$\    $$$$$$\   $$$$$$\   $$$$$$$\ 
+
+
+
+;/$$$$$$\                                $$\ $$\             $$\
+|$$  __$$\                               $$ |\__|            $$ |
+|$$ |  $$ | $$$$$$\   $$$$$$$\  $$$$$$$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\
+|$$$$$$$  | \____$$\ $$  _____|$$  _____|$$ |$$ |$$  _____|\_$$  _|  $$  _____|
+|$$  ____/  $$$$$$$ |\$$$$$$\  \$$$$$$\  $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\
+|$$ |      $$  __$$ | \____$$\  \____$$\ $$ |$$ | \____$$\   $$ |$$\  \____$$\
+\$$ |      \$$$$$$$ |$$$$$$$  |$$$$$$$  |$$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+ \__|       \_______|\_______/ \_______/ \__|\__|\_______/    \____/ \_______/;
+
+ FormList Property CLWASortingPLFoodCheeseSeasonings  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLFoodRawMeat  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLFoodFruitsNVeggies  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLFoodMedeAndCo  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLFoodMeelz  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyPotions  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyPoisons  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLWorkRoomIngots  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLWorkRoomOres  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLWorkRoomGems  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLWorkRoomHides  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLWorkRoomMisc  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryAmmo  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryArmourLight  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryArmourHeavy  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryArmourClothes  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryArmourJewelry  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryWeapons1H  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryWeapons2H  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryWeaponsRanged  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLArmouryWeaponsStaves  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_A  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_B  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_C  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_D  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_E  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_F  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_G  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_H  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_I  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_J  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_K  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_L  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_M  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_N  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_O  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_P  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_Q  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_R  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_S  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_T  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_U  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_V  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_WX  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_YZ  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_Notes  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_PotionRecipes  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingPLStudyBooks_SpellTomes  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+
+ FormList Property pOverridePLFormType01  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
+ This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
+ FormList Property pOverridePLFormType02  Auto
+ {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
+ This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
+
+
+
+;/$$$$$$\  $$\                     $$\       $$\ $$\             $$\
+|$$  __$$\ $$ |                    $$ |      $$ |\__|            $$ |
+|$$ |  $$ |$$ | $$$$$$\   $$$$$$$\ $$ |  $$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\
+|$$$$$$$\ |$$ | \____$$\ $$  _____|$$ | $$  |$$ |$$ |$$  _____|\_$$  _|  $$  _____|
+|$$  __$$\ $$ | $$$$$$$ |$$ /      $$$$$$  / $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\
+|$$ |  $$ |$$ |$$  __$$ |$$ |      $$  _$$<  $$ |$$ | \____$$\   $$ |$$\  \____$$\
+\$$$$$$$  |$$ |\$$$$$$$ |\$$$$$$$\ $$ | \$$\ $$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+ \_______/ \__| \_______| \_______|\__|  \__|\__|\__|\_______/    \____/ \_______/;
+ FormList Property CLWASortingBLFoodCheeseSeasonings  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLFoodRawMeat  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLFoodFruitsNVeggies  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLFoodMedeAndCo  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLFoodMeelz  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyPotions  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyPoisons  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLWorkRoomIngots  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLWorkRoomOres  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLWorkRoomGems  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLWorkRoomHides  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLWorkRoomMisc  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryAmmo  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryArmourLight  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryArmourHeavy  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryArmourClothes  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryArmourJewelry  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryWeapons1H  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryWeapons2H  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryWeaponsRanged  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLArmouryWeaponsStaves  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_A  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_B  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_C  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_D  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_E  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_F  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_G  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_H  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_I  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_J  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_K  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_L  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_M  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_N  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_O  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_P  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_Q  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_R  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_S  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_T  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_U  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_V  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_WX  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_YZ  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_Notes  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_PotionRecipes  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property CLWASortingBLStudyBooks_SpellTomes  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
+ FormList Property pOverrideBLFormType01  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
+ This particular one can be used for situations like the soul gem, which only sorts a few base forms.
+
+ Items that are in this Blacklist will (if applicable) go on to the second filter, where they may or may not pass}
+ FormList Property pOverrideBLFormType02  Auto
+ {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
+ This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
+
+
+
+;/$$$$$$\                        $$\                     $$\       $$\       $$\             $$\
+ $$  __$$\                       $$ |                    $$ |      $$ |      \__|            $$ |
+ $$ /  \__| $$$$$$\   $$$$$$\  $$$$$$\    $$$$$$\   $$$$$$$ |      $$ |      $$\  $$$$$$$\ $$$$$$\    $$$$$$$\
+ \$$$$$$\  $$  __$$\ $$  __$$\ \_$$  _|  $$  __$$\ $$  __$$ |      $$ |      $$ |$$  _____|\_$$  _|  $$  _____|
+  \____$$\ $$ /  $$ |$$ |  \__|  $$ |    $$$$$$$$ |$$ /  $$ |      $$ |      $$ |\$$$$$$\    $$ |    \$$$$$$\
+ $$\   $$ |$$ |  $$ |$$ |        $$ |$$\ $$   ____|$$ |  $$ |      $$ |      $$ | \____$$\   $$ |$$\  \____$$\
+ \$$$$$$  |\$$$$$$  |$$ |        \$$$$  |\$$$$$$$\ \$$$$$$$ |      $$$$$$$$\ $$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
+  \______/  \______/ \__|         \____/  \_______| \_______|      \________|\__|\_______/    \____/ \_______/;
+
+ FormList Property CLWASortedList_FoodCheeseSeasonings  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_FoodRawMeat  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_FoodFruitsNVeggies  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_FoodMedeAndCo  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_FoodMeelz  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyPotions  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyPoisons  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_WorkRoomIngots  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_WorkRoomOres  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_WorkRoomGems  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_WorkRoomHides  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_WorkRoomMisc  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryAmmo  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryArmourLight  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryArmourHeavy  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryArmourClothes  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryArmourJewelry  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryWeapons1H  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryWeapons2H  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryWeaponsRanged  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_ArmouryWeaponsStaves  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_A  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_B  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_C  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_D  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_E  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_F  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_G  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_H  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_I  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_J  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_K  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_L  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_M  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_N  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_O  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_P  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_Q  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_R  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_S  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_T  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_U  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_V  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_WX  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_YZ  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_Notes  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_PotionRecipes  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property CLWASortedList_StudyBooks_SpellTomes  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property pSortedList_FormType01  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+ FormList Property pSortedList_FormType02  Auto
+ {SortedLists are FormLists used to automatically filter out already-sorted items}
+
+
+
+; TODO: Implement the above Sorted Lists!
+; TODO: Move the above parameters back to the bottom of the script once Copilot is done with them
+
+
+
+;/$$$$$\                                                          $$\
+|$$  __$$\                                                         $$ |
+|$$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$$$$$\    $$$$$$\   $$$$$$\   $$$$$$$\
 |$$$$$$$  | \____$$\ $$  __$$\  \____$$\ $$  _$$  _$$\ $$  __$$\ \_$$  _|  $$  __$$\ $$  __$$\ $$  _____|
-|$$  ____/  $$$$$$$ |$$ |  \__| $$$$$$$ |$$ / $$ / $$ |$$$$$$$$ |  $$ |    $$$$$$$$ |$$ |  \__|\$$$$$$\  
-|$$ |      $$  __$$ |$$ |      $$  __$$ |$$ | $$ | $$ |$$   ____|  $$ |$$\ $$   ____|$$ |       \____$$\ 
+|$$  ____/  $$$$$$$ |$$ |  \__| $$$$$$$ |$$ / $$ / $$ |$$$$$$$$ |  $$ |    $$$$$$$$ |$$ |  \__|\$$$$$$\
+|$$ |      $$  __$$ |$$ |      $$  __$$ |$$ | $$ | $$ |$$   ____|  $$ |$$\ $$   ____|$$ |       \____$$\
 \$$ |      \$$$$$$$ |$$ |      \$$$$$$$ |$$ | $$ | $$ |\$$$$$$$\   \$$$$  |\$$$$$$$\ $$ |      $$$$$$$  |
  \__|       \_______|\__|       \_______|\__| \__| \__| \_______|   \____/  \_______|\__|      \_______/;
-; PARAM Important Parameters (a-)
+
  ; Bools
  Bool Property aIsButton = False  Auto
  {Should button properties be used? Defaults to false}
@@ -88,7 +433,7 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
  ; Messages
  Message Property aSortingCompleteMsg Auto
  {Message to show then sorting completes}
- 
+
  ; Refs
  ObjectReference Property aFormToDisable  Auto
  {Form to disable on init}
@@ -102,8 +447,8 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
  {Sort for Potions?}
  Bool Property sortFood = false  Auto
  {Sort for Food?}
- Bool Property sortIngredients = false  Auto
- {Sort for Potions?}
+ Bool Property sortSoulGems = false  Auto
+ {Sort for Soul Gems?}
  Bool Property sortWorkRoom = false  Auto
  {Sort for the Work Room?}
 
@@ -272,108 +617,278 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
  Bool Running
  Actor PlayerREF
 
-; !PARAM
- ;/$$$$$$$\                                 $$\     $$\                               
-|$$  _____|                                $$ |    \__|                              
-|$$ |      $$\   $$\ $$$$$$$\   $$$$$$$\ $$$$$$\   $$\  $$$$$$\  $$$$$$$\   $$$$$$$\ 
+
+ ;/$$$$$$$\                                 $$\     $$\
+|$$  _____|                                $$ |    \__|
+|$$ |      $$\   $$\ $$$$$$$\   $$$$$$$\ $$$$$$\   $$\  $$$$$$\  $$$$$$$\   $$$$$$$\
 |$$$$$\    $$ |  $$ |$$  __$$\ $$  _____|\_$$  _|  $$ |$$  __$$\ $$  __$$\ $$  _____|
-|$$  __|   $$ |  $$ |$$ |  $$ |$$ /        $$ |    $$ |$$ /  $$ |$$ |  $$ |\$$$$$$\  
-|$$ |      $$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |$$ |  $$ |$$ |  $$ | \____$$\ 
+|$$  __|   $$ |  $$ |$$ |  $$ |$$ /        $$ |    $$ |$$ /  $$ |$$ |  $$ |\$$$$$$\
+|$$ |      $$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |$$ |  $$ |$$ |  $$ | \____$$\
 \$$ |      \$$$$$$  |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |\$$$$$$  |$$ |  $$ |$$$$$$$  |
- \__|       \______/ \__|  \__| \_______|   \____/ \__| \______/ \__|  \__|\_______/;
-; SECTION Sorting Fucntions
- 
- ; FUNCTION ResetPassedLists
-  Function ResetPassedLists() Global
-    ;Debug.Trace("Resetting Superior Sorting's Passed Lists. Sorting will likely take longer than usual next time.")
-     ; TODO Impliment function
-     
-     ; Basic Draft:
-     ; While i < length
-     ;   lists[i].Revert
-     ; endwhile
- endfunction; !FUNCTION
- ; FUNCTION SortByFormType
-  Function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Int iFormTypeToSort, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flOverridePLFormType = None, FormList flOverrideBLFormType = None) Global
-    obSortRef.RemoveItem(flOverridePLFormType, 999999, true, obDestination02) ; Remove whitelisted items and place them into Container 2
+.\__|       \______/ \__|  \__| \_______|   \____/ \__| \______/ \__|  \__|\_______/;
+
+
+Function RemoveAllAndAddToList(ObjectReference akRemoveRef, Form akItemToRemove, FormList akListToAddTo, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
+    ;Debug.Trace("[BCD-CLWA_SS] "+"RemoveAllAndAddToList - Removing all...")
+    removeAll(akRemoveRef, akItemToRemove, akDestinationContainer, aiCount, abSilent)
+
+    Form akBaseItem = akItemToRemove
+    ObjectReference itemAsRef = akItemToRemove as ObjectReference
+    If itemAsRef
+        akBaseItem = itemAsRef.GetBaseObject()
+    EndIf
+
+    ;Debug.Trace("[BCD-CLWA_SS] "+"RemoveAllAndAddToList - Adding to list...")
+    akListToAddTo.AddForm(akItemToRemove)
+    ;Debug.Trace("[BCD-CLWA_SS] "+"RemoveAllAndAddToList - Done!")
+EndFunction
+
+Function removeAll(ObjectReference akRemoveRef, Form akItemToRemove, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
+    ;Debug.Trace("[BCD-CLWA_SS] "+"removeAll - Checking for list...")
+
+    FormList itemAsList = akItemToRemove as FormList
+    If itemAsList && itemAsList.GetSize() == 0
+        ;Debug.Trace("[BCD-CLWA_SS] "+"removeAll - List was empty. Aborting to prevent log spam.")
+        return
+    EndIf
+
+    ;Debug.Trace("[BCD-CLWA_SS] "+"RemoveAllAndAddToList - Removing items...")
+    akRemoveRef.RemoveItem(akItemToRemove, aiCount, abSilent, akDestinationContainer)
+
+    ;Debug.Trace("[BCD-CLWA_SS] "+"removeAll - Done!")
+EndFunction
+
+Bool Function notInListOrNoList(FormList akList, Form akItem) Global
+    return !akList || !akList.HasForm(akItem)
+EndFunction
+
+
+
+Function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems;/
+  /;, Int iFormTypeToSort;/
+  /;, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None;/
+  /;, FormList flOverridePLFormType01 = None, FormList flOverrideBLFormType01 = None;/
+  /;, FormList flOverridePLFormType02 = None, FormList flOverrideBLFormType02 = None) Global
+    removeAll(obSortRef, flOverridePLFormType01, obDestination01)
+    removeAll(obSortRef, flOverridePLFormType02, obDestination02)
 
     Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, iFormTypeToSort, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     int itemsLeft = FormsToSort.Length
     int i = 0
-    if flOverrideBLFormType
+    If flOverrideBLFormType01
         Form curForm
-        while i < itemsLeft
+        While i < itemsLeft
             curForm = FormsToSort[i]
-            if !flOverrideBLFormType.HasForm(curForm)
-                obSortRef.RemoveItem(curForm, 999999, true, obDestination01)
-            endif
+            If flOverrideBLFormType01.HasForm(curForm)
+                If !flOverrideBLFormType02 || !flOverrideBLFormType02.HasForm(curForm)
+                    removeAll(obSortRef, curForm, obDestination02)
+                EndIf
+            Else
+                removeAll(obSortRef, curForm, obDestination01)
+            EndIf
             i += 1
-        endwhile
-    else
-        while i < itemsLeft
+        EndWhile
+    Else
+        While i < itemsLeft
             obSortRef.RemoveItem(FormsToSort[i], 999999, true, obDestination01)
             i += 1
-        endwhile
-    endif
- endfunction; !FUNCTION
- 
- ; SECTION Scales
-  ; FUNCTION SortForBooks
-   Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kVendorItemSpellTome, Keyword kVendorItemRecipe, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, ObjectReference obDestination10 = None, ObjectReference obDestination11 = None, ObjectReference obDestination12 = None, ObjectReference obDestination13 = None, ObjectReference obDestination14 = None, ObjectReference obDestination15 = None, ObjectReference obDestination16 = None, ObjectReference obDestination17 = None, ObjectReference obDestination18 = None, ObjectReference obDestination19 = None, ObjectReference obDestination20 = None, ObjectReference obDestination21 = None, ObjectReference obDestination22 = None, ObjectReference obDestination23 = None, ObjectReference obDestination24 = None, ObjectReference obDestination25 = None, ObjectReference obDestination26 = None, ObjectReference obDestination27) Global
+        EndWhile
+    EndIf
+EndFunction
+
+;/
+  Function SortForSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference zDestination01 = None, ObjectReference zDestination02 = None, FormList CLWASortingPLFormType = None, FormList CLWASortingBLFormType = None) Global
+    Form[] RefsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 61, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    int itemsLeft = RefsToSort.Length
+    int i = 0
+    ObjectReference curRef
+    SoulGem curGemBase
+    While i < itemsLeft
+        curRef = RefsToSort[i] as ObjectReference
+        curGemBase = curRef.GetBaseObject() as SoulGem
+        If curGemBase && curSGem.GetGemSize()
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Reference #"+(i+1)+"/"+itemsLeft+" \"" + curRef.GetDisplayName() + "\" is a Soul Gem with a stored soul size of "+PO3_SKSEFunctions.GetStoredSoulSize(curRef)+"/"+curSGem.GetGemSize())
+            If PO3_SKSEFunctions.GetStoredSoulSize(curRef)
+                removeAll(obSortRef, curRef, zDestination02)
+            Else
+                removeAll(obSortRef, curRef, zDestination01)
+            EndIf
+
+        Else
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Reference #"+(i+1)+"/"+itemsLeft+" \"" + curRef.GetDisplayName() + "\" is not a Soul Gem.")
+        EndIf
+        i += 1
+    EndWhile
+
+    ; Once persistent refs are handled, resort to using the gem's defined size
+
+    Form[] GemsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 52, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+    SoulGem curSGem
+    itemsLeft = GemsToSort.Length
+    i = 0
+    While i < itemsLeft
+        curSGem = GemsToSort[i] as SoulGem
+        If curSGem && curSGem.GetGemSize()
+            curRef = obSortRef.PlaceAtMe(curSGem, 1, false, true)
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Gem #"+(i+1)+"/"+itemsLeft+" is a Soul Gem with a soul size of: "+PO3_SKSEFunctions.GetStoredSoulSize(curRef)+"/"+curSGem.GetGemSize())
+            If PO3_SKSEFunctions.GetStoredSoulSize(curRef)
+                removeAll(obSortRef, curSGem, zDestination01)
+            Else
+                removeAll(obSortRef, curSGem, zDestination02)
+            EndIf
+            i += 1
+        Else
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Gem #"+(i+1)+"/"+itemsLeft+" \"" + curSGem.GetName() + "\" is not a Soul Gem... somehow.")
+        EndIf
+    EndWhile
+ EndFunction
+/;
+
+
+
+Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts books alphabetically (merging W/X and Y/Z)
     NOT intended for languages using a non-English alphabet}
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_A, zDestination01)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_A, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_B, zDestination02)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_B, zDestination02)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_C, zDestination03)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_C, zDestination03)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_D, zDestination04)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_D, zDestination04)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_E, zDestination05)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_E, zDestination05)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_F, zDestination06)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_F, zDestination06)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_G, zDestination07)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_G, zDestination07)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_H, zDestination08)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_H, zDestination08)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_I, zDestination09)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_I, zDestination09)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_J, zDestination10)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_J, zDestination10)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_K, zDestination11)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_K, zDestination11)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_L, zDestination12)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_L, zDestination12)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_M, zDestination13)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_M, zDestination13)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_N, zDestination14)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_N, zDestination14)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_O, zDestination15)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_O, zDestination15)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_P, zDestination16)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_P, zDestination16)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_Q, zDestination17)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_Q, zDestination17)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_R, zDestination18)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_R, zDestination18)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_S, zDestination19)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_S, zDestination19)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_T, zDestination20)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_T, zDestination20)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_U, zDestination21)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_U, zDestination21)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_V, zDestination22)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_V, zDestination22)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_WX, zDestination23)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_WX, zDestination23)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_YZ, zDestination24)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_YZ, zDestination24)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_Notes, zDestination25)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_Notes, zDestination25)
+
+    removeAll(obSortRef, CLWASortingPLStudyBooks_SpellTomes, zDestination26)
+    removeAll(obSortRef, CLWASortedList_StudyBooks_SpellTomes, zDestination26)
+
+    removeAll(obSortRef, CLWASortedList_StudyBooks_PotionRecipes, zDestination27)
+    removeAll(obSortRef, CLWASortingPLStudyBooks_PotionRecipes, zDestination27)
+
+
     int i = 0
     Int j
     String ItemName
     Book CurrentBook
     String FirstChar
     String CurrentChar
+    String CurrentCharPlusOne
     Int ItemNameLength
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int ItemsLeft = BooksToSort.Length
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentBook = BooksToSort[i] as Book
-        ;Debug.Trace(CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
-        if obDestination26 && (CurrentBook.HasKeyword(kVendorItemSpellTome) || CurrentBook.GetSpell() != None) ; If it has a spell or the keyword, it is almost certainly a spell tome 
-            ;Debug.Trace("Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
-            obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination26)
-        elseif obDestination27 && CurrentBook.HasKeyword(kVendorItemRecipe) ; If it has the Potion Recipe keyword, then send it to the new Potion Recipe container.
-            ;Debug.Trace("Sorted as a Potion Recipe")
-            obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination27)
-        elseif obDestination25 && (Find(CurrentBook.GetWorldModelPath(), "Note") > -1 || Find(CurrentBook.GetWorldModelPath(), "note") > -1) ; Does the book have the word "note" in its model path? If so, it's probably a note.
-            ;Debug.Trace("Sorted as a Note (NOT a Potion Recipe)")
-            obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination25)
-        else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
-             ; However, Antistar decided he'd make my life miserable. He decided that the word "The" doesn't count. Fun.
+        ;Debug.Trace("[BCD-CLWA_SS] "+CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
+        If CurrentBook.HasKeyword(VendorItemSpellTome) || CurrentBook.GetSpell() != None ; If it has a spell or the keyword, it is almost certainly a spell tome
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
+            removeAll(obSortRef, CurrentBook, zDestination26)
+
+        elseif CurrentBook.HasKeyword(VendorItemRecipe) ; If it has the Potion Recipe keyword, then send it to the new Potion Recipe container.
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Potion Recipe")
+            removeAll(obSortRef, CurrentBook, zDestination27)
+
+        elseif Find(CurrentBook.GetWorldModelPath(), "Note") > -1 || Find(CurrentBook.GetWorldModelPath(), "note") > -1 ; Does the book have the word "note" in its model path? If so, it's probably a note.
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Note (NOT a Potion Recipe)")
+            removeAll(obSortRef, CurrentBook, zDestination25)
+
+        Else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
+             ; However, Antistar decided ~~that he'd make my life miserable and~~ that the word "The" doesn't count. Fun.
             ItemName = CurrentBook.GetName()
-            ;Debug.Trace("Name: "+ItemName)
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Name: "+ItemName)
             ItemNameLength = -1
             ItemNameLength = StringUtil.GetLength(ItemName)
-            ;Debug.Trace("Name Length: "+ItemNameLength)
-            j = 0 
-            FirstChar = None as String
-            CurrentChar = None as String
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Name Length: "+ItemNameLength)
+            j = 0
+            FirstChar = ""
+            CurrentChar = ""
             Int NextChar
-            While j < ItemNameLength && FirstChar == None as String
+            While FirstChar == "" && j < ItemNameLength
                 CurrentChar = GetNthChar(ItemName, j) ; Store the current character to prevent spamming the same function over and over again
-                if isLetter(CurrentChar)
-                    ;Debug.Trace("Current letter: "+CurrentChar)
-                    if ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (GetNthChar(ItemName, j+1) == "h" || GetNthChar(ItemName, j+1) == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
+                CurrentCharPlusOne = GetNthChar(ItemName, j+1) ; Store the next character to prevent spamming the same function over and over again
+                If isLetter(CurrentChar)
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"Current letter: "+CurrentChar)
+                    If ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (CurrentCharPlusOne == "h" || CurrentCharPlusOne == "H") && (GetNthChar(ItemName, j+2) == "e" || GetNthChar(ItemName, j+2) == "E") && !isLetter(GetNthChar(ItemName, j+3))
                         j+=2
-                    else
+                    Else
                         FirstChar = CurrentChar
-                    endif
+                    EndIf
                 elseif IsDigit(CurrentChar)
-                    ;Debug.Trace("Current Digit: "+CurrentChar)
-                    if CurrentChar == "2" || CurrentChar == "3"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"Current Digit: "+CurrentChar)
+                    If CurrentChar == "2" || CurrentChar == "3"
                         FirstChar = "T"
                     elseif CurrentChar == "1"
                         ; English is MEAN!
                         ; Checks for numbers 10-19
                         FirstChar = "O"
-                        if !isDigit(GetNthChar(ItemName, j+2))
-                            NextChar = GetNthChar(ItemName, j+1) as Int
-                            if NextChar == 1 || NextChar == 8
+                        If !isDigit(GetNthChar(ItemName, j+2))
+                            NextChar = CurrentCharPlusOne as Int
+                            If NextChar == 1 || NextChar == 8
                                 FirstChar = "E"
                             elseif NextChar == 2 || NextChar == 0
                                 FirstChar = "T"
@@ -384,8 +899,8 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
                                 FirstChar = "S"
                             elseif NextChar == 9
                                 FirstChar = "N"
-                            endif
-                        endif
+                            EndIf
+                        EndIf
                     elseif CurrentChar == "4"|| CurrentChar == "5"
                         FirstChar = "F"
                     elseif CurrentChar == "6" || CurrentChar == "7"
@@ -396,114 +911,219 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
                         FirstChar = "N"
                     elseif CurrentChar == "0"
                         FirstChar = "Z"
-                    endif
+                    EndIf
 
-                endif
+                EndIf
                 j += 1
-            endwhile
-            if FirstChar != None as String
-                ;Debug.Trace("First character: " + FirstChar)
-                ; This is a BIG if statement
-                if obDestination01 && (FirstChar == "A" || FirstChar == "a")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination01)
-                elseif obDestination02 && (FirstChar == "B" || FirstChar == "b")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination02)
-                elseif obDestination03 && (FirstChar == "C" || FirstChar == "c")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination03)
-                elseif obDestination04 && (FirstChar == "D" || FirstChar == "d")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination04)
-                elseif obDestination05 && (FirstChar == "E" || FirstChar == "e")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination05)
-                elseif obDestination06 && (FirstChar == "F" || FirstChar == "f")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination06)
-                elseif obDestination07 && (FirstChar == "G" || FirstChar == "g")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination07)
-                elseif obDestination08 && (FirstChar == "H" || FirstChar == "h")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination08)
-                elseif obDestination09 && (FirstChar == "I" || FirstChar == "i")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination09)
-                elseif obDestination10 && (FirstChar == "J" || FirstChar == "j")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination10)
-                elseif obDestination11 && (FirstChar == "K" || FirstChar == "k")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination11)
-                elseif obDestination12 && (FirstChar == "L" || FirstChar == "l")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination12)
-                elseif obDestination13 && (FirstChar == "M" || FirstChar == "m")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination13)
-                elseif obDestination14 && (FirstChar == "N" || FirstChar == "n")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination14)
-                elseif obDestination15 && (FirstChar == "O" || FirstChar == "o")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination15)
-                elseif obDestination16 && (FirstChar == "P" || FirstChar == "p")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination16)
-                elseif obDestination18 && (FirstChar == "R" || FirstChar == "r")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination18)
-                elseif obDestination19 && (FirstChar == "S" || FirstChar == "s")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination19)
-                elseif obDestination20 && (FirstChar == "T" || FirstChar == "t")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination20)
-                elseif obDestination21 && (FirstChar == "U" || FirstChar == "u")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination21)
-                elseif obDestination22 && (FirstChar == "V" || FirstChar == "v")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination22)
-                elseif obDestination23 && (FirstChar == "W" || FirstChar == "w" || FirstChar == "X" || FirstChar == "x")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination23)
-                elseif obDestination24 && (FirstChar == "Y" || FirstChar == "y" || FirstChar == "Y" || FirstChar == "y")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination24)
-                elseif obDestination17 && (FirstChar == "Q" || FirstChar == "q")
-                    obSortRef.RemoveItem(CurrentBook, 9999, true, obDestination17)
-                endif
-            endif
-        endif
-        ;Debug.Trace("Finished with \""+CurrentBook.GetName()+"\"\n")
+            EndWhile
+            If FirstChar != ""
+                ;Debug.Trace("[BCD-CLWA_SS] "+"First character: " + FirstChar)
+                ; This is a BIG If statement
+                If FirstChar == "A" || FirstChar == "a"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is A!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_A, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_A, zDestination01)
+                    EndIf
+
+                elseif FirstChar == "B" || FirstChar == "b"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is B!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_B, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_B, zDestination02)
+                    EndIf
+
+                elseif FirstChar == "C" || FirstChar == "c"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is C!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_C, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_C, zDestination03)
+                    EndIf
+
+                elseif FirstChar == "D" || FirstChar == "d"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is D!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_D, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_D, zDestination04)
+                    EndIf
+
+                elseif FirstChar == "E" || FirstChar == "e"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is E!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_E, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_E, zDestination05)
+                    EndIf
+
+                elseif FirstChar == "F" || FirstChar == "f"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is F!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_F, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_F, zDestination06)
+                    EndIf
+
+                elseif FirstChar == "G" || FirstChar == "g"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is G!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_G, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_G, zDestination07)
+                    EndIf
+
+                elseif FirstChar == "H" || FirstChar == "h"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is H!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_H, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_H, zDestination08)
+                    EndIf
+
+                elseif FirstChar == "I" || FirstChar == "i"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is I!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_I, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_I, zDestination09)
+                    EndIf
+
+                elseif FirstChar == "J" || FirstChar == "j"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is J!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_J, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_J, zDestination10)
+                    EndIf
+
+                elseif FirstChar == "K" || FirstChar == "k"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is K!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_K, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_K, zDestination11)
+                    EndIf
+
+                elseif FirstChar == "L" || FirstChar == "l"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is L!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_L, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_L, zDestination12)
+                    EndIf
+
+                elseif FirstChar == "M" || FirstChar == "m"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is M!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_M, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_M, zDestination13)
+                    EndIf
+
+                elseif FirstChar == "N" || FirstChar == "n"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is N!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_N, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_N, zDestination14)
+                    EndIf
+
+                elseif FirstChar == "O" || FirstChar == "o"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is O!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_O, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_O, zDestination15)
+                    EndIf
+
+                elseif FirstChar == "P" || FirstChar == "p"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is P!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_P, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_P, zDestination16)
+                    EndIf
+
+                elseif FirstChar == "R" || FirstChar == "r"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is R!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_R, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_R, zDestination18)
+                    EndIf
+
+                elseif FirstChar == "S" || FirstChar == "s"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is S!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_S, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_S, zDestination19)
+                    EndIf
+
+                elseif FirstChar == "T" || FirstChar == "t"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is T!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_T, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_T, zDestination20)
+                    EndIf
+
+                elseif FirstChar == "U" || FirstChar == "u"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is U!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_U, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_U, zDestination21)
+                    EndIf
+
+                elseif FirstChar == "V" || FirstChar == "v"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is V!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_V, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_V, zDestination22)
+                    EndIf
+
+                elseif FirstChar == "W" || FirstChar == "w" || FirstChar == "X" || FirstChar == "x"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is W or X!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_WX, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_WX, zDestination23)
+                    EndIf
+
+                elseif FirstChar == "Y" || FirstChar == "y" || FirstChar == "Z" || FirstChar == "z"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is Y or Z!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_YZ, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_YZ, zDestination24)
+                    EndIf
+
+                elseif FirstChar == "Q" || FirstChar == "q"
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"First Character is Q!")
+                    If notInListOrNoList(CLWASortingBLStudyBooks_Q, CurrentBook)
+                        RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_Q, zDestination17) ; There aren't even any books starting with Q in vanilla
+                    EndIf
+
+                EndIf
+            EndIf
+        EndIf
+        ;Debug.Trace("[BCD-CLWA_SS] "+"Finished with \""+CurrentBook.GetName()+"\"\n")
         i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
+    EndWhile
+EndFunction
 
-  ; FUNCTION SortForPotions
-   Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, FormList flCLWASortingPLStudyPotions = None, FormList flCLWASortingPLStudyPoisons = None, FormList flCLWASortingBLStudyPotions = None, FormList flCLWASortingBLStudyPoisons = None) Global
-    {Sorts potions and poisons into two seperate containers}
 
-    
-    ;Debug.Trace("SORTING POTIONS -- PAY ATTENTION TO ME!!!")
-    if obDestination01 && flCLWASortingPLStudyPotions
-        obSortRef.RemoveItem(flCLWASortingPLStudyPotions, 999999, false, obDestination01)
-    endif
-    if obDestination02 && flCLWASortingPLStudyPoisons
-        obSortRef.RemoveItem(flCLWASortingPLStudyPoisons, 999999, false, obDestination02)
-    endif
+Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+    {Sorts potions and poisons into two separate containers}
+
+
+    ;Debug.Trace("[BCD-CLWA_SS] "+"SORTING POTIONS -- PAY ATTENTION TO ME!!!")
+    obSortRef.RemoveItem(CLWASortingPLStudyPotions, 999999, false, zDestination01)
+    obSortRef.RemoveItem(CLWASortedList_StudyPotions, 999999, false, zDestination01)
+
+    obSortRef.RemoveItem(CLWASortingPLStudyPoisons, 999999, false, zDestination02)
+    obSortRef.RemoveItem(CLWASortedList_StudyPoisons, 999999, false, zDestination02)
+
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        if !CurrentPotion.IsFood()
-            if (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!flCLWASortingBLStudyPoisons || !flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))
-                ;Debug.Trace(CurrentPotion+" (#"+i+") is a poison")
-                if obDestination02
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
-                endif
-            elseif obDestination01 && (!flCLWASortingBLStudyPotions || !flCLWASortingBLStudyPotions.HasForm(CurrentPotion))
-                ;Debug.Trace(CurrentPotion+" (#"+i+") is not a poison")
-                obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
-            endif
-        else
-            ;Debug.Trace(CurrentPotion+" (#"+i+") is food", 1)
-        endif
-        i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
+        If !CurrentPotion.IsFood()
+            If (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))
+                ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is a poison")
+                RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_StudyPoisons, zDestination02)
 
-  ; FUNCTION SortForWorkRoom
-   Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kVendorItemOreIngot, Keyword kVendorItemClutter, Keyword kVendorItemIngredient, Keyword kVendorItemFireword, Keyword kVendorItemGem, Keyword kVendorItemAnimalHide, Keyword kBYOHHouseCraftingCategorySmithing, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, FormList flOverrideWLIngots = None, FormList flOverrideWLOres = None, FormList flOverrideWLHides = None, FormList flOverrideWLGems = None, FormList flOverrideWLWorkRoomMisc = None, FormList flOverrideBLIngots = None, FormList flOverrideBLOres = None, FormList flOverrideBLWorkRoomMisc = None, FormList flOverrideBLHides = None, FormList flOverrideBLGems = None) Global
+            elseif (!CLWASortingBLStudyPotions || !CLWASortingBLStudyPotions.HasForm(CurrentPotion))
+                ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is not a poison")
+                RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_StudyPotions, zDestination01)
+
+            EndIf
+        Else
+            ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is food", 1)
+        EndIf
+        i += 1
+    EndWhile
+EndFunction
+
+
+Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts various smithing materials into their appropriate containers, including a misc. container}
 
-    obSortRef.RemoveItem(flOverrideWLIngots, 999999, True, obDestination01)
-    obSortRef.RemoveItem(flOverrideWLOres, 999999, True, obDestination02)
-    obSortRef.RemoveItem(flOverrideWLHides, 999999, True, obDestination03)
-    obSortRef.RemoveItem(flOverrideWLGems, 999999, True, obDestination04)
-    obSortRef.RemoveItem(flOverrideWLWorkRoomMisc, 999999, True, obDestination05)
+    removeAll(obSortRef, CLWASortingPLWorkRoomIngots, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomIngots, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomOres, zDestination02)
+    removeAll(obSortRef, CLWASortedList_WorkRoomOres, zDestination02)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomHides, zDestination03)
+    removeAll(obSortRef, CLWASortedList_WorkRoomHides, zDestination03)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomGems, zDestination04)
+    removeAll(obSortRef, CLWASortedList_WorkRoomGems, zDestination04)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomMisc, zDestination05)
+    removeAll(obSortRef, CLWASortedList_WorkRoomMisc, zDestination05)
 
     Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 32, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FormsToSort.Length
@@ -512,90 +1132,99 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     String CurrentFormName
     String CurrentFormNameKeywords
     String CurrentFormModelPath
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentForm = FormsToSort[i]
-        CurrentFormName = CurrentForm.GetName()
+        CurrentFormName = PO3_SKSEFunctions.GetFormEditorID(CurrentForm) + " | " + CurrentForm.GetName()
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        ;Debug.Trace(CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
-        if obDestination01 &&      ;/                Ingots               /; !(flOverrideBLIngots && !flOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot") != -1)
-            ;Debug.Trace("Sorted as an Ingot")
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
-        elseif obDestination02 &&  ;/                 Ores                /; !(flOverrideBLOres && !flOverrideBLOres.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1)
-            ;Debug.Trace("Sorted as Ore")
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination02)
+        ;Debug.Trace("[BCD-CLWA_SS] "+CurrentForm+" \""+CurrentFormName+"\" #"+(i+1)+"/"+itemsLeft+" with form type "+CurrentForm.GetType()+" has model path \""+CurrentFormModelPath+"\"\n==================== KEYWORDS ====================\n"+CurrentFormNameKeywords)
+        If zDestination01 &&      ;/                Ingots               /; notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ingot") != -1 || Find(CurrentFormModelPath, "ingot") != -1)
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as an Ingot")
+            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomIngots, zDestination01)
 
-        elseif                     ;/           Leather & Hides           /; CurrentForm.HasKeyword(kVendorItemAnimalHide)
-            if obDestination05 &&  ;/               Leather               /; !(flOverrideBLWorkRoomMisc && !flOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (Find(CurrentFormModelPath, "Leather") != -1 || Find(CurrentFormModelPath, "leather") != -1)
-                ;Debug.Trace("Sorted as Leather")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            elseif obDestination03 ;/                Hides                /; && !(flOverrideBLHides && !flOverrideBLHides.HasForm(CurrentForm))
-                ;Debug.Trace("Sorted as Hide")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination03)
-            endif
-        elseif obDestination04 &&  ;/                 Gems                /;!(flOverrideBLGems && !flOverrideBLGems.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemGem)
-            ;Debug.Trace("Sorted as a Gem")
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination04)
-        elseif obDestination05 && !(flOverrideBLWorkRoomMisc && !flOverrideBLWorkRoomMisc.HasForm(CurrentForm))
-            if                     ;/               Firewood              /; CurrentForm.HasKeyword(kVendorItemFireword)
-                ;Debug.Trace("Sorted as a Misc. Item (Firewood)")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
+
+        elseif zDestination02 &&  ;/                 Ores                /; notInListOrNoList(CLWASortingBLWorkRoomOres, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && (Find(CurrentFormModelPath, "Ore") != -1 || Find(CurrentFormModelPath, "ore") != -1)
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as Ore")
+            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomOres, zDestination02)
+
+        elseif                     ;/           Leather & Hides           /; CurrentForm.HasKeyword(VendorItemAnimalHide)
+
+            If zDestination05 &&  ;/               Leather               /; notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && (Find(CurrentFormModelPath, "Leather") != -1 || Find(CurrentFormModelPath, "leather") != -1)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as Leather")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+
+            elseif zDestination03 ;/                Hides                /; && notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as Hide")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomHides, zDestination03)
+
+            EndIf
+
+        elseif zDestination04 &&  ;/                 Gems                /;notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)
+            ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Gem")
+            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomGems, zDestination04)
+
+        elseif zDestination05 && notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm)
+
+            If                     ;/               Firewood              /; CurrentForm.HasKeyword(VendorItemFireword)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Misc. Item (Firewood)")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+
             elseif                 ;/               Charcoal              /; Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1
-                ;Debug.Trace("Sorted as a Misc. Item (Charcoal)")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(kBYOHHouseCraftingCategorySmithing)
-                ;Debug.Trace("Sorted as a Misc. Item (House Building Materials)")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            elseif                 ;/   Ingredients that are MiscItems?   /; CurrentForm.HasKeyword(kVendorItemIngredient)
-                ;Debug.Trace("Sorted as a Misc. Item (Ingredients)")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            elseif                 ;/     Catch-All for Ores & Ingots     /;  CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter)
-                ;Debug.Trace("Sorted as a Misc. Item (Ingredients)")
-                obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination05)
-            endif
-        endif
-        ;Debug.Trace("========================")
-        i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Misc. Item (Charcoal)")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-  ; FUNCTION SortForFood
-   Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, FormList CLWAItemPotionUse, Keyword kVendorItemFoodRaw, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, FormList flOverridePLFoodMedeAndCo = None, FormList flOverridePLFoodCheeseSeasonings = None, FormList flOverridePLFoodFruitsNVeggies = None, FormList flOverridePLFoodRawMeat = None, FormList flOverridePLFoodMeelz = None, FormList flOverrideBLFoodMedeAndCo = None, FormList flOverrideBLFoodMeelz = None, FormList flOverrideBLFoodCheeseSeasonings = None, FormList flOverrideBLFoodFruitsNVeggies = None, FormList flOverrideBLFoodRawMeat = None) Global
+            elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Misc. Item (House Building Materials)")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+
+            elseif                 ;/   Ingredients that are MiscItems?   /; CurrentForm.HasKeyword(VendorItemIngredient)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Misc. Item (Ingredients)")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+
+            elseif                 ;/     Catch-All for Ores & Ingots     /;  CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Sorted as a Misc. Item (Ingredients)")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+
+            EndIf
+        EndIf
+        ;Debug.Trace("[BCD-CLWA_SS] "+"========================")
+        i += 1
+    EndWhile
+EndFunction
+
+
+Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts foods in to 5 categories (accepts PassLists & BlackLists):
-    Drinks
-    Cheese & Seasonings
-    Raw Meats
-    Fruits and Vegetables
-    Prepared Food}
+    Drinks, Cheese & Seasonings, Raw Meats, Fruits and Vegetables, and Prepared Food}
     Int itemsLeft
     int i = 0
 
-    if obDestination06
+    ; Simplified version of SortByFormType
+    If zDestination06
         Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = IngsToSort.Length
-        while i < itemsLeft
-            obSortRef.RemoveItem(IngsToSort[i], 9999999, true, obDestination06)
+        While i < itemsLeft
+            removeAll(obSortRef, IngsToSort[i], zDestination06)
             i += 1
-        endwhile
-    endif
+        EndWhile
+    EndIf
 
-    if obDestination02 && flOverridePLFoodMedeAndCo
-        obSortRef.RemoveItem(flOverridePLFoodMedeAndCo, 999999, true, obDestination02)
-    endif
-    if obDestination01 && flOverridePLFoodCheeseSeasonings
-        obSortRef.RemoveItem(flOverridePLFoodCheeseSeasonings, 999999, true, obDestination01)
-    endif
-    if obDestination03 && flOverridePLFoodFruitsNVeggies
-        obSortRef.RemoveItem(flOverridePLFoodFruitsNVeggies, 999999, true, obDestination03)
-    endif
-    if obDestination04 && flOverridePLFoodRawMeat
-        obSortRef.RemoveItem(flOverridePLFoodRawMeat, 999999, true, obDestination04)
-    endif
-    if obDestination05 && flOverridePLFoodMeelz
-        obSortRef.RemoveItem(flOverridePLFoodMeelz, 999999, true, obDestination05)
-    endif
-    
-    if obDestination01 || obDestination02 || obDestination03 || obDestination04 || obDestination05
+    removeAll(obSortRef, CLWASortingPLFoodMedeAndCo, zDestination02)
+    removeAll(obSortRef, CLWASortedList_FoodMedeAndCo, zDestination02)
+
+    removeAll(obSortRef, CLWASortingPLFoodCheeseSeasonings, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodCheeseSeasonings, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLFoodFruitsNVeggies, zDestination03)
+    removeAll(obSortRef, CLWASortedList_FoodFruitsNVeggies, zDestination03)
+
+    removeAll(obSortRef, CLWASortingPLFoodRawMeat, zDestination04)
+    removeAll(obSortRef, CLWASortedList_FoodRawMeat, zDestination04)
+
+    removeAll(obSortRef, CLWASortingPLFoodMeelz, zDestination05)
+    removeAll(obSortRef, CLWASortedList_FoodMeelz, zDestination05)
+
+    If zDestination01 || zDestination02 || zDestination03 || zDestination04 || zDestination05
         Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = FoodToSort.Length
         i = 0
@@ -603,261 +1232,316 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
         String CurrentPotionKeywords
         String potName
         Form ITMPotionUse = CLWAItemPotionUse.GetAt(0)
-        while i < itemsLeft
+        While i < itemsLeft
             CurrentPotion = FoodToSort[i] as Potion
-            if CurrentPotion.IsFood()
+            If CurrentPotion.IsFood()
                 ;/ Here, since Complete Alchemy and Cooking Overhaul is a thing, I check not only with FormLists and weird ways to find fruits (HINT: none exist),
                 * but also with Keywords. See, CACO adds keywords like VendorItemDrinkAlcohol (and three other "VendorItemDrink" keywords), VendorItemFruit, etc.
-                * So, by adding the item's keywords into a single string, I can check it for specific occurances, and may even detect
-                * foods I didn't anticipate while I'm at it! Just nobody add VendorItemNotFruit please, you can invert your bool check.
+                * So, by adding the item's keywords into a single string, I can check it for specific occurrences, and may even detect
+                * foods I didn't anticipate While I'm at it! Just nobody add VendorItemNotFruit please, you can invert your bool check.
                 /;
 
-                CurrentPotionKeywords = CurrentPotion.GetKeywords() as String        
-                potName = CurrentPotion.GetName()
-                ;Debug.Trace(CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
+                CurrentPotionKeywords = CurrentPotion.GetKeywords() as String
+                potName = PO3_SKSEFunctions.GetFormEditorID(CurrentPotion) + " | " + CurrentPotion.GetName()
+                ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
 
-                if     obDestination02 && ;/        Drinks        /; (!flOverrideBLFoodMedeAndCo || !flOverrideBLFoodMedeAndCo.HasForm(CurrentPotion)) && Find(CurrentPotionKeywords, "Stew") == -1 && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination02)
-                
-                elseif obDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!flOverrideBLFoodMeelz || !flOverrideBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
-                
-                elseif obDestination01 && ;/ Cheese 'n Seasonings /; (!flOverrideBLFoodCheeseSeasonings || !flOverrideBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination01)
-                
-                elseif obDestination03 && ;/  Fruits and Veggies  /; (!flOverrideBLFoodFruitsNVeggies || !flOverrideBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination03)
-                
-                elseif obDestination04 && ;/         Meat         /; (!flOverrideBLFoodRawMeat || !flOverrideBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(kVendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination04)
-                
-                elseif obDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!flOverrideBLFoodMeelz || !flOverrideBLFoodMeelz.HasForm(CurrentPotion))
-                    obSortRef.RemoveItem(CurrentPotion, 9999, true, obDestination05)
-                endif
-            endif
+                If     zDestination02 && ;/        Drinks        /; (!CLWASortingBLFoodMedeAndCo || !CLWASortingBLFoodMedeAndCo.HasForm(CurrentPotion)) && Find(CurrentPotionKeywords, "Stew") == -1 && (Find(CurrentPotionKeywords, "Drink") != -1 || Find(CurrentPotionKeywords, "Drug") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodMedeAndCo, zDestination02)
+
+                elseif zDestination05 && ;/       Prepared       /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!CLWASortingBLFoodMeelz || !CLWASortingBLFoodMeelz.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cooked") != -1 || Find(CurrentPotionKeywords, "Treat") != -1 || Find(CurrentPotionKeywords, "Stew") != -1 || Find(CurrentPotionKeywords, "Bread") != -1 || Find(CurrentPotionKeywords, "Pastry") != -1 || Find(CurrentPotionKeywords, "Preserved") != -1 || Find(CurrentPotionKeywords, "Meal") != -1)
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodMeelz, zDestination05)
+
+                elseif zDestination01 && ;/ Cheese 'n Seasonings /; (!CLWASortingBLFoodCheeseSeasonings || !CLWASortingBLFoodCheeseSeasonings.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Cheese") != -1 || Find(CurrentPotionKeywords, "Fat") != -1 || Find(CurrentPotionKeywords, "DryGoods") != -1 || Find(potName, "Cheese") != -1 || Find(potName, "cheese") != -1)
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodCheeseSeasonings, zDestination01)
+
+                elseif zDestination03 && ;/  Fruits and Veggies  /; (!CLWASortingBLFoodFruitsNVeggies || !CLWASortingBLFoodFruitsNVeggies.HasForm(CurrentPotion)) && (Find(CurrentPotionKeywords, "Fruit") != -1 || Find(CurrentPotionKeywords, "Vegetable") != -1)
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodFruitsNVeggies, zDestination03)
+
+                elseif zDestination04 && ;/         Meat         /; (!CLWASortingBLFoodRawMeat || !CLWASortingBLFoodRawMeat.HasForm(CurrentPotion)) && (CurrentPotion.HasKeyword(VendorItemFoodRaw) || Find(CurrentPotionKeywords, "Meat") != -1)
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodRawMeat, zDestination04)
+
+                elseif zDestination05 && ;/  Prepared Catch-All  /; Find(CurrentPotionKeywords, "Uncooked") == -1 && (!CLWASortingBLFoodMeelz || !CLWASortingBLFoodMeelz.HasForm(CurrentPotion))
+                    RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodMeelz, zDestination05)
+                EndIf
+            EndIf
             i += 1
-        endwhile
-    endif
-  endfunction ; DONE !FUNCTION
+        EndWhile
+    EndIf
+EndFunction
 
-  ; FUNCTION SortForArmoury
-   Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorJewelry, Keyword kArmorClothing, Keyword kWeapTypeStaff, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None, ObjectReference obDestination03 = None, ObjectReference obDestination04 = None, ObjectReference obDestination05 = None, ObjectReference obDestination06 = None, ObjectReference obDestination07 = None, ObjectReference obDestination08 = None, ObjectReference obDestination09 = None, FormList flOverrideBLArmouryArmourLight = None, FormList flOverrideBLArmouryArmourHeavy = None, FormList flOverrideBLArmouryArmourClothes = None, FormList flOverrideBLArmouryArmourJewelry = None, FormList flOverrideBLArmouryWeapons1H = None, FormList flOverrideBLArmouryWeapons2H = None, FormList flOverrideBLArmouryWeapStaves = None, FormList flOverridePLArmouryArmourLight = None, FormList flOverridePLArmouryArmourHeavy = None, FormList flOverridePLArmouryArmourClothes = None, FormList flOverridePLArmouryArmourJewelry = None, FormList flOverridePLArmouryWeapons1H = None, FormList flOverridePLArmouryWeapons2H = None, FormList flOverridePLArmouryWeapStaves = None, FormList flOverridePLArmouryAmmo = None, FormList flOverridePLArmouryWeapRanged = None) Global
+
+Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts armor and weapons into specific containers}
-    
+
     Int itemsLeft
     int i
 
-    if obDestination01
+    If zDestination01
+        removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
         Form[] ArrowsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 42, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = ArrowsToSort.Length
         i = 0
-        while i < itemsLeft
-            obSortRef.RemoveItem(ArrowsToSort[i], 9999999, true, obDestination01)
+        While i < itemsLeft
+            removeAll(obSortRef, ArrowsToSort[i], zDestination01)
             i += 1
-        endwhile
-    endif
+        EndWhile
+    EndIf
 
-    if obDestination06 || obDestination07 || obDestination08 || obDestination09
+    If zDestination06 || zDestination07 || zDestination08 || zDestination09
+        If zDestination06
+            removeAll(obSortRef, CLWASortingPLArmouryWeapons1H, zDestination06)
+            removeAll(obSortRef, CLWASortedList_ArmouryWeapons1H, zDestination06)
+        EndIf
+        If zDestination07
+            removeAll(obSortRef, CLWASortingPLArmouryWeapons2H, zDestination07)
+            removeAll(obSortRef, CLWASortedList_ArmouryWeapons2H, zDestination07)
+        EndIf
+        If zDestination08
+            removeAll(obSortRef, CLWASortingPLArmouryWeaponsRanged, zDestination08)
+            removeAll(obSortRef, CLWASortedList_ArmouryWeaponsRanged, zDestination08)
+        EndIf
+        If zDestination09
+            removeAll(obSortRef, CLWASortingPLArmouryWeaponsRanged, zDestination09)
+            removeAll(obSortRef, CLWASortedList_ArmouryWeaponsStaves, zDestination09)
+        EndIf
         Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = WeaponsToSort.Length
         i = 0
         Weapon curWeap
         String curWeapSkill
-        while i < itemsLeft
+        While i < itemsLeft
             curWeap = WeaponsToSort[i] as Weapon
             curWeapSkill = curWeap.GetSkill()
-            ;Debug.Trace(curWeap+" Skill: \""+curWeapSkill+"\"\nKeywords: "+curWeap.GetKeywords())
-            if obDestination06 &&     ;/ 1-Handed /; curWeapSkill == "OneHanded"
-                obSortRef.RemoveItem(curWeap, 999999, true, obDestination06)
-            elseif obDestination07 && ;/ 2-Handed /; curWeapSkill == "TwoHanded"
-                obSortRef.RemoveItem(curWeap, 999999, true, obDestination07)
-            elseif obDestination08 && ;/  Ranged  /; curWeapSkill == "Marksman"
-                obSortRef.RemoveItem(curWeap, 999999, true, obDestination08)
-            elseif obDestination09 && ;/  Staves  /; (curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
-                obSortRef.RemoveItem(curWeap, 999999, true, obDestination09)
-            endif
+            If     ;/ 1-Handed /; zDestination06 && curWeapSkill == "OneHanded"
+                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons1H, zDestination06)
+            elseif ;/ 2-Handed /; zDestination07 && curWeapSkill == "TwoHanded"
+                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons2H, zDestination07)
+            elseif ;/  Ranged  /; zDestination08 && curWeapSkill == "Marksman"
+                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsRanged, zDestination08)
+            elseif ;/  Staves  /; zDestination09 && (curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
+                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsStaves, zDestination09)
+            EndIf
             i += 1
-        endwhile
-    endif
+        EndWhile
+    EndIf
 
-    if obDestination02 || obDestination03 || obDestination04 || obDestination05
+    If zDestination02 || zDestination03 || zDestination04 || zDestination05
+        If zDestination02
+            removeAll(obSortRef, CLWASortingPLArmouryArmourLight, zDestination02)
+            removeAll(obSortRef, CLWASortedList_ArmouryArmourLight, zDestination02)
+        EndIf
+        If zDestination03
+            removeAll(obSortRef, CLWASortingPLArmouryArmourHeavy, zDestination03)
+            removeAll(obSortRef, CLWASortedList_ArmouryArmourHeavy, zDestination03)
+        EndIf
+        If zDestination04
+            removeAll(obSortRef, CLWASortingPLArmouryArmourJewelry, zDestination04)
+            removeAll(obSortRef, CLWASortedList_ArmouryArmourJewelry, zDestination04)
+        EndIf
+        If zDestination05
+            removeAll(obSortRef, CLWASortingPLArmouryArmourClothes, zDestination05)
+            removeAll(obSortRef, CLWASortedList_ArmouryArmourClothes, zDestination05)
+        EndIf
         Form[] ArmorToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 26, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = ArmorToSort.Length
         i = 0
         Armor curArmor
         Int curArmorWC
-        while i < itemsLeft
+        While i < itemsLeft
             curArmor = ArmorToSort[i] as Armor
             curArmorWC = curArmor.GetWeightClass()
-            ;Debug.Trace(curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
-            if obDestination02 && curArmorWC == 0
-                obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination02)
-            elseif obDestination03 && curArmorWC == 1
-                obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination03)
-            elseif obDestination04 && curArmor.HasKeyword(kArmorJewelry)
-                obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination04)
-            elseif obDestination05 && curArmor.HasKeyword(kArmorClothing)
-                obSortRef.RemoveItem(ArmorToSort[i], 9999999, true, obDestination05)
-            endif
+            ;Debug.Trace("[BCD-CLWA_SS] "+curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
+            If zDestination02 && curArmorWC == 0
+                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourLight, zDestination02)
+
+            elseif zDestination03 && curArmorWC == 1
+                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourHeavy, zDestination03)
+
+            elseif zDestination04 && curArmor.HasKeyword(ArmorJewelry)
+                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourJewelry, zDestination04)
+
+            elseif zDestination05 && curArmor.HasKeyword(ArmorClothing)
+                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourClothes, zDestination05)
+            EndIf
             i += 1
-        endwhile
-    endif
-  endfunction ; DONE !FUNCTION
- ; !SECTION
- ; SECTION Destinations
+        EndWhile
+    EndIf
+EndFunction
+
+
   ; Sorting functions for each room
-  ; FUNCTION SortForDestKitchen
-   Function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01, FormList flOverridePLFoodFruitsNVeggies = None, FormList flOverridePLFoodMedeAndCo = None, FormList flOverridePLFoodRawMeat = None, FormList flOverridePLFoodMeelz = None, FormList flOverridePLFoodCheeseSeasonings = None, FormList flOverrideBLFoodFruitsNVeggies = None, FormList flOverrideBLFoodMedeAndCo = None, FormList flOverrideBLFoodRawMeat = None, FormList flOverrideBLFoodMeelz = None, FormList flOverrideBLFoodCheeseSeasonings = None) Global
-    if flOverridePLFoodFruitsNVeggies
-        obSortRef.RemoveItem(flOverridePLFoodFruitsNVeggies, 999999, true, obDestination01)
-    endif
-    if flOverridePLFoodMedeAndCo
-        obSortRef.RemoveItem(flOverridePLFoodMedeAndCo, 999999, true, obDestination01)
-    endif
-    if flOverridePLFoodRawMeat
-        obSortRef.RemoveItem(flOverridePLFoodRawMeat, 999999, true, obDestination01)
-    endif
-    if flOverridePLFoodMeelz
-        obSortRef.RemoveItem(flOverridePLFoodMeelz, 999999, true, obDestination01)
-    endif
-    if flOverridePLFoodCheeseSeasonings
-        obSortRef.RemoveItem(flOverridePLFoodCheeseSeasonings, 999999, true, obDestination01)
-    endif
-    
+
+Function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+
+    removeAll(obSortRef, CLWASortingPLFoodFruitsNVeggies, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodFruitsNVeggies, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLFoodMedeAndCo, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodMedeAndCo, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLFoodRawMeat, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodRawMeat, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLFoodMeelz, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodMeelz, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLFoodCheeseSeasonings, zDestination01)
+    removeAll(obSortRef, CLWASortedList_FoodCheeseSeasonings, zDestination01)
+
+
     Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FoodToSort.Length
     int i = 0
     Potion CurrentPotion
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentPotion = FoodToSort[i] as Potion
-        if obDestination01 && CurrentPotion.IsFood() &&  (!flOverrideBLFoodRawMeat || !flOverrideBLFoodRawMeat.HasForm(CurrentPotion))
-            obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
-        endif
+        If zDestination01 && CurrentPotion.IsFood() &&  (!CLWASortingBLFoodRawMeat || !CLWASortingBLFoodRawMeat.HasForm(CurrentPotion))
+            RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodRawMeat, zDestination01)
+        EndIf
         i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
-  ; FUNCTION SortForDestStudy
-   Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference obDestination01, FormList flCLWASortingPLStudyPotions = None, FormList flCLWASortingPLStudyPoisons = None, FormList flCLWASortingBLStudyPotions = None, FormList flCLWASortingBLStudyPoisons = None) Global
-    obSortRef.RemoveItem(flCLWASortingPLStudyPotions, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLStudyPoisons, 999999, true, obDestination01)
+    EndWhile
+EndFunction
+
+Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+    removeAll(obSortRef, CLWASortingPLStudyPotions, zDestination01)
+    removeAll(obSortRef, CLWASortedList_StudyPotions, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLStudyPoisons, zDestination01)
+    removeAll(obSortRef, CLWASortedList_StudyPoisons, zDestination01)
 
     Form[] ScrollsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 23, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = ScrollsToSort.Length
     i = 0
-    while i < itemsLeft
-        obSortRef.RemoveItem(ScrollsToSort[i], 9999, true, obDestination01)
+    While i < itemsLeft
+        obSortRef.RemoveItem(ScrollsToSort[i], 9999, true, zDestination01)
         i += 1
-    endwhile
+    EndWhile
 
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = BooksToSort.Length
     i = 0
-    while i < itemsLeft
-        obSortRef.RemoveItem(BooksToSort[i], 9999, true, obDestination01)
+    While i < itemsLeft
+        obSortRef.RemoveItem(BooksToSort[i], 9999, true, zDestination01)
         i += 1
-    endwhile
+    EndWhile
 
     Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = IngredientsToSort.Length
     i = 0
-    while i < itemsLeft
-        obSortRef.RemoveItem(IngredientsToSort[i], 9999, true, obDestination01)
+    While i < itemsLeft
+        obSortRef.RemoveItem(IngredientsToSort[i], 9999, true, zDestination01)
         i += 1
-    endwhile 
+    EndWhile
 
     Form[] sGemsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 52, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = sGemsToSort.Length
     i = 0
-    while i < itemsLeft
-        obSortRef.RemoveItem(sGemsToSort[i], 9999, true, obDestination01)
+    While i < itemsLeft
+        obSortRef.RemoveItem(sGemsToSort[i], 9999, true, zDestination01)
         i += 1
-    endwhile
+    EndWhile
 
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        if obDestination01 && !CurrentPotion.IsFood() && ((!flCLWASortingBLStudyPotions || !flCLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!flCLWASortingBLStudyPoisons || !flCLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
-            obSortRef.RemoveItem(CurrentPotion, 9999999, true, obDestination01)
-        endif
+        If zDestination01 && !CurrentPotion.IsFood() && ((!CLWASortingBLStudyPotions || !CLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
+            obSortRef.RemoveItem(CurrentPotion, 9999999, true, zDestination01)
+        EndIf
         i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
-  ; FUNCTION SortForDestArmoury
-   Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kArmorClothing, Keyword kArmorJewelry, Keyword kWeapTypeStaff, ObjectReference obDestination01, FormList flCLWASortingPLArmouryAmmo = None, FormList flCLWASortingPLArmouryArmourLight = None, FormList flCLWASortingPLArmouryArmourHeavy = None, FormList flCLWASortingPLArmouryArmourClothes = None, FormList flCLWASortingPLArmouryArmourJewelry = None, FormList flCLWASortingPLArmouryWeapons1H = None, FormList flCLWASortingPLArmouryWeapons2H = None, FormList flCLWASortingPLArmouryWeaponsRanged = None, FormList flCLWASortingPLArmouryWeaponsStaves = None, FormList flCLWASortingBLArmouryAmmo = None, FormList flCLWASortingBLArmouryArmourLight = None, FormList flCLWASortingBLArmouryArmourHeavy = None, FormList flCLWASortingBLArmouryArmourClothes = None, FormList flCLWASortingBLArmouryArmourJewelry = None, FormList flCLWASortingBLArmouryWeapons1H = None, FormList flCLWASortingBLArmouryWeapons2H = None, FormList flCLWASortingBLArmouryWeaponsRanged = None, FormList flCLWASortingBLArmouryWeaponsStaves = None) Global
-    obSortRef.RemoveItem(flCLWASortingPLArmouryAmmo, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryArmourLight, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryArmourHeavy, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryArmourClothes, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryArmourJewelry, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryWeapons1H, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryWeapons2H, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryWeaponsRanged, 999999, true, obDestination01)
-    obSortRef.RemoveItem(flCLWASortingPLArmouryWeaponsStaves, 999999, true, obDestination01)
+    EndWhile
+EndFunction
+
+Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+    removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryAmmo, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryArmourLight, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryArmourLight, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryArmourHeavy, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryArmourHeavy, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryArmourClothes, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryArmourClothes, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryArmourJewelry, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryArmourJewelry, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryWeapons1H, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryWeapons1H, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryWeapons2H, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryWeapons2H, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryWeaponsRanged, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryWeaponsRanged, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLArmouryWeaponsStaves, zDestination01)
+    removeAll(obSortRef, CLWASortedList_ArmouryWeaponsStaves, zDestination01)
 
     Form[] ArrowsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 42, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = ArrowsToSort.Length
     i = 0
     Form curForm
-    while i < itemsLeft
+    While i < itemsLeft
         curForm = ArrowsToSort[i]
-        if !flCLWASortingBLArmouryAmmo || !flCLWASortingBLArmouryAmmo.HasForm(curForm)
-            obSortRef.RemoveItem(curForm, 9999999, true, obDestination01)
-        endif
+        If !CLWASortingBLArmouryAmmo || !CLWASortingBLArmouryAmmo.HasForm(curForm)
+            removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
+        EndIf
         i += 1
-    endwhile
-    
+    EndWhile
+
     Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = WeaponsToSort.Length
     int i = 0
     Weapon curWeap
     String curWeapSkill
-    while i < itemsLeft
+    While i < itemsLeft
         curWeap = WeaponsToSort[i] as Weapon
         curWeapSkill = curWeap.GetSkill()
-        if ;/  Staves  /;((curWeap.HasKeyword(kWeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!flCLWASortingBLArmouryWeaponsStaves || !flCLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
-              1-Handed /; (curWeapSkill == "OneHanded" && (!flCLWASortingBLArmouryWeapons1H || !flCLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
-              2-Handed /; (curWeapSkill == "TwoHanded" && (!flCLWASortingBLArmouryWeapons2H || !flCLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
-               Ranged  /; (curWeapSkill == "Marksman" && (!flCLWASortingBLArmouryWeaponsRanged || !flCLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
-            obSortRef.RemoveItem(curWeap, 999999, true, obDestination01)
-        endif
+        If ;/  Staves  /;((curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!CLWASortingBLArmouryWeaponsStaves || !CLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
+              1-Handed /; (curWeapSkill == "OneHanded" && (!CLWASortingBLArmouryWeapons1H || !CLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
+              2-Handed /; (curWeapSkill == "TwoHanded" && (!CLWASortingBLArmouryWeapons2H || !CLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
+               Ranged  /; (curWeapSkill == "Marksman" && (!CLWASortingBLArmouryWeaponsRanged || !CLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
+            removeAll(obSortRef, curWeap, zDestination01)
+        EndIf
         i += 1
-    endwhile
+    EndWhile
 
     Form[] ArmorToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 26, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = ArmorToSort.Length
     i = 0
     Armor SortingArmour
-    while i < itemsLeft
+    While i < itemsLeft
         SortingArmour = ArmorToSort[i] as Armor
-        if  ;/ Normal Armor /;(SortingArmour.GetWeightClass() != 2 && (!flCLWASortingBLArmouryArmourLight || flCLWASortingPLArmouryArmourLight.HasForm(SortingArmour)) && (!flCLWASortingBLArmouryArmourHeavy || flCLWASortingPLArmouryArmourHeavy.HasForm(SortingArmour))) || ;/
-               Clothing     /; (SortingArmour.HasKeyword(kArmorClothing) && (!flCLWASortingBLArmouryArmourClothes || !flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour))) ||;/
-               Jewelry      /; (SortingArmour.HasKeyword(kArmorJewelry) && (!flCLWASortingBLArmouryArmourJewelry || !flCLWASortingBLArmouryArmourClothes.HasForm(SortingArmour)))
-            obSortRef.RemoveItem(SortingArmour, 9999999, true, obDestination01)
-        endif
+        If  ;/ Normal Armor /;(SortingArmour.GetWeightClass() != 2 && (!CLWASortingBLArmouryArmourLight || CLWASortingPLArmouryArmourLight.HasForm(SortingArmour)) && (!CLWASortingBLArmouryArmourHeavy || CLWASortingPLArmouryArmourHeavy.HasForm(SortingArmour))) || ;/
+               Clothing     /; (SortingArmour.HasKeyword(ArmorClothing) && (!CLWASortingBLArmouryArmourClothes || !CLWASortingBLArmouryArmourClothes.HasForm(SortingArmour))) ||;/
+               Jewelry      /; (SortingArmour.HasKeyword(ArmorJewelry) && (!CLWASortingBLArmouryArmourJewelry || !CLWASortingBLArmouryArmourClothes.HasForm(SortingArmour)))
+            removeAll(obSortRef, CLWASortingPLArmouryArmourLight, zDestination01)
+        EndIf
         i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
-  ; FUNCTION SortForDestWorkRoom
-   Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, Keyword kVendorItemAnimalHide, Keyword kVendorItemGem, Keyword kVendorItemOreIngot, Keyword kVendorItemClutter, Keyword kVendorItemFireword, Keyword kBYOHHouseCraftingCategorySmithing, Keyword kVendorItemIngredient, ObjectReference obDestination01, FormList flOverridePLGems = None , FormList flOverridePLHides = None , FormList flOverridePLIngots = None , FormList flOverridePLOres = None , FormList flOverridePLWorkRoomMisc = None , FormList flOverrideBLGems = None , FormList flOverrideBLHides = None , FormList flOverrideBLIngots = None , FormList flOverrideBLOres = None , FormList flOverrideBLWorkRoomMisc = None) Global 
+    EndWhile
+EndFunction
 
-    if flOverridePLGems
-        obSortRef.RemoveItem(flOverridePLGems, 999999, true, obDestination01)
-    endif
-    if flOverridePLHides
-        obSortRef.RemoveItem(flOverridePLHides, 999999, true, obDestination01)
-    endif
-    if flOverridePLIngots
-        obSortRef.RemoveItem(flOverridePLIngots, 999999, true, obDestination01)
-    endif
-    if flOverridePLOres
-        obSortRef.RemoveItem(flOverridePLOres, 999999, true, obDestination01)
-    endif
-    if flOverridePLWorkRoomMisc
-        obSortRef.RemoveItem(flOverridePLWorkRoomMisc, 999999, true, obDestination01)
-    endif
+Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomGems, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomGems, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomHides, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomHides, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomIngots, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomIngots, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomOres, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomOres, zDestination01)
+
+    removeAll(obSortRef, CLWASortingPLWorkRoomMisc, zDestination01)
+    removeAll(obSortRef, CLWASortedList_WorkRoomMisc, zDestination01)
 
     Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 32, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = FormsToSort.Length
@@ -866,61 +1550,63 @@ GlobalVariable Property CLWSQ02Machines01GLOB Auto
     String CurrentFormName
     String CurrentFormNameKeywords
     String CurrentFormModelPath
-    while i < itemsLeft
+    While i < itemsLeft
         CurrentForm = FormsToSort[i]
-        CurrentFormName = CurrentForm.GetName()
+        CurrentFormName = PO3_SKSEFunctions.GetFormEditorID(CurrentForm) + " | " + CurrentForm.GetName()
         CurrentFormNameKeywords = CurrentForm.GetKeywords()
         CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        if (!(flOverrideBLHides && !flOverrideBLHides.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemAnimalHide)) || (!(flOverrideBLGems && !flOverrideBLGems.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemGem)) || (!(flOverrideBLIngots && !flOverrideBLIngots.HasForm(CurrentForm)) && CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter)) || (!(flOverrideBLWorkRoomMisc && !flOverrideBLWorkRoomMisc.HasForm(CurrentForm)) && (CurrentForm.HasKeyword(kVendorItemFireword) || CurrentForm.HasKeyword(kBYOHHouseCraftingCategorySmithing) || CurrentForm.HasKeyword(kVendorItemIngredient) || (CurrentForm.HasKeyword(kVendorItemOreIngot) && !CurrentForm.HasKeyword(kVendorItemClutter)) || Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1))
-            obSortRef.RemoveItem(CurrentForm, 9999, true, obDestination01)
-        endif
+        If (notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm) && CurrentForm.HasKeyword(VendorItemAnimalHide)) || (notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)) || (notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || (notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && (CurrentForm.HasKeyword(VendorItemFireword) || CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing) || CurrentForm.HasKeyword(VendorItemIngredient) || (CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || Find(CurrentFormModelPath, "Coal") != -1 || Find(CurrentFormModelPath, "coal") != -1))
+            removeAll(obSortRef, CurrentForm, zDestination01)
+        EndIf
         i += 1
-    endwhile
-  endfunction ; DONE !FUNCTION
- ; !SECTION
-; !SECTION
- ;/$$$$$\            $$$$$$\           $$\   $$\       $$$\ $$$\   
-$$  __$$\           \_$$  _|          \__|  $$ |     $$  _| \$$\  
-$$ /  $$ |$$$$$$$\    $$ |  $$$$$$$\  $$\ $$$$$$\   $$  /    \$$\ 
+    EndWhile
+EndFunction
+
+
+;/$$$$$\            $$$$$$\           $$\   $$\       $$$\ $$$\
+$$  __$$\           \_$$  _|          \__|  $$ |     $$  _| \$$\
+$$ /  $$ |$$$$$$$\    $$ |  $$$$$$$\  $$\ $$$$$$\   $$  /    \$$\
 $$ |  $$ |$$  __$$\   $$ |  $$  __$$\ $$ |\_$$  _|  $$ |      $$ |
 $$ |  $$ |$$ |  $$ |  $$ |  $$ |  $$ |$$ |  $$ |    $$ |      $$ |
 $$ |  $$ |$$ |  $$ |  $$ |  $$ |  $$ |$$ |  $$ |$$\ \$$\     $$  |
-\$$$$$$  |$$ |  $$ |$$$$$$\ $$ |  $$ |$$ |  \$$$$  | \$$$\ $$$  / 
+\$$$$$$  |$$ |  $$ |$$$$$$\ $$ |  $$ |$$ |  \$$$$  | \$$$\ $$$  /
  \______/ \__|  \__|\______|\__|  \__|\__|   \____/   \___|\___/;
-; EVENT On Init
+
 
  Event OnInit()
-    ; Check if SKSE is not installed
-    if SKSE.GetVersionRelease() < 0
-        Debug.TraceAndBox("SKSE not tinstalled!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs if attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
-    endif
+    ; Check If SKSE is not installed
+    If SKSE.GetVersionRelease() < 0
+        ;Debug.TraceAndBox("SKSE not installed!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs If attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
+    EndIf
 
-    ; Check if Papyrus Extender is installed
-    if PO3_SKSEFunctions.StringToInt("128") != 128
-        Debug.TraceAndBox("powerofthree's Papyrus Extender not tinstalled!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs if attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
-    endif
+    ; Check If Papyrus Extender is installed
+    If PO3_SKSEFunctions.StringToInt("128") != 128
+        ;Debug.TraceAndBox("powerofthree's Papyrus Extender not installed!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs If attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
+    EndIf
 
     ; Optionally disable a form on startup (used to allow mid-game installs)
-    if aFormToDisable
+    If aFormToDisable
         aFormToDisable.DisableNoWait()
-    endif
+    EndIf
 
     ; Fill a property now to eliminate unnecessary processing
     PlayerREF = Game.GetPlayer()
- endevent
-; !EVENT
-;/$$$$$\             $$$$$$\              $$\     $$\                        $$\                 $$$\ $$$\   
-$$  __$$\           $$  __$$\             $$ |    \__|                       $$ |               $$  _| \$$\  
-$$ /  $$ |$$$$$$$\  $$ /  $$ | $$$$$$$\ $$$$$$\   $$\ $$\    $$\  $$$$$$\  $$$$$$\    $$$$$$\  $$  /    \$$\ 
+ EndEvent
+
+
+
+;/$$$$$\             $$$$$$\              $$\     $$\                        $$\                 $$$\ $$$\
+$$  __$$\           $$  __$$\             $$ |    \__|                       $$ |               $$  _| \$$\
+$$ /  $$ |$$$$$$$\  $$ /  $$ | $$$$$$$\ $$$$$$\   $$\ $$\    $$\  $$$$$$\  $$$$$$\    $$$$$$\  $$  /    \$$\
 $$ |  $$ |$$  __$$\ $$$$$$$$ |$$  _____|\_$$  _|  $$ |\$$\  $$  | \____$$\ \_$$  _|  $$  __$$\ $$ |      $$ |
 $$ |  $$ |$$ |  $$ |$$  __$$ |$$ /        $$ |    $$ | \$$\$$  /  $$$$$$$ |  $$ |    $$$$$$$$ |$$ |      $$ |
 $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ |$$\ $$   ____|\$$\     $$  |
-\$$$$$$  |$$ |  $$ |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |   \$  /   \$$$$$$$ |  \$$$$  |\$$$$$$$\  \$$$\ $$$  / 
+\$$$$$$  |$$ |  $$ |$$ |  $$ |\$$$$$$$\   \$$$$  |$$ |   \$  /   \$$$$$$$ |  \$$$$  |\$$$$$$$\  \$$$\ $$$  /
  \______/ \__|  \__|\__|  \__| \_______|   \____/ \__|    \_/     \_______|   \____/  \_______|  \___|\___/;
-; EVENT On Activate
+
  Event OnActivate(ObjectReference akActionRef)
-    ;Debug.Trace("Started sorting using SKSE")
-    if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
+    ;Debug.Trace("[BCD-CLWA_SS] "+"Started sorting using SKSE")
+    If !Running && (akActionRef == PlayerREF || !aRequirePlayer)
 
         ; Prevent further processing (likely initiated by player impatience)
         ; NOTE Block Processing
@@ -928,353 +1614,242 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
         self.BlockActivation(true)
 
         ; NOTE Button Handling #1
-        if aIsButton ; Push button and play sound
+        If aIsButton ; Push button and play sound
             QSTAstrolabeButtonPressX.Play(self)
             PlayAnimation("down")
             Utility.Wait(0.2)
-        endif
+        EndIf
 
         ; NOTE Steam Handling
-        if aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check if a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
+        If aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check If a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
             CLWNoSteamPower01Msg.Show()
-        else ; SECTION Sort Functions
+        Else
             ; Sorting for the sort buttons
             ; NOTE Destinations
-             if xDestinationStudy
-                 ;Debug.Trace("Begin sorting ingredients")
-                 SortForDestStudy(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01)
-                 ;Debug.Trace("Finished sorting ingredients")
-             endif
-             if xDestinationWork
-                 ;Debug.Trace("Begin sorting smithing materials")
-                 SortForDestWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemAnimalHide, VendorItemGem, VendorItemOreIngot, VendorItemClutter, VendorItemFireword, BYOHHouseCraftingCategorySmithing, VendorItemIngredient, zDestination01, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomGems, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc)
-                 ;Debug.Trace("Finished sorting smithing materials")
-             endif
-             if xDestinationKitchen
-                 ;Debug.Trace("Begin sorting food")
-                 SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingPLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodRawMeat, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings)
-                 ;Debug.Trace("Finished sorting food")
-             endif
-             if xDestinationArmoury
-                 ;Debug.Trace("Begin sorting Armoury items")
-                 SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, ArmorClothing, ArmorJewelry, WeapTypeStaff, zDestination01, CLWASortingPLArmouryAmmo, CLWASortingPLArmouryArmourLight, CLWASortingPLArmouryArmourHeavy, CLWASortingPLArmouryArmourClothes, CLWASortingPLArmouryArmourJewelry, CLWASortingPLArmouryWeapons1H, CLWASortingPLArmouryWeapons2H, CLWASortingPLArmouryWeaponsRanged, CLWASortingPLArmouryWeaponsStaves, CLWASortingBLArmouryAmmo, CLWASortingBLArmouryArmourLight, CLWASortingBLArmouryArmourHeavy, CLWASortingBLArmouryArmourClothes, CLWASortingBLArmouryArmourJewelry, CLWASortingBLArmouryWeapons1H, CLWASortingBLArmouryWeapons2H, CLWASortingBLArmouryWeaponsRanged, CLWASortingBLArmouryWeaponsStaves)
-                 ;Debug.Trace("Finished sorting Armoury items")
-             endif
+             If xDestinationStudy
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting ingredients")
+                 SortForDestStudy(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting ingredients")
+             EndIf
+             If xDestinationWork
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting smithing materials")
+                 SortForDestWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting smithing materials")
+             EndIf
+             If xDestinationKitchen
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting food")
+                 SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting food")
+             EndIf
+             If xDestinationArmoury
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting Armoury items")
+                 SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                 ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting Armoury items")
+             EndIf
 
             ; NOTE Scales
-             if SortBooks
-                ;Debug.Trace("Begin sorting books")
-                SortForBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemSpellTome, VendorItemRecipe, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, zDestination10, zDestination11, zDestination12, zDestination13, zDestination14, zDestination15, zDestination16, zDestination17, zDestination18, zDestination19, zDestination20, zDestination21, zDestination22, zDestination23, zDestination24, zDestination25, zDestination26, zDestination27)
-                ;Debug.Trace("Finished sorting books")
-             endif
-             if SortPotions
-                ;Debug.Trace("Begin sorting potions")
-                SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, zDestination01, zDestination02, CLWASortingPLStudyPotions, CLWASortingPLStudyPoisons, CLWASortingBLStudyPotions, CLWASortingBLStudyPoisons)
-                ;Debug.Trace("Finished sorting potions")
-             endif
-             if sortFood
-                ;Debug.Trace("Begin sorting food")
-                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, CLWAItemPotionUse, VendorItemFoodRaw, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, CLWASortingPLFoodMedeAndCo, CLWASortingPLFoodCheeseSeasonings, CLWASortingPLFoodFruitsNVeggies, CLWASortingPLFoodRawMeat, CLWASortingPLFoodMeelz, CLWASortingBLFoodMedeAndCo, CLWASortingBLFoodMeelz, CLWASortingBLFoodCheeseSeasonings, CLWASortingBLFoodFruitsNVeggies, CLWASortingBLFoodRawMeat)
-                ;Debug.Trace("Finished sorting food")
-             endif
-             if sortWorkRoom
-                ;Debug.Trace("Begin sorting smithing materials")
-                SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, VendorItemOreIngot, VendorItemClutter, VendorItemIngredient, VendorItemFireword, VendorItemGem, VendorItemAnimalHide, BYOHHouseCraftingCategorySmithing, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, CLWASortingPLWorkRoomIngots, CLWASortingPLWorkRoomOres, CLWASortingPLWorkRoomHides, CLWASortingPLWorkRoomGems, CLWASortingPLWorkRoomMisc, CLWASortingBLWorkRoomIngots, CLWASortingBLWorkRoomOres, CLWASortingBLWorkRoomMisc, CLWASortingBLWorkRoomHides, CLWASortingBLWorkRoomGems)
-                ;Debug.Trace("Finished sorting smithing materials")
-             endif
-             if sortArmoury
-                ;Debug.Trace("Begin sorting Armoury items")
-                SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, ArmorJewelry, ArmorClothing, WeapTypeStaff, zDestination01, zDestination02, zDestination03, zDestination04, zDestination05, zDestination06, zDestination07, zDestination08, zDestination09, CLWASortingBLArmouryArmourLight, CLWASortingBLArmouryArmourHeavy, CLWASortingBLArmouryArmourClothes, CLWASortingBLArmouryArmourJewelry, CLWASortingBLArmouryWeapons1H, CLWASortingBLArmouryWeapons2H, CLWASortingBLArmouryWeaponsStaves, CLWASortingPLArmouryArmourLight, CLWASortingPLArmouryArmourHeavy, CLWASortingPLArmouryArmourClothes, CLWASortingPLArmouryArmourJewelry, CLWASortingPLArmouryWeapons1H, CLWASortingPLArmouryWeapons2H, CLWASortingPLArmouryWeaponsStaves, CLWASortingPLArmouryAmmo, CLWASortingPLArmouryWeaponsRanged)
-                ;Debug.Trace("Finished sorting Armoury items")
-             endif
+             If SortBooks
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting books")
+                SortForBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting books")
+             EndIf
+             If SortPotions
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting potions")
+                SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting potions")
+             EndIf
+             If sortFood
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting food")
+                SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting food")
+             EndIf
+             If sortWorkRoom
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting smithing materials")
+                SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting smithing materials")
+             EndIf
+             If sortArmoury
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Begin sorting Armoury items")
+                SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
+                ;Debug.Trace("[BCD-CLWA_SS] "+"Finished sorting Armoury items")
+             EndIf
 
-            if pFormTypeToSort ; NOTE Form Type
-                SortByFormType(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, pFormTypeToSort, zDestination01, zDestination02, pOverridePLFormType, pOverrideBLFormType)
-            endif
-            ; !SECTION
+            If pFormTypeToSort
+                SortByFormType(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, pFormTypeToSort, zDestination01, zDestination02)
+            EndIf
 
-            if aPlayTransferSound ; NOTE Sound
+            ; NOTE Play Sound
+            If aPlayTransferSound && self.GetParentCell().IsAttached()
                 CLWNPCDwarvenCenturionAttackBreathOutMarker.Play(self)
-            endif
+            EndIf
 
-            if akActionRef == PlayerREF ; NOTE Message
-                if aSortingCompleteMsg
+            ; NOTE Send Completed Message
+            If akActionRef == PlayerREF
+                If aSortingCompleteMsg
                     aSortingCompleteMsg.Show()
-                else
-                    ;Debug.Trace("No completion message is set for "+self, 1)
-                endif
-            endif
-            
-        endif
+                Else
+                    ;Debug.Trace("[BCD-CLWA_SS] "+"No completion message is set for "+self, 1)
+                EndIf
+            EndIf
+
+        EndIf
 
         ; NOTE Button Handling #2
-        if aIsButton ; Release the button to let the player know it can be activated again
+        If aIsButton ; Release the button to let the player know it can be activated again
             playAnimation("up")
             Utility.Wait(2.0)
-        endif
+        EndIf
 
         ; NOTE Unlock Processing
         self.BlockActivation(false)
         Running = FALSE
-    endif
- endevent
-; !EVENT
-;/$$$$$\                        $$\               $$\                                         
-$$/ __$$\                       $$ |              \__|                                        
-$$ /  \__| $$$$$$\  $$$$$$$\  $$$$$$\    $$$$$$\  $$\ $$$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\ 
+    EndIf
+ EndEvent
+
+;/$$$$$\                        $$\               $$\
+$$/ __$$\                       $$ |              \__|
+$$ /  \__| $$$$$$\  $$$$$$$\  $$$$$$\    $$$$$$\  $$\ $$$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$\
 $$ |      $$  __$$\ $$  __$$\ \_$$  _|   \____$$\ $$ |$$  __$$\ $$  __$$\ $$  __$$\ $$  _____|
-$$ |      $$ /  $$ |$$ |  $$ |  $$ |     $$$$$$$ |$$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\$$$$$$\  
-$$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |       \____$$\ 
+$$ |      $$ /  $$ |$$ |  $$ |  $$ |     $$$$$$$ |$$ |$$ |  $$ |$$$$$$$$ |$$ |  \__|\$$$$$$\
+$$ |  $$\ $$ |  $$ |$$ |  $$ |  $$ |$$\ $$  __$$ |$$ |$$ |  $$ |$$   ____|$$ |       \____$$\
 \$$$$$$/ |\$$$$$$  |$$ |  $$ |  \$$$$  |\$$$$$$$ |$$ |$$ |  $$ |\$$$$$$$\ $$ |      $$$$$$$  |
  \______/  \______/ \__|  \__|   \____/  \_______|\__|\__|  \__| \_______|\__|      \_______/;
-; PARAM Containers
 
- ; If we're being completely honest, the labels for the zDestinations are more for me than for anyone else.
+
+ ; If we're being completely honest, the labels for the zDestinations are more for me than for anyone Else.
  ; Seriously, how am I supposed to remember which barrel to point zDestination03 to?
 
  ObjectReference Property zDestination01  Auto
  {Destination container. Will be sorted in to.
- 
+
  Books:        A
  Armoury:      Arrows
  Work Room:    Ingots
  Food:         Cheese and Seasonings
  Potions:      Beneficial (Potions)
+ Soul Gems:    Empty
  Sort by Type: Primary}
  ObjectReference Property zDestination02  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:       B
  Armoury:     Light Armor
  Work Room:   Ores
  Food:        Drinks
  Potions:     Harmful (Poisons)
+ Soul Gems:   Full
  Sort by Type: Passlist}
  ObjectReference Property zDestination03  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:     C
  Armoury:   Heavy Armor
  Food:      Fruits and Veggies
  Work Room: Hides}
  ObjectReference Property zDestination04  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:     D
- Armoury:   Jewellery
+ Armoury:   Jewelry
  Food:      Meat
  Work Room: Gems}
  ObjectReference Property zDestination05  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:     E
  Armoury:   Clothing
  Food:      Prepared Food/Meals
  Work Room: Assorted Prepared Materials (Misc.)}
  ObjectReference Property zDestination06  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:   F
  Armoury: 1-Handed
  Food: Ingredients}
  ObjectReference Property zDestination07  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:   G
  Armoury: 2-Handed}
  ObjectReference Property zDestination08  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:   H
  Armoury: Ranged}
  ObjectReference Property zDestination09  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books:   I
  Armoury: Staves}
  ObjectReference Property zDestination10  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: J}
  ObjectReference Property zDestination11  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: K}
  ObjectReference Property zDestination12  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: L}
  ObjectReference Property zDestination13  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: M}
  ObjectReference Property zDestination14  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: N}
  ObjectReference Property zDestination15  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: O}
  ObjectReference Property zDestination16  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: P}
  ObjectReference Property zDestination17  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: Q}
  ObjectReference Property zDestination18  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: R}
  ObjectReference Property zDestination19  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: S}
  ObjectReference Property zDestination20  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: T}
  ObjectReference Property zDestination21  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: U}
  ObjectReference Property zDestination22  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: V}
  ObjectReference Property zDestination23  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: W, X}
  ObjectReference Property zDestination24  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: Y, Z}
  ObjectReference Property zDestination25  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: Notes and Letters}
  ObjectReference Property zDestination26  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: Spell Tomes}
  ObjectReference Property zDestination27  Auto
  {Destination container. May or may not be used depending on sorted form.
- 
+
  Books: Potion Recipes}
-
-; !PARAM
-;/$$$$$$\                                $$\ $$\             $$\               
-|$$  __$$\                               $$ |\__|            $$ |              
-|$$ |  $$ | $$$$$$\   $$$$$$$\  $$$$$$$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
-|$$$$$$$  | \____$$\ $$  _____|$$  _____|$$ |$$ |$$  _____|\_$$  _|  $$  _____|
-|$$  ____/  $$$$$$$ |\$$$$$$\  \$$$$$$\  $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
-|$$ |      $$  __$$ | \____$$\  \____$$\ $$ |$$ | \____$$\   $$ |$$\  \____$$\ 
-\$$ |      \$$$$$$$ |$$$$$$$  |$$$$$$$  |$$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
- \__|       \_______|\_______/ \_______/ \__|\__|\_______/    \____/ \_______/; 
-; PARAM Passlists
-
- FormList Property CLWASortingPLFoodCheeseSeasonings  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLFoodRawMeat  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.} 
- FormList Property CLWASortingPLFoodFruitsNVeggies  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLFoodMedeAndCo  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLFoodMeelz  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLStudyPotions  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLStudyPoisons  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLWorkRoomIngots  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLWorkRoomOres  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLWorkRoomGems  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLWorkRoomHides  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLWorkRoomMisc  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryAmmo  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryArmourLight  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryArmourHeavy  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryArmourClothes  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryArmourJewelry  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryWeapons1H  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryWeapons2H  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryWeaponsRanged  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingPLArmouryWeaponsStaves  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property pOverridePLFormType  Auto
- {Override Passlists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
- This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
-
-; !PARAM
-;/$$$$$$\  $$\                     $$\       $$\ $$\             $$\               
-|$$  __$$\ $$ |                    $$ |      $$ |\__|            $$ |              
-|$$ |  $$ |$$ | $$$$$$\   $$$$$$$\ $$ |  $$\ $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$$\ 
-|$$$$$$$\ |$$ | \____$$\ $$  _____|$$ | $$  |$$ |$$ |$$  _____|\_$$  _|  $$  _____|
-|$$  __$$\ $$ | $$$$$$$ |$$ /      $$$$$$  / $$ |$$ |\$$$$$$\    $$ |    \$$$$$$\  
-|$$ |  $$ |$$ |$$  __$$ |$$ |      $$  _$$<  $$ |$$ | \____$$\   $$ |$$\  \____$$\ 
-\$$$$$$$  |$$ |\$$$$$$$ |\$$$$$$$\ $$ | \$$\ $$ |$$ |$$$$$$$  |  \$$$$  |$$$$$$$  |
- \_______/ \__| \_______| \_______|\__|  \__|\__|\__|\_______/    \____/ \_______/; 
-; PARAM Blacklists
- FormList Property CLWASortingBLFoodCheeseSeasonings  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLFoodRawMeat  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.} 
- FormList Property CLWASortingBLFoodFruitsNVeggies  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLFoodMedeAndCo  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLFoodMeelz  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLStudyPotions  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLStudyPoisons  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLWorkRoomIngots  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLWorkRoomOres  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLWorkRoomGems  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLWorkRoomHides  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLWorkRoomMisc  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryAmmo  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryArmourLight  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryArmourHeavy  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryArmourClothes  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryArmourJewelry  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryWeapons1H  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryWeapons2H  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryWeaponsRanged  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property CLWASortingBLArmouryWeaponsStaves  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.}
- FormList Property pOverrideBLFormType  Auto
- {Override Blacklists are FormLists used to correct the sorting process for improperly or unexpectedly designed forms.
- This particular one can be used for situations like the soul gem, which only sorts a few base forms.}
-; !PARAM

@@ -6,7 +6,7 @@ Added: Woodworker's Whim
 
 ## 0.2.0
 
-Added: two compatibility  patches for High Poly Project.
+Added: two compatibility patches for High Poly Project.
 
 ## 1.0.0
 
@@ -43,10 +43,10 @@ Added: three sorting patches
     * A similar supports Ordinator's gem crushing perk
 * Merged Courier Counterspell and Mausoleum Door Fix into the new Bug Fixes plugin
   * Fixed the weather at Clockwork Castle, which will now use snow storm and overcast weathers.
-  * Fixed both secret cabinets which were not proerly aligned with the wall, allowing you to see a rather large gap between the wall and cabinet
+  * Fixed both secret cabinets which were not properly aligned with the wall, allowing you to see a rather large gap between the wall and cabinet
   * Added in the missing ceiling tile in the Armoury
   * Aligned the paintings behind the Mage's Study workstations with the wall
-* MANY maintainence changes for the repo
+* MANY maintenance changes for the repo
 * Added Interesting Inhabitants as a testing module
   * Includes most of the features that will be present in the final release
   * Should be entirely stable and cause no harm to your saved game
@@ -62,3 +62,54 @@ Added: three sorting patches
 * Fixed Blacklist processing in some parts of [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
 * Commented out `Debug.Trace()` calls in [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
 * Removed unused Superior Sorting scripts
+
+## 3.0.0
+
+### Patches
+
+* New "Central Patch API" plugin that supports patching Clockwork's sorting automatically, without the need for messy `Game.GetFormFromFile()` calls.
+
+### Bug Fixes
+
+* Clockwork Bug Fixes
+  * Fixed many different positioning issues
+  * Dark Brotherhood cannot abduct you during the questline
+    * Do note that they will be able to abduct you as soon as the questline completes
+  * Fixed an annoying bug with parts of the castle disappearing when looking at them from certain positions at certain angles.
+    * (Fixed by expanding the "Portals" about 1 unit into the walls)
+  * Have some free FPS! Occlusion Panes are the best!
+  * Added extra safeguards and failsafes to the Courier Counterspell script
+    * Also added a trigger where the Courier spawns to catch them and teleport them back to their holding cell
+* Clockwork Bug fixes by [DarthVitrial](https://forums.nexusmods.com/index.php?/user/5014137-darthvitrial/)
+  * Remove property that was removed from `CLWDBAmClawMountActiScript` from the plugin as well (obliterate the log spam)
+  * Removed 2 bad tint mappings
+  * Gave the Shadow race "Advanced Avoidance" (a flag that makes the AI behave somewhat differently and should be applied to bipedal races, such as humanoids)
+  * Implemented MANY mesh error fixes
+* Changed the fix for Lahar not affecting the stealth meter to a scripted method, removing the need for an overwrite
+  * Also applied to Lamashtu
+
+### Superior Sorting
+
+* Added Ingredients container to the Work Room
+* Fixed steam showing up in the Ordinator accommodations before Steam Power is unlocked
+* Added "Passed Lists," a form of cache to speed up sorting for items that have already been sorted into a particular container.
+
+### Interesting Inhabitants
+
+* Added Wall Lean markers all around the castle
+<!--
+* FIXME: Added a script to all Wall Lean markers in the Castle, preventing Gilded from using the markers.
+* TODO: Create multiple elaborate scenes for cooking and tending to children
+-->
+### Woodworker's Whim
+
+#### Mount
+
+* Clockwork's axe automatically mounts itself
+
+#### System
+
+* COMPLETELY REDONE! Rebuilt from THE GROUND UP!
+* Split into a separate mod—don't worry, it'll still be bundled with Additional Clockwork, too :wink:
+* Fast & Smooth
+* Still supports all vanilla-compatible axes and still makes no modifications to the vanilla script

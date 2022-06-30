@@ -15,31 +15,23 @@ Bool Property AllowDisableRef = True Auto
 {Allow the script to disable this ref?}
 Bool Property AllowEnableRef = True Auto
 {Allow the script to enable this ref?}
-Bool Property bIsModPresent Auto Hidden Conditional
+Bool Property bIsModPresent Hidden
 {Toggles with the state of the specified plugin}
+    Bool Function Get()
+        return Game.IsPluginInstalled(pPluginName)
+    EndFunction
+EndProperty
 
-Event OnInit()
-    RegisterForSingleUpdate(0.001) ; Registers for an update that processes almost imedieately to deffer processing
-endevent
+Float Property pValueToCheckAgainst = 1.0 Auto  
+{GOPTIONAL. Value used in the compareop to check the Global. True if equal to pGlobalToCheck's value.
+Debaults to 1}
+GlobalVariable Property pGlobalToCheck  Auto  
+{OPTIONAL. Global used in the compareop. True if equal to pValueToCheckAgainst}
 
-Event OnUpdate()
-    ; This event is only called once by the script itself,
-    ; though other scripts _can_ cause an update.
-    ; It is thus not adviseable to attach alongside a script that registers updates
-    int targetPluginIndex = Game.GetModByName(pPluginName)
-    if targetPluginIndex > 0 && targetPluginIndex < 255 ; then the mod IS present
-        bIsModPresent = True
-        if pRefToEnableDisable && AllowEnableRef
-            pRefToEnableDisable.EnableNoWait()
-        endif
-    else ; The mod is NOT present
-        bIsModPresent = False
-        if pRefToEnableDisable && AllowDisableRef
-            pRefToEnableDisable.DisableNoWait()
-        endif
-    endif
 
-    ; Check if we should process cell attachment too
+Event OnInit()    
+    DoEnableDisableToggle(bIsModPresent && (!pGlobalToCheck || pGlobalToCheck.GetValue() == pValueToCheckAgainst))
+
     if pCheckOnAttach
         gotostate("AttachProcessing")
     endif
@@ -49,16 +41,22 @@ State AttachProcessing
     ; State used to enable processing of OnCellAttach if designated,
     ; or keep it disabled to prevent processing and reduce script load
     Event OnCellAttach()
-        if Game.GetModByName(pPluginName) > 0 && pCheckOnAttachEnabled
-            bIsModPresent = True
-            if pRefToEnableDisable
-                pRefToEnableDisable.EnableNoWait()
-            endif
-        else
-            bIsModPresent = False
-            if pRefToEnableDisable
-                pRefToEnableDisable.DisableNoWait()
-            endif
+        if !pCheckOnAttachEnabled
+            return
+        EndIf
+
+        DoEnableDisableToggle(bIsModPresent && (!pGlobalToCheck || pGlobalToCheck.GetValue() == pValueToCheckAgainst))
+    EndEvent
+EndState
+
+Function DoEnableDisableToggle(Bool abCondition = true)
+    if abCondition
+        if pRefToEnableDisable && AllowEnableRef
+            pRefToEnableDisable.EnableNoWait()
         endif
-    endevent
-endstate
+    else
+        if pRefToEnableDisable && AllowDisableRef
+            pRefToEnableDisable.DisableNoWait()
+        endif
+    endif
+EndFunction
