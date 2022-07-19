@@ -11,13 +11,6 @@
         {
             "name": "scripts",
             "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\scripts"
-        },
-        {
-            "name": "LOOT Masterlist",
-            "path": "C:\\Users\\zacha\\AppData\\Local\\LOOT\\Skyrim Special Edition"
-        },
-        {
-            "path": "dist\\Modules\\Normal\\WoodworkersWhim\\WorkRoomOnly\\source\\scripts"
         }
     ],
     "settings": {
@@ -61,6 +54,7 @@
             "Dwarven",
             "failsafes",
             "favorited",
+            "Havok",
             "Lahar",
             "Lamashtu",
             "lookin'",
