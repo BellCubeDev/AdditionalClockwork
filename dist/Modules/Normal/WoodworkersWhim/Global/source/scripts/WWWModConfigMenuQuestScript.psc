@@ -12,42 +12,42 @@ GlobalVariable[] Property WWW_SearchRadiusGlob  Auto
 3 - Default}
 
 GlobalVariable[] Property WWW_ChoppingBlock  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to Wood Chopping Blocks
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_ChoppingBlock_NPCs  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to NPCs using Wood Chopping Blocks 
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_OreVein  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to Ore Veins
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_OreVein_NPCs  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to NPCs using Ore Veins
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_StoneQuarry  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to Stone Quarries
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_StoneQuarry_NPCs  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to NPCs using Stone Quarries
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_ClayDeposit  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to Clay Deposits
 0 - Value-storing Global
 1 - Default}
 
 GlobalVariable[] Property WWW_ClayDeposit_NPCs  Auto
-{Global holding the range the system will search for an axe within
+{Global determining whether or not the system will apply to NPCs using Clay Deposits
 0 - Value-storing Global
 1 - Default}
 
@@ -82,18 +82,18 @@ Event OnInit()
 EndEvent
 
 Event OnConfigInit()
-    Debug.Trace("[BCD-WWW] OnConfigInit sent")
+    ;Debug.Trace("[BCD-WWW] OnConfigInit sent")
     ModName = asLocalizationTable[0].GetName()
-    Debug.Trace("[BCD-WWW] OnConfigInit - Name Set")
+    ;Debug.Trace("[BCD-WWW] OnConfigInit - Name Set")
 EndEvent
 
 Event OnConfigRegister()
-    Debug.Trace("[BCD-WWW] OnConfigRegister sent")
+    ;Debug.Trace("[BCD-WWW] OnConfigRegister sent")
 EndEvent
 
 Event OnPageReset(string page)
     ; We only have one page, so 😁
-    Debug.Trace("[BCD-WWW] OnPageReset sent, page: " + page)
+    ;Debug.Trace("[BCD-WWW] OnPageReset sent, page: " + page)
 	SetCursorFillMode(LEFT_TO_RIGHT)
     AddHeaderOption(Pages[0])
     SetCursorPosition(2)
@@ -127,12 +127,12 @@ Bool_ClayDeposit_NPC
 State Slider_SearchRadius
 
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[3].GetName(), "%def%", WWW_SearchRadiusGlob[3].GetValueInt()))
     EndEvent
 
     Event OnSliderOpenST()
-        Debug.Trace("[BCD-WWW] OnOptionSliderOpen sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnOptionSliderOpen sent, state: " + GetState())
         SetSliderDialogStartValue(WWW_SearchRadiusGlob[0].GetValue())
         SetSliderDialogDefaultValue(WWW_SearchRadiusGlob[3].GetValue())
         SetSliderDialogRange(WWW_SearchRadiusGlob[1].GetValue(), WWW_SearchRadiusGlob[2].GetValue())
@@ -140,13 +140,13 @@ State Slider_SearchRadius
     EndEvent
 
     Event OnSliderAcceptST(float afNewValue)
-        Debug.Trace("[BCD-WWW] OnOptionSliderAccept sent, state: " + GetState() + ", new value: " + afNewValue)
+        ;Debug.Trace("[BCD-WWW] OnOptionSliderAccept sent, state: " + GetState() + ", new value: " + afNewValue)
         WWW_SearchRadiusGlob[0].SetValue(afNewValue)
         SetSliderOptionValueST(WWW_SearchRadiusGlob[0].GetValue(), "$WWWSliderSearchRadiusUnits")
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnOptionDefault sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnOptionDefault sent, state: " + GetState())
         WWW_SearchRadiusGlob[0].SetValue(WWW_SearchRadiusGlob[3].GetValue())
         SetSliderOptionValueST(WWW_SearchRadiusGlob[0].GetValue())
     EndEvent
@@ -156,80 +156,80 @@ EndState
 
 State Bool_ChoppingBlock
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[2].GetName(), "%def%", (WWW_ChoppingBlock[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
         WWW_ChoppingBlock[0].SetValue(WWW_ChoppingBlock[3].GetValue())
-        SetSliderOptionValueST(WWW_ChoppingBlock[0].GetValue())
+        SetToggleOptionValueST(WWW_ChoppingBlock[0].GetValue(), false, "Bool_ChoppingBlock")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_ChoppingBlock[0].SetValue((!(WWW_ChoppingBlock[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_ChoppingBlock[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_ChoppingBlock[0].GetValue() as Bool), false, "Bool_ChoppingBlock")
     endEvent
 EndState
 
 
 State Bool_ChoppingBlock_NPCs
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[3].GetName(), "%def%", (WWW_ChoppingBlock_NPCs[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_ChoppingBlock_NPCs[0].SetValue(WWW_ChoppingBlock_NPCs[3].GetValue())
-        SetSliderOptionValueST(WWW_ChoppingBlock_NPCs[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_ChoppingBlock_NPCs[0].SetValue(WWW_ChoppingBlock_NPCs[1].GetValue())
+        SetToggleOptionValueST(WWW_ChoppingBlock_NPCs[0].GetValue(), false, "Bool_ChoppingBlock_NPCs")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_ChoppingBlock_NPCs[0].SetValue((!(WWW_ChoppingBlock_NPCs[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_ChoppingBlock_NPCs[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_ChoppingBlock_NPCs[0].GetValue() as Bool), false, "Bool_ChoppingBlock_NPCs")
     endEvent
 EndState
 
 
 State Bool_OreVein
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[4].GetName(), "%def%", (WWW_OreVein[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_OreVein[0].SetValue(WWW_OreVein[3].GetValue())
-        SetSliderOptionValueST(WWW_OreVein[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_OreVein[0].SetValue(WWW_OreVein[1].GetValue())
+        SetToggleOptionValueST(WWW_OreVein[0].GetValue(), false, "Bool_OreVein")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_OreVein[0].SetValue((!(WWW_OreVein[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_OreVein[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_OreVein[0].GetValue() as Bool), false, "Bool_OreVein")
     endEvent
 EndState
 
 
 State Bool_OreVein_NPCs
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[5].GetName(), "%def%", (WWW_OreVein_NPCs[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_OreVein_NPCs[0].SetValue(WWW_OreVein_NPCs[3].GetValue())
-        SetSliderOptionValueST(WWW_OreVein_NPCs[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_OreVein_NPCs[0].SetValue(WWW_OreVein_NPCs[1].GetValue())
+        SetToggleOptionValueST(WWW_OreVein_NPCs[0].GetValue(), false, "Bool_OreVein_NPCs")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_OreVein_NPCs[0].SetValue((!(WWW_OreVein_NPCs[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_OreVein_NPCs[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_OreVein_NPCs[0].GetValue() as Bool), false, "Bool_OreVein_NPCs")
     endEvent
 EndState
 
@@ -237,80 +237,80 @@ EndState
 State Bool_StoneQuarry
     
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
-        SetInfoText(Replace(asLocalizationTable[6].GetName(), "%def%", (WWW_ChoppingBlock_NPCs[1].GetValue() as Bool)))
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        SetInfoText(Replace(asLocalizationTable[6].GetName(), "%def%", (WWW_StoneQuarry[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_SearchRadiusGlob[0].SetValue(WWW_SearchRadiusGlob[3].GetValue())
-        SetSliderOptionValueST(WWW_SearchRadiusGlob[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_StoneQuarry[0].SetValue(WWW_StoneQuarry[1].GetValue())
+        SetToggleOptionValueST(WWW_StoneQuarry[0].GetValue(), false, "Bool_StoneQuarry")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
-        WWW_ChoppingBlock_NPCs[0].SetValue((!(WWW_ChoppingBlock_NPCs[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_ChoppingBlock_NPCs[0].GetValue() as Bool))
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        WWW_StoneQuarry[0].SetValue((!(WWW_StoneQuarry[0].GetValue() as Bool)) as Float)
+        SetToggleOptionValueST((WWW_StoneQuarry[0].GetValue() as Bool), false, "Bool_StoneQuarry")
     endEvent
 EndState
 
 
 State Bool_StoneQuarry_NPCs
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[7].GetName(), "%def%", (WWW_StoneQuarry_NPCs[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_StoneQuarry_NPCs[0].SetValue(WWW_StoneQuarry_NPCs[3].GetValue())
-        SetSliderOptionValueST(WWW_StoneQuarry_NPCs[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_StoneQuarry_NPCs[0].SetValue(WWW_StoneQuarry_NPCs[1].GetValue())
+        SetToggleOptionValueST(WWW_StoneQuarry_NPCs[0].GetValue(), false, "Bool_StoneQuarry_NPCs")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_StoneQuarry_NPCs[0].SetValue((!(WWW_StoneQuarry_NPCs[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_StoneQuarry_NPCs[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_StoneQuarry_NPCs[0].GetValue() as Bool), false, "Bool_StoneQuarry_NPCs")
     endEvent
 EndState
 
 
 State Bool_ClayDeposit
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[8].GetName(), "%def%", (WWW_ClayDeposit[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_ClayDeposit[0].SetValue(WWW_ClayDeposit[3].GetValue())
-        SetSliderOptionValueST(WWW_ClayDeposit[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_ClayDeposit[0].SetValue(WWW_ClayDeposit[1].GetValue())
+        SetToggleOptionValueST(WWW_ClayDeposit[0].GetValue(), false, "Bool_ClayDeposit")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_ClayDeposit[0].SetValue((!(WWW_ClayDeposit[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_ClayDeposit[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_ClayDeposit[0].GetValue() as Bool), false, "Bool_ClayDeposit")
     endEvent
 EndState
 
 
 State Bool_ClayDeposit_NPCs
     Event OnHighlightST()
-        Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[9].GetName(), "%def%", (WWW_ClayDeposit_NPCs[1].GetValue() as Bool)))
     EndEvent
 
     Event OnDefaultST()
-        Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
-        WWW_ClayDeposit_NPCs[0].SetValue(WWW_ClayDeposit_NPCs[3].GetValue())
-        SetSliderOptionValueST(WWW_ClayDeposit_NPCs[0].GetValue())
+        ;Debug.Trace("[BCD-WWW] OnDefaultST sent, state: " + GetState())
+        WWW_ClayDeposit_NPCs[0].SetValue(WWW_ClayDeposit_NPCs[1].GetValue())
+        SetToggleOptionValueST(WWW_ClayDeposit_NPCs[0].GetValue(), false, "Bool_ClayDeposit_NPCs")
     EndEvent
 
     Event OnSelectST()
-        Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
+        ;Debug.Trace("[BCD-WWW] OnSelectST sent, state: " + GetState())
         WWW_ClayDeposit_NPCs[0].SetValue((!(WWW_ClayDeposit_NPCs[0].GetValue() as Bool)) as Float)
-        SetToggleOptionValueST((WWW_ClayDeposit_NPCs[0].GetValue() as Bool))
+        SetToggleOptionValueST((WWW_ClayDeposit_NPCs[0].GetValue() as Bool), false, "Bool_ClayDeposit_NPCs")
     endEvent
 EndState
 
@@ -321,12 +321,12 @@ String Function Replace(String str, String strFind, String strReplacement, Int a
     Int iStartPos = StringUtil.Find(str, strFind, iStartPos + iFindStrLength) 
     Int iStrLength = StringUtil.GetLength(str)
     Int iFindStrLength = StringUtil.GetLength(strFind)
-    Debug.Trace("[BCD-WWW] Replace - Started replacement. Parameters:\nReplace: " + strFind + "\nReplacement: " + strReplacement + "\nMax Replacements: " + aiMaxReplaces + "\nstr: " + str)
+    ;Debug.Trace("[BCD-WWW] Replace - Started replacement. Parameters:\nReplace: " + strFind + "\nReplacement: " + strReplacement + "\nMax Replacements: " + aiMaxReplaces + "\nstr: " + str)
     String strBase
     Int replacesDone = 0
 
     While iStartPos >= 0 && replacesDone != aiMaxReplaces
-        Debug.Trace("[BCD-WWW] Replace - Replacing from position " + iStartPos)
+        ;Debug.Trace("[BCD-WWW] Replace - Replacing from position " + iStartPos)
         If iStartPos > 0
             strBase = StringUtil.Substring(str, 0, iStartPos)
         Else
@@ -334,7 +334,7 @@ String Function Replace(String str, String strFind, String strReplacement, Int a
         EndIf
         str = strBase + strReplacement + StringUtil.Substring(str, iStartPos + iFindStrLength, 0)
         replacesDone += 1
-        Debug.Trace("[BCD-WWW] Replace - Finished replace #" + replacesDone + " at position " + iStartPos + ", product:\n" + str)
+        ;Debug.Trace("[BCD-WWW] Replace - Finished replace #" + replacesDone + " at position " + iStartPos + ", product:\n" + str)
         iStartPos = StringUtil.Find(str, strFind, iStartPos + iFindStrLength)
     EndWhile
     return str

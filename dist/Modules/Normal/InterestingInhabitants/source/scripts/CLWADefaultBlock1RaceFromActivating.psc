@@ -1,4 +1,4 @@
-Scriptname CLWADefaultBlock1RaceFromActivating extends ObjectReference  
+Scriptname CLWADefaultBlock1RaceFromActivating extends ObjectReference
 {Prevents members of a specific race from activating this object
 Extremely specialized version of defaultNoFollowDoorScript}
 
@@ -14,7 +14,7 @@ Event OnActivate(ObjectReference akActionRef)
             Debug.Trace("Allowing "+aBase.GetName()+" to activate "+GetName())
             Activate(akActionRef, true)
         Else
-            Debug.Trace("Blocking "+aBase.GetName()+" from activating "+GetName())
+            ;Debug.Trace("Blocking "+aBase.GetName()+" from activating "+GetName())
         EndIf
     Else
         Debug.Trace("Activation not blocked.")
