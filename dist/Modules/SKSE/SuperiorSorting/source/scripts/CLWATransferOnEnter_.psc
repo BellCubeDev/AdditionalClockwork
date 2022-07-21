@@ -25,19 +25,29 @@ ObjectReference Property pDestinationContainer  Auto
 {Optional container to transfer all items in pRemovalContainer to}
 
 Event OnTriggerEnter(ObjectReference akActionRef)
+    Debug.Trace("")
+    Debug.Trace("[BCD-CLWA-SS] Trigger "+self+" entered by "+akActionRef)
+    Debug.Trace("[BCD-CLWA-SS] Is Player? "+(akActionRef == PlayerREF))
+    Debug.Trace("[BCD-CLWA-SS] Does it have to be the Player? "+pRequirePlayer)
+    Debug.Trace("[BCD-CLWA-SS] What's the Global's value? "+pGlobalToCheck.GetValue())
+    Debug.Trace("[BCD-CLWA-SS] What are we looking for? "+pValueToCheckAgainst)
+    Debug.Trace("[BCD-CLWA-SS] Condition: "+((!pRequirePlayer || akActionRef == PlayerREF) && (pGlobalToCheck.GetValue() == pValueToCheckAgainst)))
+    Debug.Trace("[BCD-CLWA-SS] Containers to Remove From: "+pRemovalContainers)
+    Debug.Trace("[BCD-CLWA-SS] Container to Add To: "+pDestinationContainer)
+    Debug.Trace("[BCD-CLWA-SS] Sound to play: "+pSoundToPlay)
+    Debug.Trace("")
 
     ; Early Return conditions
-    If                       ;/
+    If !(;/
         Check for the player /; (!pRequirePlayer || akActionRef == PlayerREF) && ;/
-            Check the Global /; pGlobalToCheck.GetValue() != pValueToCheckAgainst
+            Check the Global /; (pGlobalToCheck.GetValue() == pValueToCheckAgainst))
         return
     EndIf
 
 
     If pDestinationContainer ; If pDestinationContainer is filled, transfer the items and then play the sound there
 
-        Bool doPlaySound = \
-        removeFromContainersAndPlaySound(pRemovalContainers, akSound = pSoundToPlay)
+        Bool doPlaySound = removeFromContainersAndPlaySound(pRemovalContainers, pDestinationContainer)
 
         If pSoundToPlay && doPlaySound
             pSoundToPlay.Play(pDestinationContainer)
@@ -59,20 +69,23 @@ Bool Function removeFromContainersAndPlaySound(ObjectReference[] akContainers, O
 
     if akSound ; We have a sound to play!
         While i < iMax
-            If pRemovalContainers[i].GetNumItems() > 0
+            Debug.Trace("[BCD-CLWA-SS] Removing from "+akContainers[i]+", which has "+akContainers[i].GetNumItems()+" items")
+            If akContainers[i].GetNumItems() > 0
                 akContainers[i].RemoveAllItems(akDestination, false, false)
                 akSound.Play(akContainers[i])
                 returnValue = True
             EndIf
+            i += 1
         EndWhile
-
 
     Else ; no sound was passed
         While i < iMax
-            If pRemovalContainers[i].GetNumItems() > 0
+            Debug.Trace("[BCD-CLWA-SS] Removing from "+akContainers[i]+", which has "+akContainers[i].GetNumItems()+" items")
+            If akContainers[i].GetNumItems() > 0
                 akContainers[i].RemoveAllItems(akDestination, false, false)
                 returnValue = True
             EndIf
+            i += 1
         EndWhile
 
 

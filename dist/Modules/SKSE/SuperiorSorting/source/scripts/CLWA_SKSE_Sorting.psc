@@ -1110,6 +1110,16 @@ EndFunction
 Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts various smithing materials into their appropriate containers, including a misc. container}
 
+    ; Simplified version of SortByFormType
+    If zDestination06
+        Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
+        itemsLeft = IngsToSort.Length
+        While i < itemsLeft
+            removeAll(obSortRef, IngsToSort[i], zDestination06)
+            i += 1
+        EndWhile
+    EndIf
+
     removeAll(obSortRef, CLWASortingPLWorkRoomIngots, zDestination01)
     removeAll(obSortRef, CLWASortedList_WorkRoomIngots, zDestination01)
 
