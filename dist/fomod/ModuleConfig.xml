@@ -698,7 +698,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_ccCurios" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
                 </files>
             </pattern>
             <pattern>
@@ -706,7 +706,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_CACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
                 </files>
             </pattern>
             <pattern>
@@ -714,7 +714,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
                 </files>
             </pattern>
 
@@ -724,7 +724,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Food_CACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
                 </files>
             </pattern>
 
