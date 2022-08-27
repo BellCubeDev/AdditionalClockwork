@@ -1,10 +1,10 @@
 # Changelog
 
-## 0.1.0
+### 0.1.0
 
 Added: Woodworker's Whim
 
-## 0.2.0
+### 0.2.0
 
 Added: two compatibility patches for High Poly Project.
 
@@ -53,11 +53,11 @@ Added: three sorting patches
     * I take no responsibility for damages to your save caused by using a testing plugin.
 * Restructured `dist\translations\` folder to apply some of my new-found knowledge on the FOMOD installer
 
-## **2.0.1**
+### **2.0.1**
 
 * Fixed Unresolvable FormIDs in Interesting Inhabitants and Superior Sorting
 
-## **2.0.2**
+### **2.0.2**
 
 * Fixed Blacklist processing in some parts of [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
 * Commented out `Debug.Trace()` calls in [CLWA_SKSE_Sorting.psc](dist/Modules/SKSE/SuperiorSorting/source/scripts/CLWA_SKSE_Sorting.psc)
@@ -113,3 +113,20 @@ Added: three sorting patches
 * Split into a separate mod—don't worry, it'll still be bundled with Additional Clockwork, too :wink:
 * Fast & Smooth
 * Still supports all vanilla-compatible axes and still makes no modifications to the vanilla script
+
+## **3.0.1**
+
+* Bug Fixes: Fixed bug where reading Camilla's Note without first adding it to your inventory would now complete the objective to search the body for clues
+* Superior Sorting: Fixed some issues with the auto-transferring items (e.g. Ingredients) - special care was taken so that this fix would work on existing saves
+* Superior Sorting: Added Ingredient sorting to Work Room (part of those auto-transferring items)
+* Woodworker's Whim: Now uses the correct scripts (it appears that it was using scripts from somewhere in the development cycle)
+
+## **3.0.2**
+
+* Fixed some incorrect paths in the FOMOD installer
+
+## **3.0.3**
+
+* Fixed an issue with the translation file name for the Work Room-only version of Woodworker's Whim
+* Bug Fixes: Fixed an edge-case bug where, if you smuggled a follower into the castle, they could sit down and clip through Lamashtu's inactive body
+* Superior Sorting: Fixed Soul Gems not being sorted

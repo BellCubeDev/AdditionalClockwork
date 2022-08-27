@@ -9,8 +9,8 @@
             "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data"
         },
         {
-            "name": "scripts",
-            "path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\scripts"
+            "name": "Script Sources",
+            "path": "W:\\Modding\\EtcSkyrimData\\ScriptSources"
         }
     ],
     "settings": {

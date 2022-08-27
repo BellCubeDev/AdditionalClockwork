@@ -1,60 +1,63 @@
 {
-    "tasks": [{
-        "args": [
-            "${workspaceFolder}",
-            "dist\\",
-            "${workspaceFolder}\\compiled\\AdditionalClockwork-Testing.zip"
-        ],
-        "command": ".\\.vscode\\zip.bat",
-        "group": {
-            "kind": "build",
-            "isDefault": true
+    "tasks": [
+        {
+            "args": [
+                "${workspaceFolder}",
+                "dist\\",
+                "${workspaceFolder}\\compiled\\AdditionalClockwork-Testing.zip"
+            ],
+            "command": ".\\.vscode\\zip.bat",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }x,
+            "label": "Zip FOMOD",
+            "presentation": {
+                "clear": true,
+                "echo": true,
+                "focus": false,
+                "showReuseMessage": false,
+                "panel": "dedicated",
+                "close": true
+            },
+            "type": "shell",
+            "problemMatcher": []
         },
-        "label": "Zip FOMOD",
-        "presentation": {
-            "clear": true,
-            "echo": true,
-            "focus": false,
-            "showReuseMessage": false,
-            "panel": "dedicated",
-            "close": true
-        },
-        "type": "shell",
-        "problemMatcher": []
-    }, {
-        "args": [
-            /* Script */ "${file}",
-            /* Output */ "${fileDirname}\\..\\..\\scripts",
-            /* Imports */ "${fileDirname};C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\source\\Scripts",
-        ],
-        "command": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Papyrus Compiler\\PapyrusCompile.bat",
-        "group": "build",
-        "label": "Compile Current Papyrus Script",
-        "presentation": {
-            "clear": true,
-            "echo": false,
-            "focus": false,
-            "showReuseMessage": false,
-            "panel": "dedicated",
-            "close": false,
-            "reveal": "always",
-            "revealProblems": "onProblem"
-        },
-        "type": "shell",
-        "problemMatcher": {
-            "owner": "Papyrus",
-            "fileLocation": "absolute",
-            "source": "Papyrus Compiler",
-            "severity": "error",
-            "applyTo": "allDocuments",
-            "pattern": {
-                "regexp": "(.*?)\\((\\d+),(\\d+)\\): (.*(?:\\n(?!(?:.*?\\((\\d+),(\\d+)\\))|\\n).*)*)",
-                "column": 3,
-                "line": 2,
-                "file": 1,
-                "message": 4
+        {
+            "args": [
+                /* Script */  "${file}",
+                /* Output */  "${fileDirname}\\..\\..\\scripts",
+                /* Imports */ "E:\\SSE_PSCs\\SkyUI;E:\\SSE_PSCs\\PO3;E:\\SSE_PSCs\\SkyUI;E:\\SSE_PSCs\\SKSE 2.1.5;E:\\SSE_PSCs\\Vanilla Regular;E:\\SSE_PSCs\\Vanilla Native", // Handled script directory on its own
+            ],
+            "command": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Papyrus Compiler\\PapyrusCompile.bat",
+            "group": "build",
+            "label": "Compile Current Papyrus Script",
+            "presentation": {
+                "clear": true,
+                "echo": false,
+                "focus": false,
+                "showReuseMessage": false,
+                "panel": "dedicated",
+                "close": false,
+                "reveal": "always",
+                "revealProblems": "onProblem"
+            },
+            "type": "shell",
+            "problemMatcher": {
+                "owner": "Papyrus",
+                "fileLocation": "absolute",
+                "source": "Papyrus Compiler",
+                "severity": "error",
+                "applyTo": "allDocuments",
+                "pattern": {
+                    "regexp": "(.*?)\\((\\d+),(\\d+)\\): (.*(?:\\n(?!(?:.*?\\((\\d+),(\\d+)\\))|\\n).*)*)",
+                    "column": 3,
+                    "line": 2,
+                    "file": 1,
+                    "message": 4
+                }
             }
         }
-    }],
+    ],
     "version": "2.0.0"
 }
