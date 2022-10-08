@@ -17,7 +17,7 @@ GlobalVariable Property ConditionBool  Auto
 GlobalVariable Property ConditionBoolNPCs  Auto
 {Global bool that is used to check If we should run the system for NPCs too}
 
-Message Property ItemTakenMsg Auto  
+Message Property ItemTakenMsg Auto
 {Message to say that a required item was grabbed from somewhere nearby}
 
 ObjectReference[] lastActionRefs
@@ -29,7 +29,7 @@ Int Property lastActionRefIndex Hidden
     EndFunction
     Function Set(Int aiNewValue)
         ;DebugTest()
-        If aiNewValue < 0 
+        If aiNewValue < 0
             lastActionRefIndexBackend = 15
         ElseIf aiNewValue > 15
             lastActionRefIndexBackend = 0
@@ -76,7 +76,7 @@ Function preReturnOnActivate(ObjectReference akActionRef, Bool doFakeAxe = false
         akActionRef.AddItem(fakeAxe, abSilent = true)
     EndIf
     GotoState("normal")
-    (self as ResourceFurnitureScript).OnActivate(akActionRef)
+    parent.OnActivate(akActionRef)
     If doFakeAxe
         akActionRef.RemoveItem(fakeAxe, abSilent = true)
     EndIf
@@ -212,7 +212,7 @@ auto STATE normal
             ; Stop the quest so it can be used again
 
             ; Stop Reference Aqqusition
-        
+
             ; If we failed to find a reference, abandon ship!
             If !akAxeRef
                 ;Debug.Trace("[BCD-WWW] Failed to get tracked item. ABANDOMING SHIP. akActionRef = " + akActionRef)
@@ -224,7 +224,7 @@ auto STATE normal
         ; ========================
         ; Meat & Potatoes
         ; ========================
-            
+
         ;Debug.Trace("[BCD-WWW] Got Reference: " + akAxeRef + " (" + akAxeRef.GetBaseObject().GetName() + ")")
 
         ; Show message
@@ -304,7 +304,7 @@ Function preReturn(;/ /;)
     WWWBackendQuest.Stop()
 
     ObjectReference tempHoldAxeRef = akAxeRef
-    
+
     If tempHoldAxeRef
         akAxeRef = None
         int i = 0
@@ -325,10 +325,10 @@ Function preReturn(;/ /;)
         lastActionRefs[i] = None
         i += 1
     EndWhile
-    
+
     working = false
     GoToState("normal")
-    
+
     ; Fancy disable!
     If tempHoldAxeRef
         tempHoldAxeRef.EnableNoWait()

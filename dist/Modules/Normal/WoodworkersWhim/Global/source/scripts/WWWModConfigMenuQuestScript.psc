@@ -1,4 +1,4 @@
-Scriptname WWWModConfigMenuQuestScript extends SKI_ConfigBase  
+Scriptname WWWModConfigMenuQuestScript extends SKI_ConfigBase
 {Script to set up the MCM for Woodworker's Whim}
 
 Bool Property allowOreVeins = false  Auto
@@ -17,7 +17,7 @@ GlobalVariable[] Property WWW_ChoppingBlock  Auto
 1 - Default}
 
 GlobalVariable[] Property WWW_ChoppingBlock_NPCs  Auto
-{Global determining whether or not the system will apply to NPCs using Wood Chopping Blocks 
+{Global determining whether or not the system will apply to NPCs using Wood Chopping Blocks
 0 - Value-storing Global
 1 - Default}
 
@@ -150,7 +150,7 @@ State Slider_SearchRadius
         WWW_SearchRadiusGlob[0].SetValue(WWW_SearchRadiusGlob[3].GetValue())
         SetSliderOptionValueST(WWW_SearchRadiusGlob[0].GetValue())
     EndEvent
-    
+
 EndState
 
 
@@ -235,7 +235,7 @@ EndState
 
 
 State Bool_StoneQuarry
-    
+
     Event OnHighlightST()
         ;Debug.Trace("[BCD-WWW] OnHighlightST sent, state: " + GetState())
         SetInfoText(Replace(asLocalizationTable[6].GetName(), "%def%", (WWW_StoneQuarry[1].GetValue() as Bool)))
@@ -318,7 +318,7 @@ EndState
 ; Replaces the specified string with another string for the specified number of times
 ; 0 will not replace anything, and any negative number will replace all occurrences
 String Function Replace(String str, String strFind, String strReplacement, Int aiMaxReplaces = -1) Global
-    Int iStartPos = StringUtil.Find(str, strFind, iStartPos + iFindStrLength) 
+    Int iStartPos = StringUtil.Find(str, strFind, iStartPos + iFindStrLength)
     Int iStrLength = StringUtil.GetLength(str)
     Int iFindStrLength = StringUtil.GetLength(strFind)
     ;Debug.Trace("[BCD-WWW] Replace - Started replacement. Parameters:\nReplace: " + strFind + "\nReplacement: " + strReplacement + "\nMax Replacements: " + aiMaxReplaces + "\nstr: " + str)

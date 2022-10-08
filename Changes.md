@@ -130,3 +130,7 @@ Added: three sorting patches
 * Fixed an issue with the translation file name for the Work Room-only version of Woodworker's Whim
 * Bug Fixes: Fixed an edge-case bug where, if you smuggled a follower into the castle, they could sit down and clip through Lamashtu's inactive body
 * Superior Sorting: Fixed Soul Gems not being sorted
+
+## **3.0.4**
+
+* Fixed an issue in Woodworker's Whim which caused the Chopping Block script (`WWWResourceFurnitureAddon`) to enter an infinite activation loop under certain circumstances

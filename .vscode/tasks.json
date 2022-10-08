@@ -10,7 +10,7 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }x,
+            },
             "label": "Zip FOMOD",
             "presentation": {
                 "clear": true,
