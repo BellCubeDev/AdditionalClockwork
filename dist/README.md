@@ -1,6 +1,6 @@
 # Additional Clockwork FOMOD
 
-This is the FOMOD installer for Clockwork. [This filder](dist/) is actually zipped on a local clone of [the repo](https://github.com/BellCubeDev/AdditionalClockwork) whenever I release a new version.
+This is the FOMOD installer for Clockwork. This folder is actually zipped on a local clone of [the repo](https://github.com/BellCubeDev/AdditionalClockwork) whenever I release a new version.
 
 # What is this mod?
 
