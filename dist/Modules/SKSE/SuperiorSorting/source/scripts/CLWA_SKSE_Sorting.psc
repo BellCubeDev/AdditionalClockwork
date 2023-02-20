@@ -403,12 +403,6 @@ FormList Property pSortedList_FormType02  Auto
 {SortedLists are FormLists used to automatically filter out already-sorted items}
 
 
-
-; TODO: Implement the above Sorted Lists!
-; TODO: Move the above parameters back to the bottom of the script once Copilot is done with them
-
-
-
 ;/$$$$$\                                                          $$\
 |$$  __$$\                                                         $$ |
 |$$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$\  $$$$$$\$$$$\   $$$$$$\  $$$$$$\    $$$$$$\   $$$$$$\   $$$$$$$\
@@ -491,15 +485,15 @@ Actor PlayerREF
 .\__|       \______/ \__|  \__| \_______|   \____/ \__| \______/ \__|  \__|\_______/;
 
 
-Function RemoveAllAndAddToList(ObjectReference akRemoveRef, Form akItemToRemove, FormList akListToAddTo, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
+function RemoveAllAndAddToList(ObjectReference akRemoveRef, Form akItemToRemove, FormList akListToAddTo, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
     ;Debug.Trace("[BCD-CLWA_SS] RemoveAllAndAddToList - Removing all...")
     removeAll(akRemoveRef, akItemToRemove, akDestinationContainer, aiCount, abSilent)
 
     Form akBaseItem = akItemToRemove
     ObjectReference itemAsRef = akItemToRemove as ObjectReference
-    If itemAsRef
+    if itemAsRef
         akBaseItem = itemAsRef.GetBaseObject()
-    EndIf
+    endIf
 
     ;Debug.Trace("[BCD-CLWA_SS] RemoveAllAndAddToList - Adding to list...")
     if akListToAddTo
@@ -509,7 +503,7 @@ Function RemoveAllAndAddToList(ObjectReference akRemoveRef, Form akItemToRemove,
     ;Debug.Trace("[BCD-CLWA_SS] RemoveAllAndAddToList - Done!")
 EndFunction
 
-Function removeAll(ObjectReference akRemoveRef, Form akItemToRemove, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
+function removeAll(ObjectReference akRemoveRef, Form akItemToRemove, ObjectReference akDestinationContainer = none, Int aiCount = 999999, Bool abSilent = true) Global
     ;Debug.Trace("[BCD-CLWA_SS] removeAll - Checking for list...")
 
     if !akItemToRemove
@@ -518,10 +512,10 @@ Function removeAll(ObjectReference akRemoveRef, Form akItemToRemove, ObjectRefer
     endIf
 
     FormList itemAsList = akItemToRemove as FormList
-    If itemAsList && itemAsList.GetSize() == 0
+    if itemAsList && itemAsList.GetSize() == 0
         ;Debug.Trace("[BCD-CLWA_SS] removeAll - List was empty. Aborting to prevent log spam.")
         return
-    EndIf
+    endIf
 
     ;Debug.Trace("[BCD-CLWA_SS] RemoveAllAndAddToList - Removing items...")
     akRemoveRef.RemoveItem(akItemToRemove, aiCount, abSilent, akDestinationContainer)
@@ -561,50 +555,58 @@ function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool
     Form[] FormsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, iFormTypeToSort, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     int itemsLeft = FormsToSort.Length
     int i = 0
-    If flOverrideBLFormType01
+    if flOverrideBLFormType01
         Form curForm
-        While i < itemsLeft
+        while i < itemsLeft
             curForm = FormsToSort[i]
-            If flOverrideBLFormType01.HasForm(curForm)
-                If !flOverrideBLFormType02 || !flOverrideBLFormType02.HasForm(curForm)
+
+            if i != 0 && curForm == FormsToSort[i - 1]
+                ; continue
+
+            elseIf flOverrideBLFormType01.HasForm(curForm)
+                if !flOverrideBLFormType02 || !flOverrideBLFormType02.HasForm(curForm)
                     RemoveAllAndAddToList(obSortRef, curForm, flSortedList02, obDestination02)
-                EndIf
-            Else
+                endIf
+
+            else
                 RemoveAllAndAddToList(obSortRef, curForm, flSortedList01, obDestination01)
-            EndIf
+
+            endIf
             i += 1
-        EndWhile
-    Else
-        While i < itemsLeft
-            obSortRef.RemoveItem(FormsToSort[i], 999999, true, obDestination01)
+        endWhile
+    else
+        while i < itemsLeft
+            if i == 0 || FormsToSort[i] != FormsToSort[i - 1]
+                removeAll(obSortRef, FormsToSort[i], obDestination01)
+            endIf
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 EndFunction
 
 ;/
-  Function SortForSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference zDestination01 = None, ObjectReference zDestination02 = None, FormList CLWASortingPLFormType = None, FormList CLWASortingBLFormType = None) Global
+  function SortForSoulGems(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems, ObjectReference zDestination01 = None, ObjectReference zDestination02 = None, FormList CLWASortingPLFormType = None, FormList CLWASortingBLFormType = None) Global
     Form[] RefsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 61, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     int itemsLeft = RefsToSort.Length
     int i = 0
     ObjectReference curRef
     SoulGem curGemBase
-    While i < itemsLeft
+    while i < itemsLeft
         curRef = RefsToSort[i] as ObjectReference
         curGemBase = curRef.GetBaseObject() as SoulGem
-        If curGemBase && curSGem.GetGemSize()
+        if curGemBase && curSGem.GetGemSize()
             ;Debug.Trace("[BCD-CLWA_SS] Reference #"+(i+1)+"/"+itemsLeft+" \"" + curRef.GetDisplayName() + "\" is a Soul Gem with a stored soul size of "+PO3_SKSEFunctions.GetStoredSoulSize(curRef)+"/"+curSGem.GetGemSize())
-            If PO3_SKSEFunctions.GetStoredSoulSize(curRef)
+            if PO3_SKSEFunctions.GetStoredSoulSize(curRef)
                 removeAll(obSortRef, curRef, zDestination02)
-            Else
+            else
                 removeAll(obSortRef, curRef, zDestination01)
-            EndIf
+            endIf
 
-        Else
+        else
             ;Debug.Trace("[BCD-CLWA_SS] Reference #"+(i+1)+"/"+itemsLeft+" \"" + curRef.GetDisplayName() + "\" is not a Soul Gem.")
-        EndIf
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     ; Once persistent refs are handled, resort to using the gem's defined size
 
@@ -612,27 +614,27 @@ EndFunction
     SoulGem curSGem
     itemsLeft = GemsToSort.Length
     i = 0
-    While i < itemsLeft
+    while i < itemsLeft
         curSGem = GemsToSort[i] as SoulGem
-        If curSGem && curSGem.GetGemSize()
+        if curSGem && curSGem.GetGemSize()
             curRef = obSortRef.PlaceAtMe(curSGem, 1, false, true)
             ;Debug.Trace("[BCD-CLWA_SS] Gem #"+(i+1)+"/"+itemsLeft+" is a Soul Gem with a soul size of: "+PO3_SKSEFunctions.GetStoredSoulSize(curRef)+"/"+curSGem.GetGemSize())
-            If PO3_SKSEFunctions.GetStoredSoulSize(curRef)
+            if PO3_SKSEFunctions.GetStoredSoulSize(curRef)
                 removeAll(obSortRef, curSGem, zDestination01)
-            Else
+            else
                 removeAll(obSortRef, curSGem, zDestination02)
-            EndIf
+            endIf
             i += 1
-        Else
+        else
             ;Debug.Trace("[BCD-CLWA_SS] Gem #"+(i+1)+"/"+itemsLeft+" \"" + curSGem.GetName() + "\" is not a Soul Gem... somehow.")
-        EndIf
-    EndWhile
+        endIf
+    endWhile
  EndFunction
 /;
 
 
 
-Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts books alphabetically (merging W/X and Y/Z)
     NOT intended for languages using a non-English alphabet}
 
@@ -728,10 +730,14 @@ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool b
     Int ItemNameLength
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int ItemsLeft = BooksToSort.Length
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentBook = BooksToSort[i] as Book
         ;Debug.Trace("[BCD-CLWA_SS] "+CurrentBook+" #"+(i+1)+"/"+itemsLeft+"\""+CurrentBook.GetName()+"\"")
-        If CurrentBook.HasKeyword(VendorItemSpellTome) || CurrentBook.GetSpell() != None ; If it has a spell or the keyword, it is almost certainly a spell tome
+
+        if i != 0 && CurrentBook == BooksToSort[i - 1]
+            ; continue
+
+        elseIf CurrentBook.HasKeyword(VendorItemSpellTome) || CurrentBook.GetSpell() != None ; If it has a spell or the keyword, it is almost certainly a spell tome
             ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Spell Tome - Spell \""+CurrentBook.GetSpell().GetName()+"\"")
             removeAll(obSortRef, CurrentBook, zDestination26)
 
@@ -743,7 +749,7 @@ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool b
             ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Note (NOT a Potion Recipe)")
             removeAll(obSortRef, CurrentBook, zDestination25)
 
-        Else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
+        else ; Here's where the techno-wizardry begins. Normally, I'd search for the first letter and categorize from there.
              ; However, Antistar decided ~~that he'd make my life miserable and~~ that the word "The" doesn't count. Fun.
             ItemName = CurrentBook.GetName()
             ;Debug.Trace("[BCD-CLWA_SS] Name: "+ItemName)
@@ -752,29 +758,28 @@ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool b
             ;Debug.Trace("[BCD-CLWA_SS] Name Length: "+ItemNameLength)
             j = 0
             FirstChar = ""
-            CurrentChar = ""
+            CurrentChar = StringUtil.GetNthChar(ItemName, j)
             Int NextChar
-            While FirstChar == "" && j < ItemNameLength
-                CurrentChar = StringUtil.GetNthChar(ItemName, j) ; Store the current character to prevent spamming the same function over and over again
+            while FirstChar == "" && j < ItemNameLength
                 CurrentCharPlusOne = StringUtil.GetNthChar(ItemName, j+1) ; Store the next character to prevent spamming the same function over and over again
-                If StringUtil.isLetter(CurrentChar)
+                if StringUtil.isLetter(CurrentChar)
                     ;Debug.Trace("[BCD-CLWA_SS] Current letter: "+CurrentChar)
-                    If ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (CurrentCharPlusOne == "h" || CurrentCharPlusOne == "H") && (StringUtil.GetNthChar(ItemName, j+2) == "e" || StringUtil.GetNthChar(ItemName, j+2) == "E") && !StringUtil.isLetter(StringUtil.GetNthChar(ItemName, j+3))
+                    if ;/ the current word is "the", skip it /; (CurrentChar == "T" || CurrentChar == "t") && (CurrentCharPlusOne == "h" || CurrentCharPlusOne == "H") && (StringUtil.GetNthChar(ItemName, j+2) == "e" || StringUtil.GetNthChar(ItemName, j+2) == "E") && !StringUtil.isLetter(StringUtil.GetNthChar(ItemName, j+3))
                         j+=2
-                    Else
+                    else
                         FirstChar = CurrentChar
-                    EndIf
+                    endIf
                 elseif StringUtil.IsDigit(CurrentChar)
                     ;Debug.Trace("[BCD-CLWA_SS] Current Digit: "+CurrentChar)
-                    If CurrentChar == "2" || CurrentChar == "3"
+                    if CurrentChar == "2" || CurrentChar == "3"
                         FirstChar = "T"
                     elseif CurrentChar == "1"
                         ; English is MEAN!
                         ; Checks for numbers 10-19
                         FirstChar = "O"
-                        If !StringUtil.isDigit(StringUtil.GetNthChar(ItemName, j+2))
+                        if !StringUtil.isDigit(StringUtil.GetNthChar(ItemName, j+2))
                             NextChar = CurrentCharPlusOne as Int
-                            If NextChar == 1 || NextChar == 8
+                            if NextChar == 1 || NextChar == 8
                                 FirstChar = "E"
                             elseif NextChar == 2 || NextChar == 0
                                 FirstChar = "T"
@@ -785,8 +790,8 @@ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool b
                                 FirstChar = "S"
                             elseif NextChar == 9
                                 FirstChar = "N"
-                            EndIf
-                        EndIf
+                            endIf
+                        endIf
                     elseif CurrentChar == "4"|| CurrentChar == "5"
                         FirstChar = "F"
                     elseif CurrentChar == "6" || CurrentChar == "7"
@@ -797,186 +802,190 @@ Function SortForBooks(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool b
                         FirstChar = "N"
                     elseif CurrentChar == "0"
                         FirstChar = "Z"
-                    EndIf
+                    endIf
 
-                EndIf
+                endIf
+                CurrentChar = CurrentCharPlusOne ; Set the current character to what was previously the next character to prevent spamming the same function over and over again
                 j += 1
-            EndWhile
-            If FirstChar != ""
+            endWhile
+            if FirstChar != ""
                 ;Debug.Trace("[BCD-CLWA_SS] First character: " + FirstChar)
                 ; This is a BIG If statement
-                If FirstChar == "A"
+                if FirstChar == "A"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is A!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_A, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_A, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_A, zDestination01)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "B"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is B!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_B, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_B, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_B, zDestination02)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "C"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is C!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_C, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_C, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_C, zDestination03)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "D"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is D!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_D, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_D, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_D, zDestination04)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "E"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is E!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_E, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_E, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_E, zDestination05)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "F"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is F!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_F, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_F, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_F, zDestination06)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "G"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is G!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_G, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_G, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_G, zDestination07)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "H"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is H!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_H, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_H, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_H, zDestination08)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "I"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is I!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_I, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_I, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_I, zDestination09)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "J"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is J!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_J, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_J, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_J, zDestination10)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "K"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is K!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_K, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_K, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_K, zDestination11)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "L"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is L!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_L, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_L, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_L, zDestination12)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "M"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is M!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_M, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_M, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_M, zDestination13)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "N"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is N!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_N, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_N, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_N, zDestination14)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "O"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is O!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_O, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_O, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_O, zDestination15)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "P"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is P!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_P, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_P, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_P, zDestination16)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "R"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is R!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_R, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_R, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_R, zDestination18)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "S"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is S!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_S, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_S, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_S, zDestination19)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "T"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is T!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_T, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_T, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_T, zDestination20)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "U"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is U!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_U, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_U, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_U, zDestination21)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "V"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is V!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_V, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_V, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_V, zDestination22)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "W" || FirstChar == "X"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is W or X!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_WX, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_WX, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_WX, zDestination23)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "Y" || FirstChar == "Z"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is Y or Z!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_YZ, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_YZ, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_YZ, zDestination24)
-                    EndIf
+                    endIf
 
                 elseif FirstChar == "Q"
                     ;Debug.Trace("[BCD-CLWA_SS] First Character is Q!")
-                    If notInListOrNoList(CLWASortingBLStudyBooks_Q, CurrentBook)
+                    if notInListOrNoList(CLWASortingBLStudyBooks_Q, CurrentBook)
                         RemoveAllAndAddToList(obSortRef, CurrentBook, CLWASortedList_StudyBooks_Q, zDestination17) ; There aren't even any books starting with Q in vanilla
-                    EndIf
+                    endIf
 
-                EndIf
-            EndIf
-        EndIf
+                endIf
+            endIf
+        endIf
         ;Debug.Trace("[BCD-CLWA_SS] Finished with \""+CurrentBook.GetName()+"\"\n")
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
 
-Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts potions and poisons into two separate containers}
 
 
-    ;Debug.Trace("[BCD-CLWA_SS] SORTING POTIONS -- PAY ATTENTION TO ME!!!")
-    obSortRef.RemoveItem(CLWASortingPLStudyPotions, 999999, false, zDestination01)
-    obSortRef.RemoveItem(CLWASortedList_StudyPotions, 999999, false, zDestination01)
+    removeAll(obSortRef, CLWASortingPLStudyPotions, zDestination01)
+    removeAll(obSortRef, CLWASortedList_StudyPotions, zDestination01)
 
-    obSortRef.RemoveItem(CLWASortingPLStudyPoisons, 999999, false, zDestination02)
-    obSortRef.RemoveItem(CLWASortedList_StudyPoisons, 999999, false, zDestination02)
+    removeAll(obSortRef, CLWASortingPLStudyPoisons, zDestination02)
+    removeAll(obSortRef, CLWASortedList_StudyPoisons, zDestination02)
 
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        If !CurrentPotion.IsFood()
-            If (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))
+
+        if i != 0 && CurrentPotion == PotionsToSort[i - 1]
+            ; continue
+
+        elseif !CurrentPotion.IsFood()
+            if (CurrentPotion.IsPoison() || CurrentPotion.IsHostile()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))
                 ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is a poison")
                 RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_StudyPoisons, zDestination02)
 
@@ -984,27 +993,30 @@ Function SortForPotions(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool
                 ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is not a poison")
                 RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_StudyPotions, zDestination01)
 
-            EndIf
-        Else
+            endIf
+        else
             ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" (#"+i+") is food", 1)
-        EndIf
+        endIf
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
 
-Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts various smithing materials into their appropriate containers, including a misc. container}
 
     ; Simplified version of SortByFormType
-    If zDestination06
+    if zDestination06
         Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = IngsToSort.Length
-        While i < itemsLeft
-            removeAll(obSortRef, IngsToSort[i], zDestination06)
+        while i < itemsLeft
+            CurrentForm = FormsToSort[i]
+            if i == 0 || CurrentForm != FormsToSort[i - 1]
+                removeAll(obSortRef, IngsToSort[i], zDestination06)
+            endIf
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 
     removeAll(obSortRef, CLWASortingPLWorkRoomIngots, zDestination01)
     removeAll(obSortRef, CLWASortedList_WorkRoomIngots, zDestination01)
@@ -1026,79 +1038,88 @@ Function SortForWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Boo
     int i = 0
     Form CurrentForm
     String CurrentFormModelPath
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentForm = FormsToSort[i]
-        CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        If zDestination01 &&      ;/                Ingots               /; notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && StringUtil.Find(CurrentFormModelPath, "Ingot") != -1
-            ;Debug.Trace("[BCD-CLWA_SS] Sorted as an Ingot")
-            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomIngots, zDestination01)
+
+        if i != 0 && CurrentForm == FormsToSort[i - 1]
+            ; continue
+
+        else
+            CurrentFormModelPath = CurrentForm.GetWorldModelPath()
+
+            if zDestination01 &&      ;/                Ingots               /; notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && StringUtil.Find(CurrentFormModelPath, "Ingot") != -1
+                ;Debug.Trace("[BCD-CLWA_SS] Sorted as an Ingot")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomIngots, zDestination01)
 
 
-        elseif zDestination02 &&  ;/                 Ores                /; notInListOrNoList(CLWASortingBLWorkRoomOres, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && StringUtil.Find(CurrentFormModelPath, "Ore") != -1
-            ;Debug.Trace("[BCD-CLWA_SS] Sorted as Ore")
-            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomOres, zDestination02)
+            elseif zDestination02 &&  ;/                 Ores                /; notInListOrNoList(CLWASortingBLWorkRoomOres, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter) && StringUtil.Find(CurrentFormModelPath, "Ore") != -1
+                ;Debug.Trace("[BCD-CLWA_SS] Sorted as Ore")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomOres, zDestination02)
 
-        elseif                     ;/           Leather & Hides           /; CurrentForm.HasKeyword(VendorItemAnimalHide)
+            elseif                     ;/           Leather & Hides           /; CurrentForm.HasKeyword(VendorItemAnimalHide)
 
-            If zDestination05 &&  ;/               Leather               /; notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && StringUtil.Find(CurrentFormModelPath, "Leather") != -1
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as Leather")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                if zDestination05 &&  ;/               Leather               /; notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && StringUtil.Find(CurrentFormModelPath, "Leather") != -1
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as Leather")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            elseif zDestination03 ;/                Hides                /; && notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm)
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as Hide")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomHides, zDestination03)
+                elseif zDestination03 ;/                Hides                /; && notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm)
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as Hide")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomHides, zDestination03)
 
-            EndIf
+                endIf
 
-        elseif zDestination04 &&  ;/                 Gems                /;notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)
-            ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Gem")
-            RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomGems, zDestination04)
+            elseif zDestination04 &&  ;/                 Gems                /;notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)
+                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Gem")
+                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomGems, zDestination04)
 
-        elseif zDestination05 && notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm)
+            elseif zDestination05 && notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm)
 
-            If                     ;/               Firewood              /; CurrentForm.HasKeyword(VendorItemFireword)
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Firewood)")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                if                     ;/               Firewood              /; CurrentForm.HasKeyword(VendorItemFireword)
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Firewood)")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            elseif                 ;/               Charcoal              /; StringUtil.Find(CurrentFormModelPath, "Coal") != -1
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Charcoal)")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                elseif                 ;/               Charcoal              /; StringUtil.Find(CurrentFormModelPath, "Coal") != -1
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Charcoal)")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing)
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (House Building Materials)")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                elseif                 ;/         House Building Mats         /; CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing)
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (House Building Materials)")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            elseif                 ;/   Ingredients that are MiscItems?   /; CurrentForm.HasKeyword(VendorItemIngredient)
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Ingredients)")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                elseif                 ;/   Ingredients that are MiscItems?   /; CurrentForm.HasKeyword(VendorItemIngredient)
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Ingredients)")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            elseif                 ;/     Catch-All for Ores & Ingots     /;  CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)
-                ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Ingredients)")
-                RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
+                elseif                 ;/     Catch-All for Ores & Ingots     /;  CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)
+                    ;Debug.Trace("[BCD-CLWA_SS] Sorted as a Misc. Item (Ingredients)")
+                    RemoveAllAndAddToList(obSortRef, CurrentForm, CLWASortedList_WorkRoomMisc, zDestination05)
 
-            EndIf
-        EndIf
+                endIf
+            endIf
+        endIf
         ;Debug.Trace("[BCD-CLWA_SS] ========================")
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
 
-Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts foods in to 5 categories (accepts PassLists & BlackLists):
     Drinks, Cheese & Seasonings, Raw Meats, Fruits and Vegetables, and Prepared Food}
     Int itemsLeft
     int i = 0
 
     ; Simplified version of SortByFormType
-    If zDestination06
+    if zDestination06
         Form[] IngsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = IngsToSort.Length
-        While i < itemsLeft
-            removeAll(obSortRef, IngsToSort[i], zDestination06)
+        while i < itemsLeft
+            if i == 0 || IngsToSort[i] != IngsToSort[i - 1]
+                removeAll(obSortRef, IngsToSort[i], zDestination06)
+            endIf
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 
     removeAll(obSortRef, CLWASortingPLFoodMedeAndCo, zDestination02)
     removeAll(obSortRef, CLWASortedList_FoodMedeAndCo, zDestination02)
@@ -1115,7 +1136,7 @@ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bB
     removeAll(obSortRef, CLWASortingPLFoodMeelz, zDestination05)
     removeAll(obSortRef, CLWASortedList_FoodMeelz, zDestination05)
 
-    If zDestination01 || zDestination02 || zDestination03 || zDestination04 || zDestination05
+    if zDestination01 || zDestination02 || zDestination03 || zDestination04 || zDestination05
         Form[] FoodToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = FoodToSort.Length
         i = 0
@@ -1123,9 +1144,12 @@ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bB
         String CurrentPotionKeywords
         String potName
         Form ITMPotionUse = CLWAItemPotionUse.GetAt(0)
-        While i < itemsLeft
+        while i < itemsLeft
             CurrentPotion = FoodToSort[i] as Potion
-            If CurrentPotion.IsFood()
+            if i != 0 && CurrentPotion == FoodToSort[i - 1]
+                ; continue
+
+            elseIf CurrentPotion.IsFood()
                 ;/ Here, since Complete Alchemy and Cooking Overhaul is a thing, I check not only with FormLists and weird ways to find fruits (HINT: none exist),
                 * but also with Keywords. See, CACO adds keywords like VendorItemDrinkAlcohol (and three other "VendorItemDrink" keywords), VendorItemFruit, etc.
                 * So, by adding the item's keywords into a single string, I can check it for specific occurrences, and may even detect
@@ -1136,7 +1160,7 @@ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bB
                 potName = PO3_SKSEFunctions.GetFormEditorID(CurrentPotion) + " | " + CurrentPotion.GetName()
                 ;Debug.Trace("[BCD-CLWA_SS] "+CurrentPotion+" \""+potName+"\""+" #"+(i+1)+"/"+itemsLeft+" is a food with keywords:\n====================\nUse Sound: "+CurrentPotion.GetUseSound()+"\nKeywords: "+CurrentPotionKeywords+"\n====================")
 
-                If     zDestination02 && ;/        Drinks        /; (!CLWASortingBLFoodMedeAndCo || !CLWASortingBLFoodMedeAndCo.HasForm(CurrentPotion)) && StringUtil.Find(CurrentPotionKeywords, "Stew") == -1 && (StringUtil.Find(CurrentPotionKeywords, "Drink") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
+                if     zDestination02 && ;/        Drinks        /; (!CLWASortingBLFoodMedeAndCo || !CLWASortingBLFoodMedeAndCo.HasForm(CurrentPotion)) && StringUtil.Find(CurrentPotionKeywords, "Stew") == -1 && (StringUtil.Find(CurrentPotionKeywords, "Drink") != -1 ;/ Gotta catch dope too! /; || CurrentPotion.GetUseSound() == ITMPotionUse)
                     RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodMedeAndCo, zDestination02)
 
                 elseif zDestination05 && ;/       Prepared       /; StringUtil.Find(CurrentPotionKeywords, "Uncooked") == -1 && (!CLWASortingBLFoodMeelz || !CLWASortingBLFoodMeelz.HasForm(CurrentPotion)) && (StringUtil.Find(CurrentPotionKeywords, "Cooked") != -1 || StringUtil.Find(CurrentPotionKeywords, "Treat") != -1 || StringUtil.Find(CurrentPotionKeywords, "Stew") != -1 || StringUtil.Find(CurrentPotionKeywords, "Bread") != -1 || StringUtil.Find(CurrentPotionKeywords, "Pastry") != -1 || StringUtil.Find(CurrentPotionKeywords, "Preserved") != -1 || StringUtil.Find(CurrentPotionKeywords, "Meal") != -1)
@@ -1153,116 +1177,135 @@ Function SortForFood(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bB
 
                 elseif zDestination05 && ;/  Prepared Catch-All  /; StringUtil.Find(CurrentPotionKeywords, "Uncooked") == -1 && (!CLWASortingBLFoodMeelz || !CLWASortingBLFoodMeelz.HasForm(CurrentPotion))
                     RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodMeelz, zDestination05)
-                EndIf
-            EndIf
+                endIf
+            endIf
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 EndFunction
 
 
-Function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     {Sorts armor and weapons into specific containers}
 
     Int itemsLeft
     int i
 
-    If zDestination01
+    if zDestination01
         removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
         Form[] ArrowsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 42, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = ArrowsToSort.Length
         i = 0
-        While i < itemsLeft
-            removeAll(obSortRef, ArrowsToSort[i], zDestination01)
+        while i < itemsLeft
+            if i == 0 || ArrowsToSort[i] != ArrowsToSort[i - 1]
+                removeAll(obSortRef, ArrowsToSort[i], zDestination01)
+            endIf
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 
-    If zDestination06 || zDestination07 || zDestination08 || zDestination09
-        If zDestination06
+    if zDestination06 || zDestination07 || zDestination08 || zDestination09
+        if zDestination06
             removeAll(obSortRef, CLWASortingPLArmouryWeapons1H, zDestination06)
             removeAll(obSortRef, CLWASortedList_ArmouryWeapons1H, zDestination06)
-        EndIf
-        If zDestination07
+        endIf
+        if zDestination07
             removeAll(obSortRef, CLWASortingPLArmouryWeapons2H, zDestination07)
             removeAll(obSortRef, CLWASortedList_ArmouryWeapons2H, zDestination07)
-        EndIf
-        If zDestination08
+        endIf
+        if zDestination08
             removeAll(obSortRef, CLWASortingPLArmouryWeaponsRanged, zDestination08)
             removeAll(obSortRef, CLWASortedList_ArmouryWeaponsRanged, zDestination08)
-        EndIf
-        If zDestination09
+        endIf
+        if zDestination09
             removeAll(obSortRef, CLWASortingPLArmouryWeaponsRanged, zDestination09)
             removeAll(obSortRef, CLWASortedList_ArmouryWeaponsStaves, zDestination09)
-        EndIf
+        endIf
         Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = WeaponsToSort.Length
         i = 0
         Weapon curWeap
         String curWeapSkill
-        While i < itemsLeft
+        while i < itemsLeft
             curWeap = WeaponsToSort[i] as Weapon
-            curWeapSkill = curWeap.GetSkill()
-            If     ;/ 1-Handed /; zDestination06 && curWeapSkill == "OneHanded"
-                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons1H, zDestination06)
-            elseif ;/ 2-Handed /; zDestination07 && curWeapSkill == "TwoHanded"
-                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons2H, zDestination07)
-            elseif ;/  Ranged  /; zDestination08 && curWeapSkill == "Marksman"
-                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsRanged, zDestination08)
-            elseif ;/  Staves  /; zDestination09 && (curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
-                RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsStaves, zDestination09)
-            EndIf
-            i += 1
-        EndWhile
-    EndIf
 
-    If zDestination02 || zDestination03 || zDestination04 || zDestination05
-        If zDestination02
+            if i != 0 && curWeap == WeaponsToSort[i - 1]
+                ; continue
+
+            else
+                curWeapSkill = curWeap.GetSkill()
+                if     ;/ 1-Handed /; zDestination06 && curWeapSkill == "OneHanded"
+                    RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons1H, zDestination06)
+                elseif ;/ 2-Handed /; zDestination07 && curWeapSkill == "TwoHanded"
+                    RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeapons2H, zDestination07)
+                elseif ;/  Ranged  /; zDestination08 && curWeapSkill == "Marksman"
+                    RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsRanged, zDestination08)
+                elseif ;/  Staves  /; zDestination09 && (curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12)
+                    RemoveAllAndAddToList(obSortRef, curWeap, CLWASortedList_ArmouryWeaponsStaves, zDestination09)
+                endIf
+
+            endIf
+
+            i += 1
+        endWhile
+    endIf
+
+    if zDestination02 || zDestination03 || zDestination04 || zDestination05
+        if zDestination02
             removeAll(obSortRef, CLWASortingPLArmouryArmourLight, zDestination02)
             removeAll(obSortRef, CLWASortedList_ArmouryArmourLight, zDestination02)
-        EndIf
-        If zDestination03
+        endIf
+        if zDestination03
             removeAll(obSortRef, CLWASortingPLArmouryArmourHeavy, zDestination03)
             removeAll(obSortRef, CLWASortedList_ArmouryArmourHeavy, zDestination03)
-        EndIf
-        If zDestination04
+        endIf
+        if zDestination04
             removeAll(obSortRef, CLWASortingPLArmouryArmourJewelry, zDestination04)
             removeAll(obSortRef, CLWASortedList_ArmouryArmourJewelry, zDestination04)
-        EndIf
-        If zDestination05
+        endIf
+        if zDestination05
             removeAll(obSortRef, CLWASortingPLArmouryArmourClothes, zDestination05)
             removeAll(obSortRef, CLWASortedList_ArmouryArmourClothes, zDestination05)
-        EndIf
+        endIf
         Form[] ArmorToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 26, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
         itemsLeft = ArmorToSort.Length
         i = 0
         Armor curArmor
         Int curArmorWC
-        While i < itemsLeft
+        while i < itemsLeft
             curArmor = ArmorToSort[i] as Armor
-            curArmorWC = curArmor.GetWeightClass()
-            ;Debug.Trace("[BCD-CLWA_SS] "+curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
-            If zDestination02 && curArmorWC == 0
-                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourLight, zDestination02)
+            if i != 0 && curArmor == ArmorToSort[i - 1]
+                ; continue
 
-            elseif zDestination03 && curArmorWC == 1
-                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourHeavy, zDestination03)
+            else
+                curArmorWC = curArmor.GetWeightClass()
+                ;Debug.Trace("[BCD-CLWA_SS] "+curArmor+" Weight Class: "+curArmorWC+"\nKeywords: "+curArmor.GetKeywords())
 
-            elseif zDestination04 && curArmor.HasKeyword(ArmorJewelry)
-                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourJewelry, zDestination04)
+                if zDestination02 && curArmorWC == 0
+                    RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourLight, zDestination02)
 
-            elseif zDestination05 && curArmor.HasKeyword(ArmorClothing)
-                RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourClothes, zDestination05)
-            EndIf
+                elseif zDestination03 && curArmorWC == 1
+                    RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourHeavy, zDestination03)
+
+                elseif zDestination04 && curArmor.HasKeyword(ArmorJewelry)
+                    RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourJewelry, zDestination04)
+
+                elseif zDestination05 && curArmor.HasKeyword(ArmorClothing)
+                    RemoveAllAndAddToList(obSortRef, curArmor, CLWASortedList_ArmouryArmourClothes, zDestination05)
+
+                endIf
+
+            endIf
+
             i += 1
-        EndWhile
-    EndIf
+        endWhile
+    endIf
 EndFunction
 
 
   ; Sorting functions for each room
 
-Function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
 
     removeAll(obSortRef, CLWASortingPLFoodFruitsNVeggies, zDestination01)
     removeAll(obSortRef, CLWASortedList_FoodFruitsNVeggies, zDestination01)
@@ -1284,16 +1327,16 @@ Function SortForDestKitchen(ObjectReference obSortRef, Bool bBlockEquipedItems, 
     Int itemsLeft = FoodToSort.Length
     int i = 0
     Potion CurrentPotion
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentPotion = FoodToSort[i] as Potion
-        If zDestination01 && CurrentPotion.IsFood() &&  (!CLWASortingBLFoodRawMeat || !CLWASortingBLFoodRawMeat.HasForm(CurrentPotion))
+        if (i == 0 || CurrentPotion != FoodToSort[i - 1]) && zDestination01 && CurrentPotion.IsFood() &&  (!CLWASortingBLFoodRawMeat || !CLWASortingBLFoodRawMeat.HasForm(CurrentPotion))
             RemoveAllAndAddToList(obSortRef, CurrentPotion, CLWASortedList_FoodRawMeat, zDestination01)
-        EndIf
+        endIf
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
-Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     removeAll(obSortRef, CLWASortingPLStudyPotions, zDestination01)
     removeAll(obSortRef, CLWASortedList_StudyPotions, zDestination01)
 
@@ -1303,49 +1346,57 @@ Function SortForDestStudy(ObjectReference obSortRef, Bool bBlockEquipedItems, Bo
     Form[] ScrollsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 23, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = ScrollsToSort.Length
     i = 0
-    While i < itemsLeft
-        obSortRef.RemoveItem(ScrollsToSort[i], 9999, true, zDestination01)
+    while i < itemsLeft
+        if i == 0 || ScrollsToSort[i] != ScrollsToSort[i - 1]
+            removeAll(obSortRef, ScrollsToSort[i], zDestination01)
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] BooksToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 27, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = BooksToSort.Length
     i = 0
-    While i < itemsLeft
-        obSortRef.RemoveItem(BooksToSort[i], 9999, true, zDestination01)
+    while i < itemsLeft
+        if i == 0 || BooksToSort[i] != BooksToSort[i - 1]
+            removeAll(obSortRef, BooksToSort[i], zDestination01)
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] IngredientsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 30, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = IngredientsToSort.Length
     i = 0
-    While i < itemsLeft
-        obSortRef.RemoveItem(IngredientsToSort[i], 9999, true, zDestination01)
+    while i < itemsLeft
+        if i == 0 || IngredientsToSort[i] != IngredientsToSort[i - 1]
+            removeAll(obSortRef, IngredientsToSort[i], zDestination01)
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] sGemsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 52, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = sGemsToSort.Length
     i = 0
-    While i < itemsLeft
-        obSortRef.RemoveItem(sGemsToSort[i], 9999, true, zDestination01)
+    while i < itemsLeft
+        if i == 0 || sGemsToSort[i] != sGemsToSort[i - 1]
+            removeAll(obSortRef, sGemsToSort[i], zDestination01)
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] PotionsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 46, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = PotionsToSort.Length
     int i = 0
     Potion CurrentPotion
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentPotion = PotionsToSort[i] as Potion
-        If zDestination01 && !CurrentPotion.IsFood() && ((!CLWASortingBLStudyPotions || !CLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
-            obSortRef.RemoveItem(CurrentPotion, 9999999, true, zDestination01)
-        EndIf
+        if (i == 0 || CurrentPotion != PotionsToSort[i - 1]) && zDestination01 && !CurrentPotion.IsFood() && ((!CLWASortingBLStudyPotions || !CLWASortingBLStudyPotions.HasForm(CurrentPotion)) || ((CurrentPotion.IsHostile() || CurrentPotion.IsPoison()) && (!CLWASortingBLStudyPoisons || !CLWASortingBLStudyPoisons.HasForm(CurrentPotion))))
+            removeAll(obSortRef, CurrentPotion, zDestination01)
+        endIf
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
-Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
     removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
     removeAll(obSortRef, CLWASortedList_ArmouryAmmo, zDestination01)
 
@@ -1377,47 +1428,56 @@ Function SortForDestArmoury(ObjectReference obSortRef, Bool bBlockEquipedItems, 
     itemsLeft = ArrowsToSort.Length
     i = 0
     Form curForm
-    While i < itemsLeft
+    while i < itemsLeft
         curForm = ArrowsToSort[i]
-        If !CLWASortingBLArmouryAmmo || !CLWASortingBLArmouryAmmo.HasForm(curForm)
+        if (i == 0 || curForm != ArrowsToSort[i - 1]) && !CLWASortingBLArmouryAmmo || !CLWASortingBLArmouryAmmo.HasForm(curForm)
             removeAll(obSortRef, CLWASortingPLArmouryAmmo, zDestination01)
-        EndIf
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] WeaponsToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 41, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     Int itemsLeft = WeaponsToSort.Length
     int i = 0
     Weapon curWeap
     String curWeapSkill
-    While i < itemsLeft
+    while i < itemsLeft
         curWeap = WeaponsToSort[i] as Weapon
-        curWeapSkill = curWeap.GetSkill()
-        If ;/  Staves  /;((curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && (!CLWASortingBLArmouryWeaponsStaves || !CLWASortingBLArmouryWeaponsStaves.HasForm(curWeap))) ||;/
-              1-Handed /; (curWeapSkill == "OneHanded" && (!CLWASortingBLArmouryWeapons1H || !CLWASortingBLArmouryWeapons1H.HasForm(curWeap))) ||;/
-              2-Handed /; (curWeapSkill == "TwoHanded" && (!CLWASortingBLArmouryWeapons2H || !CLWASortingBLArmouryWeapons2H.HasForm(curWeap))) ||;/
-               Ranged  /; (curWeapSkill == "Marksman" && (!CLWASortingBLArmouryWeaponsRanged || !CLWASortingBLArmouryWeaponsRanged.HasForm(curWeap)))
-            removeAll(obSortRef, curWeap, zDestination01)
-        EndIf
+        if i != 0 || curWeap == WeaponsToSort[i - 1]
+            ; continue
+        else
+            curWeapSkill = curWeap.GetSkill()
+            if ;/  Staves  /;((curWeap.HasKeyword(WeapTypeStaff) || PO3_SKSEFunctions.GetEnchantmentType(curWeap.GetEnchantment()) == 12) && notInListOrNoList(CLWASortingBLArmouryWeaponsStaves, curWeap)) ||;/
+                1-Handed  /; (curWeapSkill == "OneHanded" && notInListOrNoList(CLWASortingBLArmouryWeapons1H, curWeap)    ) ||;/
+                2-Handed  /; (curWeapSkill == "TwoHanded" && notInListOrNoList(CLWASortingBLArmouryWeapons2H, curWeap)    ) ||;/
+                Ranged    /; (curWeapSkill == "Marksman" &&   notInListOrNoList(CLWASortingBLArmouryWeaponsRanged, curWeap))
+                removeAll(obSortRef, curWeap, zDestination01)
+            endIf
+        endIf
         i += 1
-    EndWhile
+    endWhile
 
     Form[] ArmorToSort = PO3_SKSEFunctions.AddItemsOfTypeToArray(obSortRef, 26, bBlockEquipedItems, bBlockFavorites, bBlockQuestItems)
     itemsLeft = ArmorToSort.Length
     i = 0
     Armor SortingArmour
-    While i < itemsLeft
+    while i < itemsLeft
         SortingArmour = ArmorToSort[i] as Armor
-        If  ;/ Normal Armor /;(SortingArmour.GetWeightClass() != 2 && (!CLWASortingBLArmouryArmourLight || CLWASortingPLArmouryArmourLight.HasForm(SortingArmour)) && (!CLWASortingBLArmouryArmourHeavy || CLWASortingPLArmouryArmourHeavy.HasForm(SortingArmour))) || ;/
+        if i != 0 || SortingArmour == ArmorToSort[i - 1]
+            ; continue
+
+        elseIf  ;/ Normal Armor /;(SortingArmour.GetWeightClass() != 2 && (!CLWASortingBLArmouryArmourLight || CLWASortingPLArmouryArmourLight.HasForm(SortingArmour)) && (!CLWASortingBLArmouryArmourHeavy || CLWASortingPLArmouryArmourHeavy.HasForm(SortingArmour))) || ;/
                Clothing     /; (SortingArmour.HasKeyword(ArmorClothing) && (!CLWASortingBLArmouryArmourClothes || !CLWASortingBLArmouryArmourClothes.HasForm(SortingArmour))) ||;/
                Jewelry      /; (SortingArmour.HasKeyword(ArmorJewelry) && (!CLWASortingBLArmouryArmourJewelry || !CLWASortingBLArmouryArmourClothes.HasForm(SortingArmour)))
             removeAll(obSortRef, CLWASortingPLArmouryArmourLight, zDestination01)
-        EndIf
+
+        endIf
+
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
-Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
+function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems)
 
     removeAll(obSortRef, CLWASortingPLWorkRoomGems, zDestination01)
     removeAll(obSortRef, CLWASortedList_WorkRoomGems, zDestination01)
@@ -1439,22 +1499,27 @@ Function SortForDestWorkRoom(ObjectReference obSortRef, Bool bBlockEquipedItems,
     int i = 0
     Form CurrentForm
     String CurrentFormModelPath
-    While i < itemsLeft
+    while i < itemsLeft
         CurrentForm = FormsToSort[i]
-        CurrentFormModelPath = CurrentForm.GetWorldModelPath()
-        If (notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm) && CurrentForm.HasKeyword(VendorItemAnimalHide)) || \
-            (notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)) || \
-            (notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || \
-            (notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && (CurrentForm.HasKeyword(VendorItemFireword) || \
-            CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing) || CurrentForm.HasKeyword(VendorItemIngredient) || \
-            (CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || \
-            StringUtil.Find(CurrentFormModelPath, "Coal") != -1 || StringUtil.Find(CurrentFormModelPath, "coal") != -1))
+        if i != 0 || CurrentForm == FormsToSort[i - 1]
+            ; continue
+        else
+            CurrentFormModelPath = CurrentForm.GetWorldModelPath()
+            if (notInListOrNoList(CLWASortingBLWorkRoomHides, CurrentForm) && CurrentForm.HasKeyword(VendorItemAnimalHide)) || \
+                (notInListOrNoList(CLWASortingBLWorkRoomGems, CurrentForm) && CurrentForm.HasKeyword(VendorItemGem)) || \
+                (notInListOrNoList(CLWASortingBLWorkRoomIngots, CurrentForm) && CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || \
+                (notInListOrNoList(CLWASortingBLWorkRoomMisc, CurrentForm) && (CurrentForm.HasKeyword(VendorItemFireword) || \
+                CurrentForm.HasKeyword(BYOHHouseCraftingCategorySmithing) || CurrentForm.HasKeyword(VendorItemIngredient) || \
+                (CurrentForm.HasKeyword(VendorItemOreIngot) && !CurrentForm.HasKeyword(VendorItemClutter)) || \
+                StringUtil.Find(CurrentFormModelPath, "Coal") != -1 || StringUtil.Find(CurrentFormModelPath, "coal") != -1))
 
-            removeAll(obSortRef, CurrentForm, zDestination01)
+                removeAll(obSortRef, CurrentForm, zDestination01)
 
-        EndIf
+            endIf
+        endIf
+
         i += 1
-    EndWhile
+    endWhile
 EndFunction
 
 
@@ -1470,19 +1535,19 @@ $$ |  $$ |$$ |  $$ |  $$ |  $$ |  $$ |$$ |  $$ |$$\ \$$\     $$  |
 
 Event OnInit()
     ; Check If SKSE is not installed
-    If SKSE.GetVersionRelease() < 0
+    if SKSE.GetVersionRelease() < 0
         ;Debug.TraceAndBox("SKSE not installed!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs If attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
-    EndIf
+    endIf
 
     ; Check If Papyrus Extender is installed
-    If PO3_SKSEFunctions.StringToInt("128") != 128
+    if PO3_SKSEFunctions.StringToInt("128") != 128
         ;Debug.TraceAndBox("powerofthree's Papyrus Extender not installed!\nAdditional Clockwork's Superior Sorting will not work and will spam Papyrus logs If attempted.\n\nSorry for the message spam!\n\nWarning Sender:\n"+self, 2)
-    EndIf
+    endIf
 
     ; Optionally disable a form on startup (used to allow mid-game installs)
-    If aFormToDisable
+    if aFormToDisable
         aFormToDisable.DisableNoWait()
-    EndIf
+    endIf
 
     ; Fill a property now to eliminate unnecessary processing
     PlayerREF = Game.GetPlayer()
@@ -1501,7 +1566,7 @@ $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |        $$ |$$\ $$ |  \$$$  /  $$  __$$ |  $$ 
 
 Event OnActivate(ObjectReference akActionRef)
     ;Debug.Trace("[BCD-CLWA_SS] Started sorting using SKSE")
-    If !Running && (akActionRef == PlayerREF || !aRequirePlayer)
+    if !Running && (akActionRef == PlayerREF || !aRequirePlayer)
 
         ; Prevent further processing (likely initiated by player impatience)
         ; NOTE Block Processing
@@ -1509,96 +1574,96 @@ Event OnActivate(ObjectReference akActionRef)
         self.BlockActivation(true)
 
         ; NOTE Button Handling #1
-        If aIsButton ; Push button and play sound
+        if aIsButton ; Push button and play sound
             QSTAstrolabeButtonPressX.Play(self)
             PlayAnimation("down")
             Utility.Wait(0.2)
-        EndIf
+        endIf
 
         ; NOTE Steam Handling
-        If aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check If a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
+        if aNeedsSteam && akActionRef == PlayerREF && CLWSQ02Machines01GLOB.GetValue() != 1 ; Check If a machine needs Steam and execute the prevention. Also inform the player of why nothing happens
             CLWNoSteamPower01Msg.Show()
-        Else
+        else
             ; Sorting for the sort buttons
             ; NOTE Destinations
-             If xDestinationStudy
+             if xDestinationStudy
                  ;Debug.Trace("[BCD-CLWA_SS] Begin sorting ingredients")
                  SortForDestStudy(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                  ;Debug.Trace("[BCD-CLWA_SS] Finished sorting ingredients")
-             EndIf
-             If xDestinationWork
+             endIf
+             if xDestinationWork
                  ;Debug.Trace("[BCD-CLWA_SS] Begin sorting smithing materials")
                  SortForDestWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                  ;Debug.Trace("[BCD-CLWA_SS] Finished sorting smithing materials")
-             EndIf
-             If xDestinationKitchen
+             endIf
+             if xDestinationKitchen
                  ;Debug.Trace("[BCD-CLWA_SS] Begin sorting food")
                  SortForDestKitchen(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                  ;Debug.Trace("[BCD-CLWA_SS] Finished sorting food")
-             EndIf
-             If xDestinationArmoury
+             endIf
+             if xDestinationArmoury
                  ;Debug.Trace("[BCD-CLWA_SS] Begin sorting Armoury items")
                  SortForDestArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                  ;Debug.Trace("[BCD-CLWA_SS] Finished sorting Armoury items")
-             EndIf
+             endIf
 
             ; NOTE Scales
-             If SortBooks
+             if SortBooks
                 ;Debug.Trace("[BCD-CLWA_SS] Begin sorting books")
                 SortForBooks(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 ;Debug.Trace("[BCD-CLWA_SS] Finished sorting books")
-             EndIf
-             If SortPotions
+             endIf
+             if SortPotions
                 ;Debug.Trace("[BCD-CLWA_SS] Begin sorting potions")
                 SortForPotions(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 ;Debug.Trace("[BCD-CLWA_SS] Finished sorting potions")
-             EndIf
-             If sortFood
+             endIf
+             if sortFood
                 ;Debug.Trace("[BCD-CLWA_SS] Begin sorting food")
                 SortForFood(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 ;Debug.Trace("[BCD-CLWA_SS] Finished sorting food")
-             EndIf
-             If sortWorkRoom
+             endIf
+             if sortWorkRoom
                 ;Debug.Trace("[BCD-CLWA_SS] Begin sorting smithing materials")
                 SortForWorkRoom(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 ;Debug.Trace("[BCD-CLWA_SS] Finished sorting smithing materials")
-             EndIf
-             If sortArmoury
+             endIf
+             if sortArmoury
                 ;Debug.Trace("[BCD-CLWA_SS] Begin sorting Armoury items")
                 SortForArmoury(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems)
                 ;Debug.Trace("[BCD-CLWA_SS] Finished sorting Armoury items")
-             EndIf
+             endIf
 
-            If pFormTypeToSort
+            if pFormTypeToSort
                 SortByFormType(akActionRef, pBlockEquipedItems, pBlockFavorites, pBlockQuestItems, pFormTypeToSort, zDestination01, zDestination02, pOverridePLFormType01, pOverridePLFormType02, pOverrideBLFormType01, pOverrideBLFormType02, pSortedList_FormType01, pSortedList_FormType02)
-            EndIf
+            endIf
 
             ; NOTE Play Sound
-            If aPlayTransferSound && self.GetParentCell().IsAttached()
+            if aPlayTransferSound && self.GetParentCell().IsAttached()
                 CLWNPCDwarvenCenturionAttackBreathOutMarker.Play(self)
-            EndIf
+            endIf
 
             ; NOTE Send Completed Message
-            If akActionRef == PlayerREF
-                If aSortingCompleteMsg
+            if akActionRef == PlayerREF
+                if aSortingCompleteMsg
                     aSortingCompleteMsg.Show()
-                Else
+                else
                     ;Debug.Trace("[BCD-CLWA_SS] No completion message is set for "+self, 1)
-                EndIf
-            EndIf
+                endIf
+            endIf
 
-        EndIf
+        endIf
 
         ; NOTE Button Handling #2
-        If aIsButton ; Release the button to let the player know it can be activated again
+        if aIsButton ; Release the button to let the player know it can be activated again
             playAnimation("up")
             Utility.Wait(2.0)
-        EndIf
+        endIf
 
         ; NOTE Unlock Processing
         self.BlockActivation(false)
         Running = FALSE
-    EndIf
+    endIf
 EndEvent
 
 ;/$$$$$\                        $$\               $$\
