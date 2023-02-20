@@ -535,26 +535,26 @@ EndFunction
 
 
 
-Function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems;/
-  /;, Int iFormTypeToSort;/
-  /;, ObjectReference obDestination01 = None, ObjectReference obDestination02 = None;/
-  /;, FormList flOverridePLFormType01 = None, FormList flOverrideBLFormType01 = None;/
-  /;, FormList flOverridePLFormType02 = None, FormList flOverrideBLFormType02 = None;/
-  /;, FormList flSortedList01 = None, FormList flSortedList02 = None;/
-  /;) Global
-    debug.trace("[BCD-CLWA_SS] SortByFormType - Starting...")
-    debug.trace("[BCD-CLWA_SS] ")
-    debug.trace("[BCD-CLWA_SS] SortByFormType - iFormTypeToSort: " + iFormTypeToSort)
-    debug.trace("[BCD-CLWA_SS] ")
-    debug.trace("[BCD-CLWA_SS] SortByFormType - obDestination01: " + obDestination01)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flOverridePLFormType01: " + flOverridePLFormType01)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flOverrideBLFormType01: " + flOverrideBLFormType01)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flSortedList01: " + flSortedList01)
-    debug.trace("[BCD-CLWA_SS] ")
-    debug.trace("[BCD-CLWA_SS] SortByFormType - obDestination02: " + obDestination02)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flOverridePLFormType02: " + flOverridePLFormType02)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flOverrideBLFormType02: " + flOverrideBLFormType02)
-    debug.trace("[BCD-CLWA_SS] SortByFormType - flSortedList02: " + flSortedList02)
+function SortByFormType(ObjectReference obSortRef, Bool bBlockEquipedItems, Bool bBlockFavorites, Bool bBlockQuestItems \
+    , Int iFormTypeToSort \
+    , ObjectReference obDestination01 = None, ObjectReference obDestination02 = None \
+    , FormList flOverridePLFormType01 = None, FormList flOverrideBLFormType01 = None \
+    , FormList flOverridePLFormType02 = None, FormList flOverrideBLFormType02 = None \
+    , FormList flSortedList01 = None, FormList flSortedList02 = None \
+    ) Global
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - Starting...")
+    Debug.Trace("[BCD-CLWA_SS] ")
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - iFormTypeToSort: " + iFormTypeToSort)
+    Debug.Trace("[BCD-CLWA_SS] ")
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - obDestination01: " + obDestination01)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flOverridePLFormType01: " + flOverridePLFormType01)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flOverrideBLFormType01: " + flOverrideBLFormType01)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flSortedList01: " + flSortedList01)
+    Debug.Trace("[BCD-CLWA_SS] ")
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - obDestination02: " + obDestination02)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flOverridePLFormType02: " + flOverridePLFormType02)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flOverrideBLFormType02: " + flOverrideBLFormType02)
+    Debug.Trace("[BCD-CLWA_SS] SortByFormType - flSortedList02: " + flSortedList02)
     removeAll(obSortRef, flOverridePLFormType01, obDestination01)
     removeAll(obSortRef, flOverridePLFormType02, obDestination02)
 
