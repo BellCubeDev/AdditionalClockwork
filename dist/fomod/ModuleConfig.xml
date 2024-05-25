@@ -556,7 +556,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Perspective" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="translations\first-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="translations\first-person" destination="Strings" />
                 </files>
             </pattern>
             <pattern>
@@ -564,7 +564,17 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Perspective" value="2"/>
                 </dependencies>
                 <files>
-                    <folder source="translations\second-person" destination="Strings" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="translations\second-person" destination="Strings" />
+                </files>
+            </pattern>
+
+            <!-- Small Things -->
+            <pattern>
+                <dependencies operator="And">
+                    <flagDependency flag="Small_NoTitle" value="1"/>
+                </dependencies>
+                <files>
+                    <file source="Modules\Normal\ClockworkTitleRemover.esp" destination="ClockworkTitleRemover.esp" />
                 </files>
             </pattern>
 
@@ -574,7 +584,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="WoodWhimMount" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\WoodworkersWhim\Mount" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\WoodworkersWhim\Mount" destination="" />
                 </files>
             </pattern>
             <pattern>
@@ -582,7 +592,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="WoodWhimScriptLevel" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\WoodworkersWhim\WorkRoomOnly" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\WoodworkersWhim\WorkRoomOnly" destination="" />
                 </files>
             </pattern>
             <pattern>
@@ -590,7 +600,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="WoodWhimScriptLevel" value="2"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\WoodworkersWhim\Global" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\WoodworkersWhim\Global" destination="" />
                 </files>
             </pattern>
             <!-- Woodworker's Whim PATCHES -->
@@ -599,7 +609,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="__install_wwPatches_campfire" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\IntegrationPatchesNConsistency\WoodworkersWhim\Campfire" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\IntegrationPatchesNConsistency\WoodworkersWhim\Campfire" destination="" />
                 </files>
             </pattern>
 
@@ -609,8 +619,8 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="IPC_HPP_Merged" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
-                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPMergedFixes.esp" destination="ClockworkHPPMergedFixes.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" />
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPMergedFixes.esp" destination="ClockworkHPPMergedFixes.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -618,8 +628,8 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="IPC_HPP_Coals" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPCoalsFix.esp" destination="ClockworkHPPCoalsFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
-                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPCoalsFix.esp" destination="ClockworkHPPCoalsFix.esp" />
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\meshes\clockwork\clutter\common\smeltercoal01.nif" destination="meshes\clockwork\clutter\common\smeltercoal01.nif" />
                 </files>
             </pattern>
             <pattern>
@@ -627,7 +637,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="IPC_HPP_Hay" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPHayFix.esp" destination="ClockworkHPPHayFix.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\IntegrationPatchesNConsistency\HighPolyProject\ClockworkHPPHayFix.esp" destination="ClockworkHPPHayFix.esp" />
                 </files>
             </pattern>
 
@@ -637,7 +647,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="BugFixes" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\BugFixes" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\BugFixes" destination="" />
                 </files>
             </pattern>
             <pattern> <!-- Backwards Compatibility -->
@@ -646,7 +656,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Upgrading" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\BackCompat\CourierCounterspell" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\BackCompat\CourierCounterspell" destination="" />
                 </files>
             </pattern>
 
@@ -656,7 +666,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="ShadowmarksTravelRoom" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTravelRoom.esp" destination="ClockworkShadowmarksTravelRoom.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTravelRoom.esp" destination="ClockworkShadowmarksTravelRoom.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -664,7 +674,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="ShadowmarksTermini" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTermini.esp" destination="ClockworkShadowmarksTermini.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksTermini.esp" destination="ClockworkShadowmarksTermini.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -672,7 +682,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="ShadowmarksCastleExt" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksCastleExt.esp" destination="ClockworkShadowmarksCastleExt.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksCastleExt.esp" destination="ClockworkShadowmarksCastleExt.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -680,7 +690,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="ShadowmarksMerged" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksMerged.esp" destination="ClockworkShadowmarksMerged.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Normal\Shadowmarks\ClockworkShadowmarksMerged.esp" destination="ClockworkShadowmarksMerged.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -688,7 +698,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Shadowmarks" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\Shadowmarks\Scripts" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\Shadowmarks\ScriptStuffs" destination="" />
                 </files>
             </pattern>
 
@@ -698,7 +708,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_ccCurios" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios.esp" destination="ClockworkSorting_Ing_CCCurios.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -706,7 +716,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_CACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CACO.esp" destination="ClockworkSorting_Ing_CACO.esp" />
                 </files>
             </pattern>
             <pattern>
@@ -714,7 +724,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Ing_ccCuriosCACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Ingredients\ClockworkSorting_Ing_CCCurios_CACO.esp" destination="ClockworkSorting_Ing_CCCurios_CACO.esp" />
                 </files>
             </pattern>
 
@@ -724,7 +734,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="Sorting_Food_CACO" value="1"/>
                 </dependencies>
                 <files>
-                    <file source="Modules\Sorting\Vanilla\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <file source="Modules\Sorting\Vanilla\Food\ClockworkSorting_Food_CACO.esp" destination="ClockworkSorting_Food_CACO.esp" />
                 </files>
             </pattern>
 
@@ -734,7 +744,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="SKSE_SuperiorSorting" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\SKSE\SuperiorSorting" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\SKSE\SuperiorSorting" destination="" />
                 </files>
             </pattern>
 
@@ -744,7 +754,7 @@ https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                     <flagDependency flag="InterestingInhabitants_Merged" value="1"/>
                 </dependencies>
                 <files>
-                    <folder source="Modules\Normal\InterestingInhabitants" destination="" priority="0" alwaysInstall="false" installIfUsable="false"/>
+                    <folder source="Modules\Normal\InterestingInhabitants" destination="" />
                 </files>
             </pattern>
 

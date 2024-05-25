@@ -134,3 +134,8 @@ Added: three sorting patches
 ## **3.0.4**
 
 * Fixed an issue in Woodworker's Whim which caused the Chopping Block script (`WWWResourceFurnitureAddon`) to enter an infinite activation loop under certain circumstances
+
+## **3.0.5**
+
+* Fixed Clockwork Title Remover not installing in the Fomod
+* [BUG FIXES] Make spider crafting table thingies persistent
