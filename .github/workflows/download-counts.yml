@@ -1,0 +1,78 @@
+name: Update download counts
+
+on:
+  schedule:
+    - cron: '0 0,8,16 * * *'  # every 8 hours
+  workflow_dispatch: 
+
+jobs:
+  update-remote-gist:
+    runs-on: ubuntu-latest
+    env:
+      GIT_TOKEN: ${{ secrets.DOWNLOAD_COUNT_GITHUB_PAT }}
+
+    steps:
+      - name: Restore cached binary
+        id: cache
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: ./nexus-mods.gz
+          key: ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }}
+
+      - name: Decompress cached binary
+        if: steps.cache.outputs.cache-hit
+        run: |
+          gunzip -f ./nexus-mods.gz
+          chmod +x ./nexus-mods
+
+      - name: Check for update
+        id: check_ver
+        if: steps.cache.outputs.cache-hit
+        run: |
+          set +e
+          ./nexus-mods --remote version
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Download latest binary
+        id: download_latest
+        if: ${{ !steps.cache.outputs.cache-hit || steps.check_ver.outputs.exit_code == '70' }}
+        continue-on-error: true
+        run: |
+          wget "https://drive.google.com/uc?export=download&id=1yHF8B0YynKglsOOsGAb5VXzOCAsCKW5o" -O ./nexus-mods.gz
+          echo "cache_key_new=${{ runner.os }}-binary-nexus-badges-${{ github.run_id }}-${{ github.run_attempt }}" >> $GITHUB_OUTPUT
+
+      - name: Cache latest binary
+        id: cache_latest
+        if: steps.download_latest.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: ./nexus-mods.gz
+          key: ${{ steps.download_latest.outputs.cache_key_new }}
+
+      - name: Decompress latest binary
+        if: steps.download_latest.outcome == 'success'
+        run: |
+          gunzip -f ./nexus-mods.gz
+          chmod +x ./nexus-mods
+
+      - name: Set cache key
+        if: ${{ !steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          REPO_FULL: ${{ github.repository }}
+        run: ./nexus-mods --remote update-cache-key --new ${{ steps.download_latest.outputs.cache_key_new }}
+
+      - name: Remove old cache & update cache key
+        if: ${{ steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          REPO_FULL: ${{ github.repository }}
+        run: ./nexus-mods --remote update-cache-key --old ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }} --new ${{ steps.download_latest.outputs.cache_key_new }}
+
+      - name: Run binary
+        env:
+          NEXUS_KEY: ${{ secrets.NEXUS_API_KEY }}
+          GIST_ID: ${{ vars.DOWNLOAD_COUNT_GIST_ID }}
+          TRACKED_MODS: ${{ vars.DOWNLOAD_COUNT_MODS_TO_UPDATE }}
+        run: ./nexus-mods --remote

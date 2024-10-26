@@ -1,8 +1,10 @@
 <h3 id="README_START"></h3>
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/BellCubeDev/AdditionalClockwork?style=for-the-badge)](#README_START)
+[![Nexus Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgist.githubusercontent.com%2FBellCubeDev%2Fc5fa569cc5735a9bf82f6329d8f70e78%2Fraw%2F&query=%24.7318624319471.mod_downloads&label=Nexus%20Downloads&color=%23c87b28&style=for-the-badge)](https://www.nexusmods.com/skyrimspecialedition/mods/47087)
 
-[![Copyright 2021 BellCubeDev, All Rights Reserved](https://img.shields.io/badge/©%202021%20BellCubeDev-%20All%20Rights%20Reserved-blue?style=for-the-badge)](#README_START) [![My .PSC Files are Public Domain](https://img.shields.io/badge/My%20.PSC%20Files-Are%20Public%20Domain-00bd5e?style=for-the-badge)](#README_START)
+[![Copyright 2021 BellCubeDev, All Rights Reserved](https://img.shields.io/badge/©%202021%20BellCubeDev-%20All%20Rights%20Reserved-blue?style=for-the-badge)](#README_START)
+[![My .PSC Files are Public Domain](https://img.shields.io/badge/My%20.PSC%20Files-Are%20Public%20Domain-00bd5e?style=for-the-badge)](#README_START)
 
 
 # Additional Clockwork
