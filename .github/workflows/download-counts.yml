@@ -40,7 +40,9 @@ jobs:
         continue-on-error: true
         run: |
           wget "https://drive.google.com/uc?export=download&id=1yHF8B0YynKglsOOsGAb5VXzOCAsCKW5o" -O ./nexus-mods.gz
-          echo "cache_key_new=${{ runner.os }}-binary-nexus-badges-${{ github.run_id }}-${{ github.run_attempt }}" >> $GITHUB_OUTPUT
+          VERSION_OUTPUT_RAW=$(./nexus-mods version)
+          VERSION_OUTPUT_SPLIT=($VERSION_OUTPUT_RAW)
+          echo "cache_key_new=nexus-badges-${{ runner.os }}-binary-${VERSION_OUTPUT_SPLIT[1]}" >> $GITHUB_OUTPUT
 
       - name: Cache latest binary
         id: cache_latest
@@ -61,6 +63,7 @@ jobs:
         continue-on-error: true
         env:
           REPO_FULL: ${{ github.repository }}
+          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./nexus-mods --remote update-cache-key --new ${{ steps.download_latest.outputs.cache_key_new }}
 
       - name: Remove old cache & update cache key
@@ -68,6 +71,7 @@ jobs:
         continue-on-error: true
         env:
           REPO_FULL: ${{ github.repository }}
+          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./nexus-mods --remote update-cache-key --old ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }} --new ${{ steps.download_latest.outputs.cache_key_new }}
 
       - name: Run binary
