@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GIT_TOKEN: ${{ secrets.DOWNLOAD_COUNT_GITHUB_PAT }}
-
     steps:
       - name: Restore cached binary
         id: cache
@@ -18,16 +17,17 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ./nexus-mods
-          key: ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }}
+          key: nexus-badges-${{ runner.os }}-KEY_SHOULD_NOT_EXIST-binary-v1.0.0
+          restore-keys: nexus-badges-${{ runner.os }}-binary-v
 
       - name: Make cached binary file executable
-        if: steps.cache.outputs.cache-hit
+        if: steps.cache.outputs.cache-matched-key != null
         run: |
           chmod +x ./nexus-mods
 
       - name: Check for update
         id: check_ver
-        if: steps.cache.outputs.cache-hit
+        if: steps.cache.outputs.cache-matched-key != null
         run: |
           set +e
           ./nexus-mods --remote version
@@ -35,10 +35,10 @@ jobs:
 
       - name: Download latest binary
         id: download_latest
-        if: ${{ !steps.cache.outputs.cache-hit || steps.check_ver.outputs.exit_code == '70' }}
+        if: ${{ steps.cache.outputs.cache-matched-key == null || steps.check_ver.outputs.exit_code == '70' }}
         continue-on-error: true
         run: |
-          wget "https://drive.google.com/uc?export=download&id=1yHF8B0YynKglsOOsGAb5VXzOCAsCKW5o" -O ./nexus-mods.gz
+          wget "https://github.com/WardLordRuby/nexus_badges/releases/latest/download/nexus_badges_linux_amd64.gz" -O ./nexus-mods.gz
 
       - name: Decompress latest binary & generate cache key
         id: decompress_and_cache_key
@@ -57,22 +57,6 @@ jobs:
         with:
           path: ./nexus-mods
           key: ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
-
-      - name: Set cache key
-        if: ${{ !steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
-        continue-on-error: true
-        env:
-          REPO_FULL: ${{ github.repository }}
-          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./nexus-mods --remote update-cache-key --new ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
-
-      - name: Remove old cache & update cache key
-        if: ${{ steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
-        continue-on-error: true
-        env:
-          REPO_FULL: ${{ github.repository }}
-          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./nexus-mods --remote update-cache-key --old ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }} --new ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
 
       - name: Run binary
         env:
