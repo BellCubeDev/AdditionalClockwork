@@ -40,6 +40,13 @@ jobs:
         continue-on-error: true
         run: |
           wget "https://drive.google.com/uc?export=download&id=1yHF8B0YynKglsOOsGAb5VXzOCAsCKW5o" -O ./nexus-mods.gz
+
+      - name: Decompress latest binary & generate cache key
+        id: decompress_and_cache_key
+        if: steps.download_latest.outcome == 'success'
+        run: |
+          gunzip -f ./nexus-mods.gz
+          chmod +x ./nexus-mods
           VERSION_OUTPUT_RAW=$(./nexus-mods version)
           VERSION_OUTPUT_SPLIT=($VERSION_OUTPUT_RAW)
           echo "cache_key_new=nexus-badges-${{ runner.os }}-binary-${VERSION_OUTPUT_SPLIT[1]}" >> $GITHUB_OUTPUT
@@ -50,13 +57,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ./nexus-mods.gz
-          key: ${{ steps.download_latest.outputs.cache_key_new }}
-
-      - name: Decompress latest binary
-        if: steps.download_latest.outcome == 'success'
-        run: |
-          gunzip -f ./nexus-mods.gz
-          chmod +x ./nexus-mods
+          key: ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
 
       - name: Set cache key
         if: ${{ !steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
@@ -64,7 +65,7 @@ jobs:
         env:
           REPO_FULL: ${{ github.repository }}
           GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./nexus-mods --remote update-cache-key --new ${{ steps.download_latest.outputs.cache_key_new }}
+        run: ./nexus-mods --remote update-cache-key --new ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
 
       - name: Remove old cache & update cache key
         if: ${{ steps.cache.outputs.cache-hit && steps.cache_latest.outcome == 'success' }}
@@ -72,7 +73,7 @@ jobs:
         env:
           REPO_FULL: ${{ github.repository }}
           GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./nexus-mods --remote update-cache-key --old ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }} --new ${{ steps.download_latest.outputs.cache_key_new }}
+        run: ./nexus-mods --remote update-cache-key --old ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }} --new ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
 
       - name: Run binary
         env:
