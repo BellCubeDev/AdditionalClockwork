@@ -17,13 +17,12 @@ jobs:
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
-          path: ./nexus-mods.gz
+          path: ./nexus-mods
           key: ${{ vars.DOWNLOAD_COUNT_CACHED_BIN }}
 
-      - name: Decompress cached binary
+      - name: Make cached binary file executable
         if: steps.cache.outputs.cache-hit
         run: |
-          gunzip -f ./nexus-mods.gz
           chmod +x ./nexus-mods
 
       - name: Check for update
@@ -56,7 +55,7 @@ jobs:
         if: steps.download_latest.outcome == 'success'
         uses: actions/cache/save@v4
         with:
-          path: ./nexus-mods.gz
+          path: ./nexus-mods
           key: ${{ steps.decompress_and_cache_key.outputs.cache_key_new }}
 
       - name: Set cache key
