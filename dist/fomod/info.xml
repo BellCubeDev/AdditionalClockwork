@@ -1,9 +1,9 @@
 <fomod xmlns="https://raw.githubusercontent.com/BellCubeDev/fomod-schema/master/info.xsd">
   <Name>Additional Clockwork</Name>
   <Author>BellCube Dev</Author>
-  <Version>3.0.5</Version>
+  <Version>3.0.6</Version>
   <Website>https://www.nexusmods.com/skyrimspecialedition/mods/47087</Website>
-  <Description>Additional Clockwork is a suite of fully-voiced and lore-friendly Clockwork changes and tweaks intended to fit the origional feel of Clockwork. In addition, I've also made patches to acomadate changes made by other mods, either intentionally or unintentionally, have an impact on Clockwork.</Description>
+  <Description>Additional Clockwork is a suite of fully-voiced and lore-friendly Clockwork changes and tweaks intended to fit the original feel of Clockwork. In addition, I've also made patches to acomadate changes made by other mods, either intentionally or unintentionally, have an impact on Clockwork.</Description>
   <Groups>
     <element>immersion</element>
   </Groups>
