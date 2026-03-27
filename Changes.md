@@ -139,3 +139,7 @@ Added: three sorting patches
 
 * Fixed Clockwork Title Remover not installing in the Fomod
 * [BUG FIXES] Make spider crafting table thingies persistent
+
+## **3.0.6**
+
+* [BUG FIXES] Fixed Dark Brotherhood abduction patch's script. It previously included paths which would not reconcile state properly, which, if triggered, would lead to the Dark Brotherhood questline being permanently disabled.
