@@ -526,19 +526,26 @@ https://www.nexusmods.com/skyrimspecialedition/mods/667</description>
 
         <installStep name="Testing Modules">
             <optionalFileGroups order="Explicit">
-                <group name="TESTING MODULES" type="SelectAll"><plugins><plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.
+
+                <group name="TESTING MODULES" type="SelectAll"><plugins>
+                    <plugin name="Description"><description>Testing modules are here to allow for wide testing, and should NOT be used unless you are OK with possible spaghetti code, guarenteed bugs, and incomplete modules.
 
 That said, I include these modules as a form of open beta, so anyone can use and contribute. If you find any bugs, please do not hesitate to report them!</description><conditionFlags><flag name="StopCpmplainingMO2">1</flag></conditionFlags><typeDescriptor><type name="Required" /></typeDescriptor></plugin></plugins></group>
-                <group name="Interesting Inhabitants" type="SelectAny">
+
+                <group name="[ABANDONED] Interesting Inhabitants" type="SelectAny">
                     <plugins order="Explicit">
-                        <plugin name="Merged">
-                            <description>In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up.
+                        <plugin name="ABANDONED] Merged">
+                            <description>This project has been abandoned. This is presented as-is. It includes numerous bugs, weird interactions with common mods, and can be quite frustrating to play with. The original description remains below
+
+-------------
+
+In base-Clockwork, Lahar, Lamashtu, and the player's family all stick to the same routinue: Your children play in their rooms, sleep, and eat two meals. Your spouse stays in their room and eats two meals. Lahar is constantly stuck in a loop of about 15 actions, and Lamashtu simply stares off into the distance. Interesting Inhabitants changes things up.
 Now, Lahar has many hundreds of potential actions distributed across each room of the castle and a scheduled day, and Lamashtu can read books occasionally.
 
 https://github.com/BellCubeDev/AdditionalClockwork/projects/2</description>
                             <image path="fomod\images\AdditionalClockwork.png"/>
                             <conditionFlags><flag name="InterestingInhabitants_Merged">1</flag></conditionFlags>
-                            <typeDescriptor><type name="Optional" /></typeDescriptor>
+                            <typeDescriptor><type name="CouldBeUsable" /></typeDescriptor>
                         </plugin>
                     </plugins>
                 </group>
